@@ -1,6 +1,10 @@
 * {
-    border-sizing: border-box;
+  box-sizing: border-box;
+  list-style: none;
 }
 
+.header__nav {
+  display: grid;
+}
 
 /*# sourceMappingURL=main.css.map */
