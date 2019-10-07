@@ -110,6 +110,10 @@ i {
   align-content: space-around;
   align-items: flex-start;
 }
+.info__list__item {
+  color: #020202;
+  margin-left: 10px;
+}
 
 * {
   box-sizing: border-box;
