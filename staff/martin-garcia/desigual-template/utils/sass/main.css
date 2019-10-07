@@ -101,7 +101,14 @@ i {
 }
 
 .footer__top {
-  color: #F2F2F2;
+  background-color: #F2F2F2;
+}
+
+.info__list {
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+  align-items: flex-start;
 }
 
 * {
