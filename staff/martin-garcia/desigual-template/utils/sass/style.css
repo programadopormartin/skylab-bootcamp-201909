@@ -123,12 +123,12 @@ i {
   flex-direction: column;
   align-content: space-around;
   align-items: flex-start;
+  margin-left: 20px;
 }
 .info__list__item {
   color: #020202;
-  margin-left: 20px;
   margin-top: 25px;
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: bold;
 }
 
@@ -141,6 +141,59 @@ i {
   border: solid 2px black;
   border-radius: 5px;
   padding: 12px 22px 12px 22px;
+}
+
+.footer__location {
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+}
+.footer__location__item {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 20px;
+}
+.footer__location p {
+  font-weight: bold;
+  font-size: 0.8rem;
+  margin-right: 15px;
+}
+
+select {
+  outline: none;
+  -webkit-appearance: none;
+  border: 0;
+  width: 100px;
+  height: 30px;
+  border: 0;
+  border-bottom: solid 1px black;
+  font-size: 0.8rem;
+  padding-left: 8px;
+  margin-right: -30px;
+  background-color: white;
+}
+
+.fa-truck, .fa-redo-alt, .fa-box {
+  color: #CAC6C2;
+  font-size: 1rem;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 1vh;
+  grid-template-rows: 50px 50px 50px;
+}
+.main .on-sale {
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+.main .season {
+  grid-column: 1/2;
+  grid-row: 2/3;
+}
+.main .news-mix {
+  grid-column: 1/2;
+  grid-row: 3/4;
 }
 
 * {
@@ -165,4 +218,4 @@ a:hover {
   cursor: grab;
 }
 
-/*# sourceMappingURL=main.css.map */
+/*# sourceMappingURL=style.css.map */
