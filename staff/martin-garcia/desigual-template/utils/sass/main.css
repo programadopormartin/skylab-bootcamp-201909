@@ -132,10 +132,11 @@ i {
 .register__title {
   font-size: 24px;
 }
-.register__link {
+.register__link a {
   font-weight: bold;
-  border: solid thin black;
-  border-radius: 3;
+  border: solid 2px black;
+  border-radius: 3px;
+  padding: 10px;
 }
 
 * {
