@@ -70,8 +70,8 @@ i {
   flex-direction: column;
 }
 .footer section {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 .footer__register {
   display: flex;
@@ -126,17 +126,21 @@ i {
 }
 .info__list__item {
   color: #020202;
-  margin-left: 10px;
+  margin-left: 20px;
+  margin-top: 25px;
+  font-size: 0.875rem;
+  font-weight: bold;
 }
 
 .register__title {
   font-size: 24px;
 }
-.register__link a {
+
+.register__link {
   font-weight: bold;
   border: solid 2px black;
-  border-radius: 3px;
-  padding: 10px;
+  border-radius: 5px;
+  padding: 12px 22px 12px 22px;
 }
 
 * {
