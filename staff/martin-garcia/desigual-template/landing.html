@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./utils/sass/main.css">
+    <link rel="stylesheet" href="./utils/sass/style.css">
     <script src="https://kit.fontawesome.com/12f9d6a4c1.js" crossorigin="anonymous"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Questrial&display=swap" rel="stylesheet">
@@ -32,8 +32,17 @@
         </nav>
     </header>
 
-    <main>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae eius repudiandae sit omnis eligendi eum tempora, repellat esse, at quo veritatis reprehenderit dicta quae incidunt, facilis corrupti iste amet perspiciatis.</p>
+    <main class="main">
+        <section class="main__on-sale on-sale">
+
+        </section>
+        <section class="main__season season">
+
+        </section>
+
+        <section class="main__news-mix news-mix">
+
+        </section>
     </main>
 
     <footer class="footer">
@@ -61,8 +70,16 @@
 
         <section class="footer__location">
             <div class="footer__location__item">
-                <p>Pais</p> <select name="pais" id="pais"><option value="España" selected></option></select>
-                <p>Idioma</p> <select name="idioma" id="idioma"><option value="Español" selected></option></select>
+                <p>Pais</p>
+                <select>
+                    <option value="España" selected>España</option>
+                </select>
+            </div>
+            <div class="footer__location__item">
+                <p>Idioma</p>
+                <select>
+                    <option value="Español" selected>Español</option>
+                </select>
             </div>
         </section>
 
