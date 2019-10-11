@@ -1,11 +1,23 @@
 .main 
     display: grid
-    grid-template-columns: 1vh
-    grid-template-rows: 50px 50px 50px
+    grid-template-columns: 100%
+    grid-template-rows: 500px 200px 200px
 
     .on-sale
         grid-column: 1/2
         grid-row: 1/2
+        background-image: url("https://www.desigual.com/dw/image/v2/BCVV_PRD/on/demandware.static/-/Library-Sites-DsglSharedLibrary/default/dwb110f244/campaigns/2019/AW2019/W40/MSS/MSS_home_hero1_01_desktop_all.jpg?sfrm=jpg&sw=1920") no-repeat
+        display: flex
+        flex-direction: column
+        align-items: center
+
+        .on-sale__article
+            width: 240px
+            
+
+
+
+
     .season
         grid-column: 1/2
         grid-row: 2/3
@@ -13,4 +25,4 @@
     .news-mix
         grid-column: 1/2
         grid-row: 3/4
-
+        background-color: green
