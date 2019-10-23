@@ -3,7 +3,9 @@ const { Component } = React
 class App extends Component {
     constructor() {
         super()
+
         this.state = { view: 'login', error: undefined }
+
         this.handleLogin = this.handleLogin.bind(this)
         this.handleRegister = this.handleRegister.bind(this)
         this.handleGoToRegister = this.handleGoToRegister.bind(this)
@@ -23,8 +25,7 @@ class App extends Component {
     handleRegister(name, lastName, mail, password, age) {
         try {
             registUser(name, lastName, mail, password, age, (error, data) => {
-                debugger
-                error ? this.setState({ error: error, message }) : this.setState({ view: 'search' })
+                error ? this.setState({ error: error.message }) : this.setState({ view: 'search' })
             })
         } catch (error) {
             this.setState({ error: error.message })
@@ -47,7 +48,7 @@ class App extends Component {
 
         return <>
             <Header />
-            {view.includes('login') && <Login onLogin={handleLogin} onGoRegister={handleGoToRegister} />}
+            {view.includes('login') && <Login onLogin={handleLogin} onGoRegister={handleGoToRegister} error={error} />}
             {view.includes('register') && <Register onRegister={handleRegister} onGoLogin={handleGoToLogin} error={error} />}
             {view.includes('search') && <Search />}
             <Footer />

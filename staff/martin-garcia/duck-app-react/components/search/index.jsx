@@ -1,6 +1,6 @@
 function Search(){
 
-    return  <section className="search">
+    return  <section className="search" >
                 <nav className="search__nav nav">
                     <form className="myForm">
                         <input className="myForm__search" type="search" name="query" placeholder="Are you looking for a special Duck?"/> 
