@@ -116,7 +116,7 @@ class App extends Component {
         sessionStorage.clear()
     }
 
-    handleToggleFavDuck = (duckId) => {
+   /*  handleToggleFavDuck = (duckId) => {
         try {
             retrieveFavDucks(id, token, (error, favArray) => {
                 if(error){
@@ -137,6 +137,23 @@ class App extends Component {
             this.setState({error})
         }
     }
+ */
+
+
+handleToggleFavDuck = (duckId) => {
+    try {
+        toggleFavDuck(id,token, duckId,(result)=>{
+            if(result.error){
+                this.setState({erro: result.error})
+            }else{
+                this.handleSearch('')
+            }
+        })
+    }
+    catch (error) {
+        this.setState({error})
+    }
+}
 
 
 
