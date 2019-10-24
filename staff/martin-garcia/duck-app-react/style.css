@@ -105,7 +105,17 @@ a {
 .result__main .main__article .article__description {
   margin-bottom: 2vh;
 }
-.result__main .main__article .article__price {
+
+.article__details {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2vh;
+  align-items: center;
+}
+.article__details__image {
+  width: 2.5vw;
+}
+.article__details__price {
   float: left;
   font-size: 2rem;
   margin-bottom: 2vh;

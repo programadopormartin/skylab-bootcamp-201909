@@ -20,7 +20,6 @@
 
      clearFields() {
          const form = this.container.getElementsByClassName('login__form')[0];
-         debugger
          form.mail.value = '';
          form.password.value = '';
      }

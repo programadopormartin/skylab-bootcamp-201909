@@ -3,7 +3,6 @@ function Register ({onRegister, onGoLogin, error}) {
     <p className="register__title">Join now:</p>
     <form className="register__form" onSubmit={function(event) {
         event.preventDefault()
-        debugger
         const { name:{value: name}, lastName:{value:lastName}, mail:{value:mail},password:{value:password}, age:{value:age}} = event.target
         onRegister(name, lastName, mail, password, age)
     }}>
