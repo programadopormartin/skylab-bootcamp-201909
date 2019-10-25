@@ -14,8 +14,6 @@ class App extends Component {
             retrieveUser(id, token, (result) => {
 
                 if (result.status) {
-                    console.log(result)
-
                     this.setState({ view: 'search', user: result.data.username })
                 } else {
                     this.setState({ error: 'Your backend programmers sucks' })
@@ -32,8 +30,8 @@ class App extends Component {
                 else {
                     sessionStorage.setItem('id', data.id)
                     sessionStorage.setItem('token', data.token)
-
-                    retrieveDucks('', id, token, (error, ducks) => {
+                    
+                    searchDucks('', sessionStorage.id, sessionStorage.token, (error, ducks) => {
                         if (error) {
                             this.setState({ error: error.message })
                         } else {
@@ -73,13 +71,14 @@ class App extends Component {
     }
 
     handleSearch = (query) => {
+        debugger
         try {
-            retrieveDucks(query, id, token, (error, ducks) => {
+            searchDucks(query, id, token, (error, result) => {
                 if (error) {
                     this.setState({ error: error.message })
                 } else {
                     debugger
-                    this.setState({ view:'search', error: undefined, ducks })
+                    this.setState({ view: 'search', error: undefined, ducks: result })
 
                 }
             })
@@ -116,44 +115,29 @@ class App extends Component {
         sessionStorage.clear()
     }
 
-   /*  handleToggleFavDuck = (duckId) => {
+
+    handleToggleFavDuck = (duckId) => {
+        const {ducks} = this.state
+       
         try {
-            retrieveFavDucks(id, token, (error, favArray) => {
-                if(error){
-                    this.setState({ error: error.message })
-                } else{
-                    debugger
-                    favArray.includes(duckId)  ? favArray.splice(favArray.indexOf(duckId),1) :favArray.push(duckId)
-                    debugger
-                    updateFavDucks(id, token, favArray, (result)=>{
-                        debugger
-                        (result.error) ? this.setState({error:'Unexpected error, couldnt add to favourite'}) : this.setState({view:'search'})
+            toggleFavDuck(id, token, duckId, (result) => {
+                if (result.error) {
+                    this.setState({ erro: result.error })
+                } else {
+                    retrieveDucks(ducks, id, token,(error, result)=>{
+                        if (error) {
+                            this.setState({ error: error.message })
+                        } else {
+                            this.setState({ view: 'search', error: undefined, ducks: result })
+                        }
                     })
-                    this.handleSearch('')
                 }
             })
         }
         catch (error) {
-            this.setState({error})
+            this.setState({ error })
         }
     }
- */
-
-
-handleToggleFavDuck = (duckId) => {
-    try {
-        toggleFavDuck(id,token, duckId,(result)=>{
-            if(result.error){
-                this.setState({erro: result.error})
-            }else{
-                this.handleSearch('')
-            }
-        })
-    }
-    catch (error) {
-        this.setState({error})
-    }
-}
 
 
 
