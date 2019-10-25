@@ -13,11 +13,8 @@ class App extends Component {
         if (id && token) {
             retrieveUser(id, token, (result) => {
 
-                if (result.status) {
-                    this.setState({ view: 'search', user: result.data.username })
-                } else {
-                    this.setState({ error: 'Your backend programmers sucks' })
-                }
+                result.status ? this.setState({ view: 'search', user: result.data.username }) : this.setState({ error: 'Your backend programmers sucks' })
+
             })
         }
     }
@@ -30,16 +27,9 @@ class App extends Component {
                 else {
                     sessionStorage.setItem('id', data.id)
                     sessionStorage.setItem('token', data.token)
-                    
+
                     searchDucks('', sessionStorage.id, sessionStorage.token, (error, ducks) => {
-                        if (error) {
-                            this.setState({ error: error.message })
-                        } else {
-
-                            ducks = ducks.shuffle().slice(0, 7)
-                            this.setState({ view: 'search', ducks, user: mail })
-
-                        }
+                        error ? this.setState({ error: error.message }) : this.setState({ view: 'search', ducks: ducks.shuffle().slice(0, 7), user: mail })
                     })
                 }
             })
@@ -51,11 +41,8 @@ class App extends Component {
     handleRegister = (name, lastName, mail, password, age) => {
         try {
             registUser(name, lastName, mail, password, age, (error, data) => {
-                if (error) {
-                    this.setState({ error: error.message })
-                } else {
-                    this.setState({ view: 'login' })
-                }
+                (error) ? this.setState({ error: error.message }) : this.setState({ view: 'login' })
+
             })
         } catch (error) {
             this.setState({ error: error.message })
@@ -71,16 +58,10 @@ class App extends Component {
     }
 
     handleSearch = (query) => {
-        debugger
+        const { id, token } = sessionStorage
         try {
             searchDucks(query, id, token, (error, result) => {
-                if (error) {
-                    this.setState({ error: error.message })
-                } else {
-                    debugger
-                    this.setState({ view: 'search', error: undefined, ducks: result })
-
-                }
+                (error) ? this.setState({ error: error.message }) : this.setState({ view: 'search', error: undefined, ducks: result })
             })
         } catch (error) {
             this.setState({ error: error.message })
@@ -91,15 +72,8 @@ class App extends Component {
     handleDetail = (id) => {
         try {
             retrieveDuck(id, (error, duckSpecs) => {
-                if (error) {
-                    this.setState({ error: error.message })
-                } else {
-
-
-                    this.setState({ view: 'detail', duckSpecs })
-                }
+                (error) ? this.setState({ error: error.message }) : this.setState({ view: 'detail', duckSpecs })
             })
-
         } catch (error) {
             this.setState({ error: error.message })
         }
@@ -111,26 +85,21 @@ class App extends Component {
     }
 
     handleSignOut = () => {
-        this.setState({ view: 'login', user: undefined })
-        sessionStorage.clear()
+        this.setState({ view: 'login', user: undefined }, () => { sessionStorage.clear() })
     }
 
 
     handleToggleFavDuck = (duckId) => {
-        const {ducks} = this.state
-       
+        const { ducks } = this.state
+
         try {
-            toggleFavDuck(id, token, duckId, (result) => {
+            toggleFavDuck(sessionStorage.id, sessionStorage.token, duckId, (result) => {
                 if (result.error) {
                     this.setState({ erro: result.error })
                 } else {
                     debugger
-                    retrieveDucks(ducks, id, token,(error, result)=>{
-                        if (error) {
-                            this.setState({ error: error.message })
-                        } else {
-                            this.setState({ view: 'search', error: undefined, ducks: result })
-                        }
+                    retrieveDucks(ducks, sessionStorage.id, sessionStorage.token, (error, result) => {
+                        (error) ? this.setState({ error: error.message }) : this.setState({ view: 'search', error: undefined, ducks: result })
                     })
                 }
             })
