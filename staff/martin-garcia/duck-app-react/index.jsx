@@ -124,6 +124,7 @@ class App extends Component {
                 if (result.error) {
                     this.setState({ erro: result.error })
                 } else {
+                    debugger
                     retrieveDucks(ducks, id, token,(error, result)=>{
                         if (error) {
                             this.setState({ error: error.message })
