@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FilmFest</title>
+</head>
+<body>
+   <section class="view search >
+    <nav>
+        <button name="return">onClick={onBack}</button>
+        <input name="search">
+            type="text"
+            placeholder="Search Movie"
+            onChange={Search}
+            value={state}
+        </input>
+        <button name="login">onClick={onLogin}</button>
+        <button name="join">onClick={onJoin}</button>
+    </nav>
+    </section>
+
+    <section class="view register _hide">
+            <form>
+                <h1 class="register__title">Register</h1>
+                <input class="register__field" type="text" name="name" placeholder="name">
+                <input class="register__field" type="text" name="surname" placeholder="surname">
+                <input class="register__field" type="email" name="email" placeholder="e-mail">
+                <input class="register__field" type="password" name="password" placeholder="password">
+                <button class="register__submit">📨</button>
+            </form>
+    
+            <section class="feedback">
+                <p class="feedback__message">Come with me...</p>
+            </section>
+    </section>
+
+    <section class="view login _hide">
+            <form>
+                <h1 class="login__title">Login</h1>
+                <input class="login__field" type="email" name="email" placeholder="e-mail">
+                <input class="login__field" type="password" name="password" placeholder="password">
+                <button class="login__submit">🗝</button>
+            </form>
+    
+            <section class="feedback">
+                <p class="feedback__message">Come with me...</p>
+            </section>
+    </section>
+
+    <ul class="results">
+            <li class="results__movie">
+                <a href="#" class="movie">
+                    <h2 class="movie__title">This is a Super Duuuuuuuck</h2>
+                    <img class="movie__image" src="https://fakeimg.pl/300x200/?text=Hello">
+                </a>
+            </li>
+            <li class="results__movie">
+                <a href="#" class="movie">
+                    <h2 class="movie__title">Movie</h2>
+                    <img class="movie__image" src="https://fakeimg.pl/300x200/?text=Hello">
+                </a>
+            </li>
+            <li class="results__movie">
+                <a href="#" class="movie">
+                    <h2 class="movie__title">Movie</h2>
+                    <img class="movie__image" src="https://fakeimg.pl/300x200/?text=Hello">
+                </a>
+            </li>
+            <li class="results__movie">
+                <a href="#" class="movie">
+                    <h2 class="movie__title">Movie</h2>
+                    <img class="movie__image" src="https://fakeimg.pl/300x200/?text=Hello">
+                </a>
+            </li>
+            <li class="results__movie">
+                <a href="#" class="movie">
+                    <h2 class="movie__title">Movie</h2>
+                    <img class="movie__image" src="https://fakeimg.pl/300x200/?text=Hello">
+                </a>
+            </li>
+            <li class="results__movie">
+                <a href="#" class="movie">
+                    <h2 class="movie__title">Movie</h2>
+                    <img class="movie__image" src="https://fakeimg.pl/300x200/?text=Hello">
+                </a>
+            </li>
+            <li class="results__movie">
+                <a href="#" class="movie">
+                    <h2 class="movie__title">Movie</h2>
+                    <img class="movie__image" src="https://fakeimg.pl/300x200/?text=Hello">
+                </a>
+            </li>
+        </ul>
+    </section>
+
+    <ul class="favs">
+            <li class="favs__movie">
+                <a href="#" class="movie">
+                    <h2 class="movie__title">This is a Super Duuuuuuuck</h2>
+                    <img class="movie__image" src="https://fakeimg.pl/300x200/?text=Hello">
+                </a>
+            </li>
+            <li class="favs__movie">
+                <a href="#" class="movie">
+                    <h2 class="movie__title">Movie</h2>
+                    <img class="movie__image" src="https://fakeimg.pl/300x200/?text=Hello">
+                </a>
+            </li>
+            <li class="favs__movie">
+                <a href="#" class="movie">
+                    <h2 class="movie__title">Movie</h2>
+                    <img class="movie__image" src="https://fakeimg.pl/300x200/?text=Hello">
+                </a>
+            </li>
+            <li class="favs__movie">
+                <a href="#" class="movie">
+                    <h2 class="movie__title">Movie</h2>
+                    <img class="movie__image" src="https://fakeimg.pl/300x200/?text=Hello">
+                </a>
+            </li>
+            <li class="favs__movie">
+                <a href="#" class="movie">
+                    <h2 class="movie__title">Movie</h2>
+                    <img class="movie__image" src="https://fakeimg.pl/300x200/?text=Hello">
+                </a>
+            </li>
+            <li class="favs__movie">
+                <a href="#" class="movie">
+                    <h2 class="movie__title">Movie</h2>
+                    <img class="movie__image" src="https://fakeimg.pl/300x200/?text=Hello">
+                </a>
+            </li>
+            <li class="favs__movie">
+                <a href="#" class="movie">
+                    <h2 class="movie__title">Movie</h2>
+                    <img class="movie__image" src="https://fakeimg.pl/300x200/?text=Hello">
+                </a>
+            </li>
+            </ul>
+            </section>
+
+    <section class="view specs _hide">
+        <h2 class="specs__title">Movie</h2>
+        <img class="specs__image" src="https://fakeimg.pl/500x300/?text=Hello">
+        <p class="specs__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate neque omnis
+            sunt dolor repellat incidunt voluptates odio eos consequatur corrupti. Accusantium porro minima molestias
+            voluptatem dolor nobis! Perspiciatis, vero maiores!</p>
+        <a class="specs__home" href="#">Go to home</a>
+        <a class="specs__back" href="#">Go back</a>
+    </section>
+
+    <section class="global-feedback feedback">
+
+        <p class="feedback__message">Come with me...</p>
+ 
+    </section>
+//pending personal area, watch list, mody profile, favourite section
+</body>
+</html>
