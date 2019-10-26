@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto|Staatliches&display=swap");
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: roboto;
+  background-color: #313131;
+  color: #fcf5ee;
+}
+
+h1 {
+  font-family: Staatliches;
+}
+
+/*# sourceMappingURL=index.css.map */
