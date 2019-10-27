@@ -7,16 +7,21 @@ i
     font-size: 1rem
 
 
+header
+    height: 30vh
+    margin: 0 1rem 0 1rem
+
+
+
 .bar-icon
     background-size: cover
     width: 100%
 .main-bar
     width: 100vw
     height: 10vh
-    margin-bottom: 300px
     display: grid
     grid-template-columns: repeat(4, 25vw)  
-    grid-template-rows: 10vh 5vh
+    grid-template-rows: 15vh 5vh
 
     
     &__logo
@@ -26,12 +31,14 @@ i
         display: flex
         flex-wrap: nowrap
         align-items: center
+        margin: 0 auto 
         .search-bar__search
             padding: 0.6rem
             margin-left: 0.5 rem
             margin-right: -2rem
             background-color: $color2
             border: solid thin $color2
+            color: $colorFont
             border-radius: 1rem
             width: 100vw
     &__login

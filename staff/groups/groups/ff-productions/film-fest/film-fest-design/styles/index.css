@@ -8,6 +8,11 @@ i {
   font-size: 1rem;
 }
 
+header {
+  height: 30vh;
+  margin: 0 1rem 0 1rem;
+}
+
 .bar-icon {
   background-size: cover;
   width: 100%;
@@ -16,10 +21,9 @@ i {
 .main-bar {
   width: 100vw;
   height: 10vh;
-  margin-bottom: 300px;
   display: grid;
   grid-template-columns: repeat(4, 25vw);
-  grid-template-rows: 10vh 5vh;
+  grid-template-rows: 15vh 5vh;
 }
 .main-bar__logo {
   grid-area: 1/1/2/2;
@@ -29,6 +33,7 @@ i {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
+  margin: 0 auto;
 }
 .main-bar__search .search-bar__search {
   padding: 0.6rem;
@@ -36,6 +41,7 @@ i {
   margin-right: -2rem;
   background-color: #414141;
   border: solid thin #414141;
+  color: #fcf5ee;
   border-radius: 1rem;
   width: 100vw;
 }
