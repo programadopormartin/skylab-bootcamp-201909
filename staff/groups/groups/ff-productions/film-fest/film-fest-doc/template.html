@@ -6,34 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>FilmFest</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../film-fest-design/styles/index.css">
+
 </head>
 
 <body>
 
     <header id="top">
         <nav class="main-bar">
-            <img class="main-bar__logo bar-icon" src="https://dummyimage.com/200x100/000/fff.png&text=Logo" alt="Logo"></img>
+            <img class="main-bar__logo bar-icon" src="../film-fest-design/img/logo.png" alt="Logo"></img>
             <form class="main-bar__search search-bar">
                 <input type="search" class="search-bar__search" name="search"></input>
-                <button class="search-bar__button">
-                    <img class="search-bar__button__img  bar-icon" src="../film-fest-design/img/searching-magnifying-glass.png" alt="search icon">
-                </button>
+                <i class="search-bar__icon  bar-icon material-icons" alt="search icon">search</i>
             </form>
-            <p class="main-bar__login">
-                <img class="main-bar__login__img bar-icon" src="../film-fest-design/img/user.png" alt="logIn icon">
-            </p>
 
-            <p class="main-bar__home">HOME</p>
+            <i class="main-bar__login material-icons" alt="logIn icon">account_circle</i>
 
-            <p class="main-bar__genre">GENRE</p>
+            <p class="main-bar__home header-button">HOME</p>
 
-            <p name="main-bar__watch-list">WATCHLIST</p>
+            <p class="main-bar__genre header-button">GENRE</p>
 
-            <p name="main-bar__surprise-me">SURPRISE-ME</p>
+            <p class="main-bar__watch-list header-button">LISTS</p>
+
+            <p class="main-bar__surprise-me header-button">RANDOM</p>
         </nav>
     </header>
-
 
     <main>
         <section class="view register ">
