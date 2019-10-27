@@ -12,4 +12,98 @@ h1 {
   font-family: Staatliches;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+.rating__stars {
+  display: inline-flex;
+}
+
+.stars__icon {
+  pointer-events: none;
+  width: 2rem;
+}
+
+.stars__input {
+  position: absolute !important;
+  left: -9999px !important;
+}
+
+.stars__input--none {
+  display: none;
+}
+
+.stars__label {
+  cursor: pointer;
+  padding: 0 0.1em;
+  font-size: 2rem;
+}
+
+.stars__icon--star {
+  color: grey;
+}
+
+.stars__input:checked ~ .stars__label .stars__icon--star {
+  fill: orange;
+}
+
+.rating-group:hover .stars__label .stars__icon--star {
+  fill: light orange;
+  color: orange;
+}
+
+.stars__input:hover ~ .stars__label .stars__icon--star {
+  fill: light orange;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0.5rem auto 0.5rem auto;
+}
+
+.specs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #525252;
+  border-radius: 1rem;
+  text-decoration: none;
+  padding: 0.5rem;
+  font-family: roboto;
+  font-size: 16px;
+  color: #fcf5ee;
+}
+.specs__image {
+  width: 22.5rem;
+  float: left;
+}
+.specs__title {
+  color: #ec625f;
+  font-size: 2rem;
+  margin: 0.5rem auto 0.5rem auto;
+}
+.specs__watchlist__title {
+  color: #ec625f;
+  font-size: 1.5rem;
+  color: #ec625f;
+}
+.specs__description {
+  padding: 40px;
+  color: #fcf5ee;
+  overflow: hidden;
+}
+.specs__genre {
+  color: #fcf5ee;
+  flex: start;
+}
+.specs__runtime {
+  color: #fcf5ee;
+  flex: start;
+}
+
+.h2 {
+  font-family: Staatliches;
+}
+
 /*# sourceMappingURL=index.css.map */
