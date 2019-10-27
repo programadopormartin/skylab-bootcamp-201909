@@ -19,7 +19,7 @@ i {
   margin-bottom: 300px;
   display: grid;
   grid-template-columns: 1/4 1/4 1/4 1/4;
-  grid-template-rows: 15vh 5vh;
+  grid-template-rows: 15vh 15vh;
 }
 .main-bar__logo {
   grid-area: 1/1/2/2;
@@ -31,7 +31,12 @@ i {
   align-items: center;
 }
 .main-bar__search .search-bar__search {
-  width: 80%;
+  padding: 0.6rem;
+  width: 50vw;
+  margin-right: -2rem;
+  background-color: #414141;
+  border: solid thin #414141;
+  border-radius: 1rem;
 }
 .main-bar__login {
   grid-area: 1/4/2/5;

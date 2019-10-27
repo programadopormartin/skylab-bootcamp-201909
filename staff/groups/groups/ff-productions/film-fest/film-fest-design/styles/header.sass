@@ -16,7 +16,7 @@ i
     margin-bottom: 300px
     display: grid
     grid-template-columns: 1/4  1/4  1/4  1/4 
-    grid-template-rows: 15vh 5vh
+    grid-template-rows: 15vh 15vh
 
     
     &__logo
@@ -27,7 +27,12 @@ i
         flex-wrap: nowrap
         align-items: center
         .search-bar__search
-            width: 80%
+            padding: 0.6rem
+            width: 50vw
+            margin-right: -2rem
+            background-color: $color2
+            border: solid thin $color2
+            border-radius: 1rem
     &__login
         grid-area: 1 / 4 / 2 / 5
     &__home
