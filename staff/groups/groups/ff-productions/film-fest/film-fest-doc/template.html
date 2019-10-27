@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>FilmFest</title>
     <link rel="stylesheet" href="../film-fest-design/styles/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
 <body>
@@ -132,60 +134,28 @@
         <section class="view specs">
             <img class="specs__image" src="https://fakeimg.pl/500x300/?text=Hello">
             <h2 class="specs__title">Movie</h2>
-            <div class="specs__watchlist">
-                <p class="specs__watchlist__title"> Add to Watchlist</p>
-                <img class="specs__watchlist__icon" src="" alt="add to Watchlist"></img>
+            <div class="watchlist">
+            
+                <p class="watchlist__title">Add to Watchlist</p>
+                <img class="watchlist__watch_icon" src="../film-fest-design/img/plus32px.png" id="watchlist" alt="add to Watchlist" onclick ="change();"/>
+                 
             </div>
             <p class="specs__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate neque omnis sunt dolor repellat incidunt voluptates odio eos consequatur corrupti. Accusantium porro minima molestias voluptatem dolor nobis! Perspiciatis, vero maiores!</p>
             <p class="specs__genre">Science fiction</p>
             <p class="specs__runtime"> 139minin </p>
+            <p class="specs__rating__vote_average">8,4</p>  
+            <p class="desc">State your score</p>
 
-
-            <div class="specs__rating rating">
-
-                        <div class="rating__stars">
-
-                            <input disabled checked class="stars__input stars__input--none" name="rating3" id="rating3-none" value="0" type="radio">
-
-                            <label area-label="1 star" class="stars__label" for="rating3-1">
-                                <svg src="../film-fest-design/fonts/star-solid.svg" class="stars__icon stars__icon--star fas fa-star"></svg>
-                                <input class="stars__input" name="rating3" id="rating3-1" value="1" type="radio">
-                            </label>
-
-                            <label area-label="2 stars" class="stars__label" for="rating3-2">
-                                <svg src="../film-fest-design/fonts/star-solid.svg" class="stars__icon stars__icon--star fas fa-star" alt="2"></svg>
-                                <input class="stars__input" name="rating3" id="rating3-2" value="2" type="radio">
-                            </label>
-
-                            <label area-label="3 stars" class="stars__label" for="rating3-3">
-                                <svg src="../film-fest-design/fonts/star-solid.svg" class="stars__icon stars__icon--star fas fa-star" alt="3"></svg>
-                                <input class="stars__input" name="rating3" id="rating3-3" value="3" type="radio">
-                            </label>
-
-                            <label area-label="4 stars" class="stars__label" for="rating3-4">
-                                <img src="../film-fest-design/fonts/star-solid.svg" class="stars__icon stars__icon--star fas fa-star" alt="4"></img>
-                                <input class="stars__input" name="rating3" id="rating3-4" value="4" type="radio">
-                            </label>
-
-                            <label area-label="5 stars" class="stars__label" for="rating3-5">
-                                <img src="../film-fest-design/fonts/star-solid.svg" class="stars__icon stars__icon--star fas fa-star" alt="5"></img>
-                                <input class="stars__input" name="rating3" id="rating3-5" value="5" type="radio">
-                            </label>
-
-                        </div>
-
-                    <p class="desc">State your score</p>
-
-                    </div>
-
-                <p class="specs__rating__vote_average">8,4</p>
+            <div class="specs__rating rating">     
+              <div class="Stars" style="--rating: 5;" aria-label="Rating of this product is 2.3 out of 5.">
+            </div>
+                
             </div>
         </section>
 
         <section class="global-feedback feedback">
             <p class="feedback__message">Im a global feedback message.</p>
         </section>
-        //pending personal area, watch list, mody profile, favourite section
 
     </main>
     <footer>
