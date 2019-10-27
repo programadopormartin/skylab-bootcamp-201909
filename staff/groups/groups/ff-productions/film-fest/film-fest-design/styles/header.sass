@@ -1,0 +1,52 @@
+@import config
+    
+* 
+    box-sizing: border-box
+    margin: 0px
+i
+    font-size: 1rem
+
+
+.bar-icon
+    background-size: cover
+    width: 100%
+.main-bar
+    width: 100vw
+    height: 10vh
+    margin-bottom: 300px
+    display: grid
+    grid-template-columns: 1/4  1/4  1/4  1/4 
+    grid-template-rows: 15vh 5vh
+
+    
+    &__logo
+        grid-area: 1 / 1 / 2 /2
+    &__search
+        grid-area: 1 / 2 / 2 / 4
+        display: flex
+        flex-wrap: nowrap
+        align-items: center
+        .search-bar__search
+            width: 80%
+    &__login
+        grid-area: 1 / 4 / 2 / 5
+    &__home
+        grid-area: 2 / 1 / 3 / 2
+
+    &__genre
+        grid-area: 2 / 2 / 3 / 3
+
+    &__watch-list
+        grid-area: 2 / 3 / 3 / 4
+
+    &__surprise-me
+        grid-area: 2 / 4 / 3 / 5
+
+.header-button
+    text-align: center
+
+.header-button:hover
+    color: $color4
+    cursor: pointer
+    font-weight: bolder
+    background-color: $color2
