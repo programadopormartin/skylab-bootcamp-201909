@@ -1,8 +1,5 @@
 @import config
-    
-* 
-    box-sizing: border-box
-    margin: 0px
+
 i
     font-size: 1rem
 
@@ -16,6 +13,8 @@ header
 .bar-icon
     background-size: cover
     width: 100%
+.search-bar__logo
+    height: 15vh
 .main-bar
     width: 100vw
     height: 10vh
@@ -23,7 +22,6 @@ header
     grid-template-columns: repeat(4, 25vw)  
     grid-template-rows: 15vh 5vh
 
-    
     &__logo
         grid-area: 1 / 1 / 2 /2
     &__search
@@ -31,7 +29,7 @@ header
         display: flex
         flex-wrap: nowrap
         align-items: center
-        margin: 0 auto 
+        margin: 0 
         .search-bar__search
             padding: 0.6rem
             margin-left: 0.5 rem

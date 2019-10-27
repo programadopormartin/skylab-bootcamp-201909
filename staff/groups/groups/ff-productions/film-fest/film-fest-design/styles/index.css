@@ -18,6 +18,10 @@ header {
   width: 100%;
 }
 
+.search-bar__logo {
+  height: 15vh;
+}
+
 .main-bar {
   width: 100vw;
   height: 10vh;
@@ -33,7 +37,7 @@ header {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  margin: 0 auto;
+  margin: 0;
 }
 .main-bar__search .search-bar__search {
   padding: 0.6rem;
