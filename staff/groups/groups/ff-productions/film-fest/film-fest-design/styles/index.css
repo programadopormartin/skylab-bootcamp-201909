@@ -9,6 +9,7 @@
   font-size: 32px;
 }
 .go-up__button {
+  background-color: #fcf5ee;
   margin-left: 1.8rem;
   width: 120vw;
   font-weight: bold;
@@ -17,9 +18,8 @@
 }
 
 .social-media {
-  margin: 2rem;
-  margin-left: 3rem;
-  margin-right: 3rem;
+  margin: 1rem 3rem;
+  margin-bottom: 0rem;
   height: auto;
   display: flex;
   flex-direction: row;
