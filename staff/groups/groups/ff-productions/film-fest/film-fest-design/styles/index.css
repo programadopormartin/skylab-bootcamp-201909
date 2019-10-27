@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css?family=Roboto|Staatliches&display=swap");
 body {
   display: flex;
@@ -14,47 +15,65 @@ h1 {
 
 * {
   box-sizing: border-box;
+  margin: auto 0.5rem auto 0.5rem;
 }
 
-.rating__stars {
-  display: inline-flex;
+.watchlist {
+  display: flex;
+  margin: 1rem 3rem;
+  margin-bottom: 0rem;
+  flex-direction: row;
+  align-items: center;
+  align-content: baseline;
+  justify-content: space-evenly;
+  text-decoration: none;
+  padding: 0.5rem;
+  font-family: roboto;
+  font-size: 16px;
+  color: #fcf5ee;
 }
 
-.stars__icon {
-  pointer-events: none;
-  width: 2rem;
+.watchlist__watch_icon {
+  margin: auto 0.5rem auto 0.5rem;
 }
 
-.stars__input {
-  position: absolute !important;
-  left: -9999px !important;
+:root {
+  --star-size: 60px;
+  --star-color: #fff;
+  --star-background: #fc0;
 }
 
-.stars__input--none {
-  display: none;
+.Stars {
+  --percent: calc(var(--rating) / 5 * 100%);
+  display: inline-block;
+  font-size: var(--star-size);
+  font-family: Times;
+  line-height: 1;
+}
+.Stars::before {
+  content: "★★★★★";
+  letter-spacing: 3px;
+  background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.stars__label {
-  cursor: pointer;
-  padding: 0 0.1em;
-  font-size: 2rem;
+.body {
+  background: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-.stars__icon--star {
-  color: grey;
+* {
+  position: relative;
+  box-sizing: border-box;
 }
 
-.stars__input:checked ~ .stars__label .stars__icon--star {
-  fill: orange;
-}
-
-.rating-group:hover .stars__label .stars__icon--star {
-  fill: light orange;
-  color: orange;
-}
-
-.stars__input:hover ~ .stars__label .stars__icon--star {
-  fill: light orange;
+.desc {
+  font-family: Roboto;
+  font-size: 16px;
 }
 
 * {
