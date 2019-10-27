@@ -1,0 +1,39 @@
+@import config
+
+*
+    box-sizing: border-box
+
+.rating__stars
+    display: inline-flex
+  
+.stars__icon 
+    pointer-events: none
+    width: 2rem
+
+.stars__input
+    position: absolute !important
+    left: -9999px !important
+
+.stars__input--none 
+    display: none
+
+.stars__label 
+    cursor: pointer
+    padding: 0 0.1em
+    font-size: 2rem
+
+.stars__icon--star 
+    color: grey
+
+.stars__input:checked ~ .stars__label .stars__icon--star 
+    fill: orange
+  
+
+.rating-group:hover .stars__label .stars__icon--star 
+    fill: light orange
+    color: orange
+
+.stars__input:hover ~ .stars__label .stars__icon--star
+    fill: light orange
+ 
+  
