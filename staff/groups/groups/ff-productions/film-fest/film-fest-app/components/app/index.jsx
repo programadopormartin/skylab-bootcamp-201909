@@ -34,6 +34,7 @@ class App extends Component {
             return <>     
                 <Header/>
                 {view === 'register' && <Register onRegister={handleRegister} onGoLogin={handleGoLogin} error={error}/>} 
+                <Login/>
                 <Footer/>
                </>
         }
