@@ -10,12 +10,12 @@ class App extends Component {
         handleRegister = (name,surname,email,password,passwordConfirmation)=>{
             debugger
              try{
-                console.log('handleRegister')
+                 debugger
                 registerUser(name,surname,email,password,passwordConfirmation, error=>{
-                    if(error) console.log(error.message)
-                    else console.log('user inserted')
+                    debugger
+                    if(error){ console.log(error.message)}
+                    else {console.log('user inserted')}
                 })
-                console.log('handleRegister')
             } catch(error){
                 debugger
                 console.log(error.message)
@@ -29,11 +29,11 @@ class App extends Component {
 
 
         render() {
-            const { state: {view}, handleRegister, handleGoLogin } = this
+            const { state: {view, error}, handleRegister, handleGoLogin } = this
 
             return <>     
                 <Header/>
-                {view === 'register' && <Register onRegister={handleRegister} onGoLogin={handleGoLogin}/>} 
+                {view === 'register' && <Register onRegister={handleRegister} onGoLogin={handleGoLogin} error={error}/>} 
                 <Footer/>
                </>
         }

@@ -1,4 +1,4 @@
-function Register({ onRegister, onGoLogin }) {
+function Register({ onRegister, onGoLogin, error }) {
         return <section className="view register ">
                 <form onSubmit={event => {
                         event.preventDefault()
@@ -45,8 +45,7 @@ function Register({ onRegister, onGoLogin }) {
                 }}>LOGIN!</button>
                 <span />
 
-                <section className="feedback">
-                        <p className="feedback__message">I am the register feedback</p>
-                </section>
+                
+                {error && <Feedback message={error} />}
         </section>
 }

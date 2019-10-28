@@ -1,4 +1,4 @@
-function registerUser(name, surname, email, password, password, passwordConfirmation, callback) {
+function registerUser(name, surname, email, password, passwordConfirmation, callback) {
     if (typeof name !== 'string') throw new TypeError(name + ' is not a string')
     if (!name.trim().length) throw new ContentError('name is empty or blank')
     if (typeof surname !== 'string') throw new TypeError(surname + ' is not a string')
@@ -12,9 +12,8 @@ function registerUser(name, surname, email, password, password, passwordConfirma
     if (typeof callback !== 'function') throw new TypeError(callback + ' is not a function')
 
 
-
-    call('POST', undefined, 'https://skylabcoders.herokuapp.com/api/user', { name, surname, username: email, password }, result => {
+    passwordConfirmation !== password ? callback(new Error('passwords do not match')) : call('POST', undefined, 'https://skylabcoders.herokuapp.com/api/user', { name, surname, username: email, password }, result => {
         debugger
-        result.error ? callback(new Error(result.error)) : callback();
+        result.error ? callback(new Error(result.error.message)) : callback();
     })
 }
