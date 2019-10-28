@@ -1,6 +1,12 @@
-function Register() {
+function Register({ onRegister, onGoLogin, error }) {
         return <section className="view register ">
-                <form>
+                <form onSubmit={event => {
+                        event.preventDefault()
+                        debugger
+                        const { name: { value: name }, surname: { value: surname }, email: { value: email }, password: { value: password }, passwordConfirmation: { value: passwordConfirmation } } = event.target
+                        onRegister(name, surname, email, password, passwordConfirmation)
+
+                }}>
                         <ul>
                                 <li><span />
                                         <h1 className="register__title">Register</h1>
@@ -24,20 +30,22 @@ function Register() {
                                         <span /></li>
 
                                 <li><span />
-                                        <input className="register__field" type="password" name="password-confirmation"
+                                        <input className="register__field" type="password" name="passwordConfirmation"
                                                 placeholder="password"></input>
                                         <span /></li>
                                 <li><span />
-                                        <button className="register__submit">SIGN IN</button>
-                                        <span /></li>
-                                <li><span />
-                                        <button className="register__submit">LOGIN!</button>
+                                        <button className="register__submit" >SIGN IN</button>
                                         <span /></li>
                         </ul>
                 </form>
+                <span />
+                <button className="register__submit" onClick={event => {
+                        event.preventDefault()
+                        onGoLogin()
+                }}>LOGIN!</button>
+                <span />
 
-                <section className="feedback">
-                        <p className="feedback__message">I am the register feedback</p>
-                </section>
+                
+                {error && <Feedback message={error} />}
         </section>
 }
