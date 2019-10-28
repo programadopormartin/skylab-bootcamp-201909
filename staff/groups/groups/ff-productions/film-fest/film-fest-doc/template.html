@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>FilmFest</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../film-fest-design/styles/index.css">
 
 </head>
@@ -14,43 +15,61 @@
 
     <header id="top">
         <nav class="main-bar">
-            <img class="main-bar__logo bar-icon" src="https://dummyimage.com/200x100/000/fff.png&text=Logo" alt="Logo"></img>
+            <img class="main-bar__logo bar-icon" src="../film-fest-design/img/logo.png" alt="Logo"></img>
             <form class="main-bar__search search-bar">
                 <input type="search" class="search-bar__search" name="search"></input>
-                <button class="search-bar__button">
-                    <img class="search-bar__button__img  bar-icon" src="../film-fest-design/img/searching-magnifying-glass.png" alt="search icon">
-                </button>
+                <i class="search-bar__icon  bar-icon material-icons" alt="search icon">search</i>
             </form>
-            <p class="main-bar__login">
-                <img class="main-bar__login__img bar-icon" src="../film-fest-design/img/user.png" alt="logIn icon">
-            </p>
 
-            <p class="main-bar__home">HOME</p>
+            <i class="main-bar__login material-icons" alt="logIn icon">account_circle</i>
 
-            <p class="main-bar__genre">GENRE</p>
+            <p class="main-bar__home header-button">HOME</p>
 
-            <p name="main-bar__watch-list">WATCHLIST</p>
+            <p class="main-bar__genre header-button">GENRE</p>
 
-            <p name="main-bar__surprise-me">SURPRISE-ME</p>
+            <p class="main-bar__watch-list header-button">LISTS</p>
+
+            <p class="main-bar__surprise-me header-button">RANDOM</p>
         </nav>
     </header>
-
 
     <main>
         <section class="view register ">
             <form>
+                <ul>
+                    <li><span>
                 <h1 class="register__title">Register</h1>
-                <input class="register__field" type="text" name="name" placeholder="name"></input>
-                <input class="register__field" type="text" name="surname" placeholder="surname"></input>
-                <input class="register__field" type="email" name="email" placeholder="e-mail"></input>
-                <input class="register__field" type="password" name="password" placeholder="password"></input>
-                <input class="register__field" type="password" name="password-confirmation" placeholder="password"></input>
+                <span></li>
 
-                <button class="register__submit">📨</button>
+                <li><span>
+                <input class="register__field" type="text" name="name" placeholder="name"></input>
+                <span></li>
+
+                <li><span>
+                <input class="register__field" type="text" name="surname" placeholder="surname"></input>
+                <span></li>
+
+                <li><span>
+                <input class="register__field" type="email" name="email" placeholder="e-mail"></input>
+                <span></li>
+
+                <li><span>
+                <input class="register__field" type="password" name="password" placeholder="password"></input>
+                <span></li>
+
+                <li><span>
+                <input class="register__field" type="password" name="password-confirmation" placeholder="password"></input>
+                <span></li>
+                <li><span>
+                 <button class="register__submit">SIGN IN</button>
+                
+                <span></li>
+
+            </ul>               
             </form>
 
             <section class="feedback">
-                <p class="feedback__message">Come with me...</p>
+                <p class="feedback__message">I am the register feedback</p>
             </section>
         </section>
 
@@ -59,7 +78,7 @@
                 <h1 class="login__title">Login</h1>
                 <input class="login__field" type="email" name="email" placeholder="e-mail">
                 <input class="login__field" type="password" name="password" placeholder="password">
-                <button class="login__submit">🗝</button>
+                <button class="login__submit">ENTER</button>
             </form>
 
             <section class="feedback">
@@ -155,21 +174,23 @@
         <section class="global-feedback feedback">
             <p class="feedback__message">Im a global feedback message.</p>
         </section>
-
     </main>
-    <footer>
+   
+    <footer class="bottom">
         <nav class="footer-nav">
-
-            <p class="footer-nav__go-up">Go up!</p>
-
+            <div class="footer-nav__go-up go-up">
+                <button class="go-up__button">Go up!!</button>
+            </div>
             <div class="footer-nav__social-media social-media">
                 <img class="social-media__icon" src="../film-fest-design/img/facebook.png" alt="facebook" /></img>
                 <img class="social-media__icon" src="../film-fest-design/img/instagram.png" alt="instagram"></img>
                 <img class="social-media__icon" src="../film-fest-design/img/twitter.png" alt="twitter"></img>
                 <img class="social-media__icon" src="../film-fest-design/img/youtube.png" alt="youtube"></img>
             </div>
+            <div class="footer-nav copyright">
+                <p> © Copyright 2019, FF Productions, Inc. o afiliados. </p>
+            </div>
         </nav>
-
     </footer>
 
 </html>
