@@ -1,17 +1,18 @@
 describe('logic - register user', () => {
-    let name, surname, email, password
+    let name, surname, email, password, passwordConfirmation
 
     beforeEach(() => {
         name = `name-${Math.random()}`
         surname = `surname-${Math.random()}`
         email = `email-${Math.random()}@mail.com`
         password = `password-${Math.random()}`
+        passwordConfirmation = password
     })
 
     it('should succeed on correct credentials', done => {
-        registerUser(name, surname, email, password, (error, response) => {
+        registerUser(name, surname, email, password, passwordConfirmation, (error, response) => {
             expect(error).toBeUndefined()
-            expect(response).toBeUndefined()
+            expect(response.status).toBeDefined()
 
             done()
         })
@@ -20,13 +21,15 @@ describe('logic - register user', () => {
     describe('when user already exists', () => {
         beforeEach(done => {
             call('POST', undefined, 'https://skylabcoders.herokuapp.com/api/user', { name, surname, username: email, password }, result => {
+                debugger
                 if (result.error) done(new Error(result.error))
                 else done()
             })
         })
 
         it('should fail on already existing user', done => {
-            registerUser(name, surname, email, password, (error, response) => {
+            registerUser(name, surname, email, password, passwordConfirmation, (error, response) => {
+                debugger
                 expect(response).toBeUndefined()
                 expect(error).toBeDefined()
 
@@ -40,7 +43,7 @@ describe('logic - register user', () => {
         })
     })
 
-    it('should fail on incorrect name, surname, email, password, or expression type and content', () => {
+    fit('should fail on incorrect name, surname, email, password, or expression type and content', () => {
         expect(() => registerUser(1)).toThrowError(TypeError, '1 is not a string')
         expect(() => registerUser(true)).toThrowError(TypeError, 'true is not a string')
         expect(() => registerUser([])).toThrowError(TypeError, ' is not a string')

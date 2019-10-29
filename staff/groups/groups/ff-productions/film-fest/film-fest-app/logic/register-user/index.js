@@ -13,6 +13,7 @@ function registerUser(name, surname, email, password, passwordConfirmation, call
 
 
     passwordConfirmation !== password ? callback(new Error('passwords do not match')) : call('POST', undefined, 'https://skylabcoders.herokuapp.com/api/user', { name, surname, username: email, password }, result => {
-        result.error ? callback(new Error(result.error.message)) : callback();
+        debugger
+        result.error ? callback(new Error(result.error.message)) : callback(undefined, result);
     })
 }
