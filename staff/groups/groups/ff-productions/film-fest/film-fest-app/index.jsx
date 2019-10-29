@@ -6,7 +6,7 @@ class App extends Component {
 
     constructor() {
         super()
-        this.state = { view: 'landing', error: undefined, query: undefined, user: undefined }
+        this.state = { view: 'landing', error: undefined, query: undefined, user: undefined, movie: undefined }
     }
 
     handleLogin = (username, password) => {
@@ -75,12 +75,17 @@ class App extends Component {
      
     }
 
+    handleChangeIcon = () => {
+        console.log("im a changeicon")
+    }
+
 
     render() {
-        const { state: { view, error }, handleRegister, handleLogin, handleGoLogin, handleGoRegister, handleGoHome, handleGoGenre, handleGoWatchlist, handleGoPersonalArea } = this
+        const { state: { view, error, movie }, handleRegister, handleLogin, handleGoLogin, handleGoRegister, handleGoHome, handleGoGenre, handleGoWatchlist, handleGoPersonalArea, handleChangeIcon } = this
 
         return <>
             <Header onGoHome={handleGoHome} onGoGenre={handleGoGenre} onGoWatchlist={handleGoWatchlist} onGoPersonalArea={handleGoPersonalArea}/>
+            
             {view === 'landing' && <Landing />}
             {view === 'genre' && <Genre />}
             {view === 'watchlist' && <Watchlist />}
