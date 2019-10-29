@@ -1,8 +1,12 @@
-function Footer() {
+function Footer({onResetHash}) {
+
     return <footer className="bottom">
         <nav className="footer-nav">
             <div className="footer-nav__go-up go-up">
-                <button className="go-up__button">Go up!!</button>
+                <div className="go-up__button" onClick={event=>{
+                    event.preventDefault()                    
+                    onResetHash()                    
+                }}></div>
             </div>
             <div className="footer-nav__social-media social-media">
                 <img className="social-media__icon" src="../film-fest-design/img/facebook.png" alt="facebook"></img>

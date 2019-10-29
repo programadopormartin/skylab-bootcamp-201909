@@ -95,6 +95,14 @@ class App extends Component {
         console.log("im a changeicon")
     }
 
+    handleResetHash = () => {
+        window.scroll({
+            top: 0,
+            left: 0,
+            behavior:"smooth"
+        })
+    }
+
  
 
     render() {
@@ -108,8 +116,10 @@ class App extends Component {
             {view === 'watchlist' && <Watchlist />}
             {view === 'personal-area' && <PersonalArea />}
             {view === 'register' && <Register onRegister={handleRegister} onGoLogin={handleGoLogin} error={error} />}
-            {view === 'login' && <Login onLogin={handleLogin} onGoRegister={handleGoRegister} error={error} />}
-            <Footer />
+            {view === 'login' && <Login onLogin={handleLogin} onGoRegister={handleGoRegister} error={error} />} 
+           
+            <Footer onResetHash={handleResetHash} />
+            
         </>
     }
 }

@@ -4,7 +4,7 @@ class App extends Component {
 
         constructor(){
             super()
-            this.state = { view: 'register', error: undefined, query: undefined }
+            this.state = { view: 'register', error: undefined, query: undefined, }
         }
 
         handleRegister = (name,surname,email,password,passwordConfirmation)=>{
@@ -26,16 +26,20 @@ class App extends Component {
             console.log('handleGoLogin')
         }
 
+        handleResetHash = () => {
+            
+            window.location.href.split('#')[0]
+        }
 
 
         render() {
-            const { state: {view, error}, handleRegister, handleGoLogin } = this
+            const { state: {view, error}, handleRegister, handleGoLogin, handleResetHash } = this
 
             return <>     
-                <Header/>
+                {view === 'footer' && <Footer onResetHash={handleResetHash} />}
                 {view === 'register' && <Register onRegister={handleRegister} onGoLogin={handleGoLogin} error={error}/>} 
                 <Login/>
-                <Footer/>
+               
                </>
         }
 }
