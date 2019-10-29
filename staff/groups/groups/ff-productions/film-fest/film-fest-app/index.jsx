@@ -103,15 +103,19 @@ class App extends Component {
         })
     }
 
+    handleGoMovieSpecs = (movieId)=> {
+        console.log('hola pepe')
+    }
+
  
 
     render() {
-        const { state: { view, error, movies, title }, handleRegister, handleLogin, handleGoLogin, handleGoRegister, handleGoHome, handleGoGenre, handleGoWatchlist, handleGoPersonalArea, handleChangeIcon, handleMovieRender, handleResetHash } = this
+        const { state: { view, error, movies, title }, handleRegister, handleLogin, handleGoLogin, handleGoRegister, handleGoHome, handleGoGenre, handleGoWatchlist, handleGoPersonalArea, handleChangeIcon, handleResetHash, handleGoMovieSpecs } = this
 
         return <>
             <Header onGoHome={handleGoHome} onGoGenre={handleGoGenre} onGoWatchlist={handleGoWatchlist} onGoPersonalArea={handleGoPersonalArea} />
 
-            {view === 'landing' && movies!== undefined && <Movies title={title} movies={movies} items={movies}  onMovieRender={item=> <MovieItem item={item} key={item.id}/>}/>}
+            {view === 'landing' && movies!== undefined && <Movies title={title} movies={movies} items={movies}  onMovieRender={item=> <MovieItem item={item} key={item.id} onMovieSpecs={handleGoMovieSpecs}/>}/>}
             {view === 'genre' && <Genre />}
             {view === 'watchlist' && <Watchlist />}
             {view === 'personal-area' && <PersonalArea />}
