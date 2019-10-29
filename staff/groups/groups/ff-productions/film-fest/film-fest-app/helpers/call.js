@@ -1,6 +1,5 @@
 function call(method, token, url, body, callback) {
     let headers = {}
-    debugger
     if (token) headers['Authorization'] = `Bearer ${token}`
     if (body) headers['Content-Type'] = 'application/json;charset=UTF-8'
 

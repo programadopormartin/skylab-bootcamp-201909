@@ -1,11 +1,6 @@
 function fetch(method, url, headers, body, callback) {
-
-    debugger
-
     var xhr = new XMLHttpRequest;
-
     xhr.open(method, url);
-
     xhr.onreadystatechange = function() {
         callback(this);
     };
