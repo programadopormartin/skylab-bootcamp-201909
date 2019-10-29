@@ -1,17 +1,18 @@
 describe('logic - register user', () => {
-    let name, surname, email, password
+    let name, surname, email, password, passwordConfirmation
 
     beforeEach(() => {
         name = `name-${Math.random()}`
         surname = `surname-${Math.random()}`
         email = `email-${Math.random()}@mail.com`
         password = `password-${Math.random()}`
+        passwordConfirmation = password
     })
 
     it('should succeed on correct credentials', done => {
-        registerUser(name, surname, email, password, (error, response) => {
+        registerUser(name, surname, email, password, passwordConfirmation, (error, response) => {
             expect(error).toBeUndefined()
-            expect(response).toBeUndefined()
+            expect(response).toBeDefined()
 
             done()
         })
@@ -20,13 +21,15 @@ describe('logic - register user', () => {
     describe('when user already exists', () => {
         beforeEach(done => {
             call('POST', undefined, 'https://skylabcoders.herokuapp.com/api/user', { name, surname, username: email, password }, result => {
+
                 if (result.error) done(new Error(result.error))
                 else done()
             })
         })
 
         it('should fail on already existing user', done => {
-            registerUser(name, surname, email, password, (error, response) => {
+            registerUser(name, surname, email, password, password, (error, response) => {
+                debugger
                 expect(response).toBeUndefined()
                 expect(error).toBeDefined()
 
@@ -81,12 +84,12 @@ describe('logic - register user', () => {
         expect(() => registerUser(name, surname, email, '')).toThrowError(ContentError, 'password is empty or blank')
         expect(() => registerUser(name, surname, email, ' \t\r')).toThrowError(ContentError, 'password is empty or blank')
 
-        expect(() => registerUser(name, surname, email, password, 1)).toThrowError(TypeError, '1 is not a function')
-        expect(() => registerUser(name, surname, email, password, true)).toThrowError(TypeError, 'true is not a function')
-        expect(() => registerUser(name, surname, email, password, [])).toThrowError(TypeError, ' is not a function')
-        expect(() => registerUser(name, surname, email, password, {})).toThrowError(TypeError, '[object Object] is not a function')
-        expect(() => registerUser(name, surname, email, password, undefined)).toThrowError(TypeError, 'undefined is not a function')
-        expect(() => registerUser(name, surname, email, password, null)).toThrowError(TypeError, 'null is not a function')
+        expect(() => registerUser(name, surname, email, password, password, 1)).toThrowError(TypeError, '1 is not a function')
+        expect(() => registerUser(name, surname, email, password, password, true)).toThrowError(TypeError, 'true is not a function')
+        expect(() => registerUser(name, surname, email, password, password, [])).toThrowError(TypeError, ' is not a function')
+        expect(() => registerUser(name, surname, email, password, password, {})).toThrowError(TypeError, '[object Object] is not a function')
+        expect(() => registerUser(name, surname, email, password, password, undefined)).toThrowError(TypeError, 'undefined is not a function')
+        expect(() => registerUser(name, surname, email, password, password, null)).toThrowError(TypeError, 'null is not a function')
     })
 
     // TODO other cases

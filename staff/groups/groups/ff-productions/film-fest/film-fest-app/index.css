@@ -228,6 +228,50 @@ h1 {
   font-family: Staatliches;
 }
 
+.landing {
+  display: flex;
+  flex-direction: column;
+}
+.landing__title {
+  font-size: 3rem;
+  font-weight: normal;
+  color: #ec625f;
+  background-color: #525252;
+  padding: 1rem 3rem 1rem 3rem;
+  border-radius: 1rem;
+}
+.landing .results {
+  display: flex;
+  padding: 0;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.landing .results .movie {
+  width: 25vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #414141;
+}
+.landing .results .movie__image {
+  width: 25vh;
+  background-size: cover;
+  margin: 0;
+}
+.landing .results .movie__title {
+  text-align: center;
+  width: 100%;
+  font-size: 0.9rem;
+  padding: 0.1rem;
+  color: #fcf5ee;
+}
+.landing .results .movie__title:hover {
+  border-radius: 3rem;
+  background-color: #414141;
+  color: #ec625f;
+}
+
 body {
   display: flex;
   flex-direction: column;
