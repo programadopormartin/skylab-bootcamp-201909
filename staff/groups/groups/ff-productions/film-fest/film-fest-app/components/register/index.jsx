@@ -2,7 +2,6 @@ function Register({ onRegister, onGoLogin, error }) {
         return <section className="view register ">
                 <form onSubmit={event => {
                         event.preventDefault()
-                        debugger
                         const { name: { value: name }, surname: { value: surname }, email: { value: email }, password: { value: password }, passwordConfirmation: { value: passwordConfirmation } } = event.target
                         onRegister(name, surname, email, password, passwordConfirmation)
 
@@ -45,7 +44,7 @@ function Register({ onRegister, onGoLogin, error }) {
                 }}>LOGIN!</button>
                 <span />
 
-                
+
                 {error && <Feedback message={error} />}
         </section>
 }
