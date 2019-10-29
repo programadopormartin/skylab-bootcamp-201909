@@ -106,7 +106,7 @@ class App extends Component {
  
 
     render() {
-        const { state: { view, error, movies, title }, handleRegister, handleLogin, handleGoLogin, handleGoRegister, handleGoHome, handleGoGenre, handleGoWatchlist, handleGoPersonalArea, handleChangeIcon, handleMovieRender } = this
+        const { state: { view, error, movies, title }, handleRegister, handleLogin, handleGoLogin, handleGoRegister, handleGoHome, handleGoGenre, handleGoWatchlist, handleGoPersonalArea, handleChangeIcon, handleMovieRender, handleResetHash } = this
 
         return <>
             <Header onGoHome={handleGoHome} onGoGenre={handleGoGenre} onGoWatchlist={handleGoWatchlist} onGoPersonalArea={handleGoPersonalArea} />
