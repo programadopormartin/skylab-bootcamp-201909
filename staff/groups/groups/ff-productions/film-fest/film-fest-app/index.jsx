@@ -10,11 +10,8 @@ class App extends Component {
     }
 
     handleLogin = (username, password) => {
-        debugger
         try {
-            debugger
             authenticateUser(username, password, (error,data) => {
-                debugger
                 if (error) this.setState({ error: error.message })
                 else {
                     try {
@@ -35,7 +32,6 @@ class App extends Component {
                 }
             })
         } catch (error) {
-            debugger
             this.setState({ error: error.message })
         }
     }
@@ -43,16 +39,12 @@ class App extends Component {
 
 
     handleRegister = (name, surname, email, password, passwordConfirmation) => {
-        debugger
         try {
-            debugger
             registerUser(name, surname, email, password, passwordConfirmation, error => {
-                debugger
                 if (error) this.setState({ error: error.message })
                 else this.setState({ view: 'landing' })
             })
         } catch (error) {
-            debugger
             this.setState({ error: error.message })
         }
     }
