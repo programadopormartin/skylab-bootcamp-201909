@@ -6,7 +6,7 @@ function SearchMovies({ searchMovies }) {
 
     }}>
         <input type="search" className="search-bar__search" name="query" />
-        <button><i className="search-bar__icon  bar-icon material-icons" alt="search icon">search</i></button>
+        <button className='search-buton'><i className="search-bar__icon  bar-icon material-icons" alt="search icon">search</i></button>
 
     </form>
 }
