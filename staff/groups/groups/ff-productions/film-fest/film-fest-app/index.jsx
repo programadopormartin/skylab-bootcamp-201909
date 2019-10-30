@@ -174,7 +174,7 @@ class App extends Component {
             {view === 'landing' && movies !== undefined && <Movies title={title} movies={movies} items={movies} onMovieRender={item => <MovieItem item={item} key={item.id} onMovieSpecs={handleGoMovieSpecs} />} />}
             {view === 'watchlist' && <Watchlist />}
             {view === 'movie-specs' && <MovieSpecs   movie={movie} onToggleFavSpecs={handleToggleFavSpecs} error={error} user={user}/>}
-            {view === 'personal-area' && <PersonalArea />}
+            {view === 'personal-area' && <PersonalArea user={user} />}
             {view === 'register' && <Register onRegister={handleRegister} onGoLogin={handleGoLogin} error={error} />}
             {view === 'login' && <Login onLogin={handleLogin} onGoRegister={handleGoRegister} error={error} />}
 
