@@ -1,4 +1,4 @@
-function PersonalArea({ onPersonalArea, onSave, user }) {
+function PersonalArea({ onPersonalArea, onSave,onSignOut, user }) {
     return <section className="view personal-area">
         <form onSubmit={event => {
             event.preventDefault()
@@ -36,10 +36,17 @@ function PersonalArea({ onPersonalArea, onSave, user }) {
                 
             }}>MODIFY</button>
             
-            <button className="personal-area__submit" onClick={event => {debugger
+            <button className="personal-area__submit" onClick={event => {
                 event.preventDefault()
                 onSave()
             }}>SAVE</button>
+
+                <button className="personal-area__submit" onClick={event => {
+                event.preventDefault()
+                onSignOut()
+
+               
+            }}>SIGN OUT</button>
 
         </form>
     </section>
