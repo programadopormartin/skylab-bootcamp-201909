@@ -1,6 +1,5 @@
 function Movies({title, items, onMovieRender}) {
     debugger
-    console.log("items bro")
     console.log(items)
     return <section className="landing">
         <h1 className="landing__title">{title}</h1>

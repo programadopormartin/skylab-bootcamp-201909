@@ -1,39 +1,45 @@
-function MovieSpecs({ changeIcon, movie }) {
-    return <section className="specs">
-        <div className="specs__image">
-            {/* <SpecsImage image={movie.poster_path ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}` : NoImage}
-                clickable={false}
-                alt="poster movie" /> */}
-                {
-                    movie && movie.poster_path ? <img src={movie.poster_path} alt="poster Image"/>  : <img src='../film-fest-design/img/logo.png' alt="poster Image"/>
-                }
-            
-        </div>
+function MovieSpecs({ movie, onToggleFavSpecs, error, user }) {
+    console.log(movie)
+    return <section className="view specs">
+        <img className="specs__image" src={"https://image.tmdb.org/t/p/original" + movie.poster} />
+       
 
         <h2 className="specs__title">{movie.title}</h2>
-        <div className="watchlist">
+        
 
-            <p className="watchlist__title">Add to Watchlist</p>
+        {( typeof user !== 'undefined') && ((movie.fav !==true) ?  <>
+        <div className="watchlist" onClick={event=>{
+            event.preventDefault()
+            onToggleFavSpecs(movie.id)
+        }}>
+        <p className="watchlist__title">Add to Watchlist</p>
+        <i className="material-icons"> add_circle </i></div> </>
+        :   <>
+        <div className="watchlist" onClick={event=>{
+            event.preventDefault()
+            onToggleFavSpecs(movie.id)
+        }}>
+        <p className="watchlist__title">Remove from watchlist</p>
+        <i className="material-icons">remove_circle</i></div></>)}
 
-            <WatchList img className="watchlist__watch_icon" src="../film-fest-design/img/plus32px.png" id="watchlist"
-                alt="add to Watchlist" onclick={event => {
-                    event.preventDefault()
-                    changeIcon()
-                }} />
-
-        </div>
-        <p className="specs__description">{movie.overview}</p>
-        <p className="specs__genre">Science fiction</p>
-        <p className="specs__runtime"> 139minin </p>
-        <p className="specs__rating__vote_average">{movie.vote_average}</p>
-        <p className="desc">State your score</p>
-
+            
+        
+        {error && <Feedback message={error} />}
+        <p className="specs__description">{movie.description}</p>
+        <p className="specs__genre">{movie.genre}</p>
+        <p className="specs__runtime">Duration: {movie.runtime} </p>
+        <p className="specs__rating__vote_average">Vote average: {movie.vote_average}</p>
+        <p className="desc">State your score!</p>
         <div className="specs__rating rating">
-            <div className="Stars" style="--rating: 5;" aria-label="Rating of this product is 5 out of 5.">
+            <div className="Stars" id="" aria-label="Rating of this product is 5 out of 5.">
+                <i className="material-icons star-1">stars</i>
+                <i className="material-icons star-2">stars</i>
+                <i className="material-icons star-3">stars</i>
+                <i className="material-icons star-4">stars</i>
+                <i className="material-icons star-5">stars</i>
             </div>
 
         </div>
-
+       
     </section>
-
-}
+}   
