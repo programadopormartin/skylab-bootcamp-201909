@@ -6,10 +6,12 @@ class App extends Component {
 
     constructor() {
         super()
-        this.state = { view: 'login', error: undefined, query: undefined, user: undefined, movies: undefined, title: 'Pepito', movie: undefined, title: 'Trendy Movies'}
-    }
+
+        this.state = { view: 'login', error: undefined, query: undefined, user: undefined, movies: undefined, title: 'Pepito', movie: undefined, title: 'Trendy Movies', genres: undefined}
+
 
     componentWillMount() {
+
         if (id && token) {
             try {
                 retrieveUser(id, token, (error, user) => {
@@ -20,8 +22,17 @@ class App extends Component {
             }
         }
         retrieveInitialMovies((error, result) => {
+
             this.setState({ movies: result.results, view: 'landing' })
+
+            error ? this.setState({ error: error.message }) : this.setState({ movies: result.results, view: 'landing' })
         })
+
+        retrieveGenres((error, result /* genres in past */) => {
+            error ? this.setState({ error: error.message }) : this.setState({ genres: result.genres })
+
+        })
+
     }
 
     handleLogin = (username, password) => {
@@ -75,10 +86,6 @@ class App extends Component {
         this.setState({ view: 'landing' })
     }
 
-    handleGoGenre = () => {
-        this.setState({ view: 'genre' })
-    }
-
     handleGoWatchlist = () => {
         this.setState({ view: 'watchlist' })
     }
@@ -89,6 +96,7 @@ class App extends Component {
 
     }
 
+
     handleResetHash = () => {
         window.scroll({
             top: 0,
@@ -98,7 +106,7 @@ class App extends Component {
     }
 
     handleGoMovieSpecs = (movieId) => {
-        debugger
+        
         try {
             if (sessionStorage.id && sessionStorage.token) {
                 retrieveMovie(movieId, sessionStorage.token, sessionStorage.id, (error, movie) => {
@@ -141,14 +149,29 @@ class App extends Component {
    
 
 
+
+    handleGetMoviesByGenre = (genreId, nameGenre) => {
+        retrieveGenreIdMovies(genreId, (error, movies) => {
+            error ? this.setState({ error: error.message }) : this.setState({ movies: movies.results, view: 'landing', title: nameGenre })
+        })
+    }
+
+    handleSearchMovies = query => {
+        searchMovies(query, (error, movies) => {
+            error ? this.setState({ error: error.message }) : this.setState({ movies: movies.results, view: 'landing', title: `Search: ${query}` })
+        })
+    }
+
     render() {
-        const { state: { view, error, movies, title, movie, user }, handleRegister, handleLogin, handleGoLogin, handleGoRegister, handleGoHome, handleGoGenre, handleGoWatchlist, handleGoPersonalArea,  handleResetHash, handleGoMovieSpecs, handleToggleFavSpecs } = this
+
+        const { state: { view, error, movies, title, genres,user }, handleRegister, handleLogin, handleGoLogin, handleGoRegister, handleGoHome, handleGoWatchlist, handleGoPersonalArea, handleChangeIcon, handleMovieRender, handleResetHash, handleGetMoviesByGenre, handleSearchMovies } = this
+
 
         return <>
-            <Header onGoHome={handleGoHome} onGoGenre={handleGoGenre} onGoWatchlist={handleGoWatchlist} onGoPersonalArea={handleGoPersonalArea} />
+            <Header onGoHome={handleGoHome} onGoWatchlist={handleGoWatchlist} onGoPersonalArea={handleGoPersonalArea} onGenres={genres} onGetMoviesByGenre={handleGetMoviesByGenre} onSearchMovies={handleSearchMovies} />
+
 
             {view === 'landing' && movies !== undefined && <Movies title={title} movies={movies} items={movies} onMovieRender={item => <MovieItem item={item} key={item.id} onMovieSpecs={handleGoMovieSpecs} />} />}
-            {view === 'genre' && <Genre />}
             {view === 'watchlist' && <Watchlist />}
             {view === 'movie-specs' && <MovieSpecs   movie={movie} onToggleFavSpecs={handleToggleFavSpecs} error={error} user={user}/>}
             {view === 'personal-area' && <PersonalArea />}
