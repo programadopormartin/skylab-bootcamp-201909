@@ -85,9 +85,8 @@ class App extends Component {
     }
 
     handleGoPersonalArea = () => {
-
         (sessionStorage.token && sessionStorage.id) ? this.setState({ view: 'personal-area' }) : this.setState({ view: 'login' })
-
+        
     }
 
     handleChangeIcon = () => {
@@ -103,10 +102,13 @@ class App extends Component {
         })
     }
 
- 
+    handleSave = () => {
+        this.setState({ view: 'landing' })
+    
+    }
 
     render() {
-        const { state: { view, error, movies, title }, handleRegister, handleLogin, handleGoLogin, handleGoRegister, handleGoHome, handleGoGenre, handleGoWatchlist, handleGoPersonalArea, handleChangeIcon, handleMovieRender, handleResetHash } = this
+        const { state: { view, error, movies,user, title }, handleRegister, handleLogin, handleGoLogin, handleGoRegister, handleGoHome, handleGoGenre, handleGoWatchlist, handleGoPersonalArea, handleChangeIcon, handleMovieRender, handleResetHash, handleSave} = this
 
         return <>
             <Header onGoHome={handleGoHome} onGoGenre={handleGoGenre} onGoWatchlist={handleGoWatchlist} onGoPersonalArea={handleGoPersonalArea} />
@@ -114,7 +116,7 @@ class App extends Component {
             {view === 'landing' && movies!== undefined && <Movies title={title} movies={movies} items={movies}  onMovieRender={item=> <MovieItem item={item} key={item.id}/>}/>}
             {view === 'genre' && <Genre />}
             {view === 'watchlist' && <Watchlist />}
-            {view === 'personal-area' && <PersonalArea />}
+            {view === 'personal-area' && <PersonalArea onPersonalArea ={handleGoPersonalArea} user={user} onSave={handleSave}/>}
             {view === 'register' && <Register onRegister={handleRegister} onGoLogin={handleGoLogin} error={error} />}
             {view === 'login' && <Login onLogin={handleLogin} onGoRegister={handleGoRegister} error={error} />} 
            
@@ -123,7 +125,6 @@ class App extends Component {
         </>
     }
 }
-
 
 ReactDOM.render(<App />, document.getElementById('root'))
 

@@ -44,7 +44,6 @@ function Register({ onRegister, onGoLogin, error }) {
                 }}>LOGIN!</button>
                 <span />
 
-
                 {error && <Feedback message={error} />}
         </section>
 }
