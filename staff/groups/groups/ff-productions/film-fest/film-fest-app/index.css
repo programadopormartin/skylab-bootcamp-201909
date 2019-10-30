@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto|Staatliches&display=swap");
 .bottom {
-  margin-top: 3rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 .go-up {
@@ -10,21 +11,25 @@
 }
 .go-up__button {
   background-color: rgba(255, 255, 255, 0.2);
-  background-image: url("../film-fest-design/img/arrow-up.png");
+  background-image: url("../film-fest-design/img/arrow-up3.png");
   background-repeat: no-repeat;
   background-position: center;
   border-radius: 50%;
-  width: 15vw;
-  height: 15vw;
+  width: 35px;
+  height: 35px;
   font-weight: bold;
   font-size: 25px;
   font-family: roboto;
-  bottom: 5px;
-  right: 5px;
+  bottom: 15vw;
+  right: 5vw;
   position: fixed;
   z-index: 1;
   display: flex;
   box-shadow: 0 0 6px;
+  cursor: pointer;
+}
+.go-up__button:hover {
+  cursor: pointer;
 }
 
 .social-media {
@@ -33,8 +38,14 @@
   height: auto;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   text-align: center;
+  margin-bottom: 1rem;
+}
+.social-media__icon {
+  margin-right: 1vw;
+  margin-left: 1vw;
+  cursor: pointer;
 }
 
 .copyright {
@@ -49,7 +60,7 @@ i {
 }
 
 header {
-  height: 30vh;
+  height: 23vh;
   margin: 0 1rem 0 1rem;
 }
 
@@ -77,6 +88,8 @@ header {
 }
 .main-bar__logo {
   grid-area: 1/1/2/2;
+  height: 15vh;
+  width: 16vh;
 }
 .main-bar__search {
   grid-area: 1/2/2/4;
@@ -142,6 +155,32 @@ header {
   color: #fcf5ee;
 }
 
+.search-bar {
+  margin-left: 5vw;
+}
+
+.main-bar__drop-down-list {
+  display: none;
+  z-index: 1;
+  position: absolute;
+  top: 4vh;
+  background-color: #414141;
+  border-radius: 1rem 1rem 1rem 1rem;
+  font-size: 0.8rem;
+}
+
+.main-bar__genre {
+  position: relative;
+}
+
+.main-bar__genre:hover .main-bar__drop-down-list {
+  display: block;
+}
+
+.main-bar__drop-down-list {
+  padding: 1rem;
+}
+
 .login {
   display: flex;
   flex-direction: column;
@@ -164,7 +203,7 @@ header {
   border-radius: 0.5rem;
   padding: 0.5rem;
   font-size: 1rem;
-  margin: 0.3rem;
+  margin: 0.5rem;
   background-color: #fcf5ee;
 }
 .login__submit {
@@ -255,6 +294,7 @@ h1 {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  cursor: pointer;
 }
 .landing .results .movie {
   width: 25vh;
@@ -304,6 +344,7 @@ h1 {
   font-family: roboto;
   font-size: 16px;
   color: #fcf5ee;
+  max-width: 800px;
 }
 .specs__image {
   width: 22.5rem;
@@ -403,6 +444,12 @@ h1 {
   box-sizing: border-box;
   margin: 0px;
   list-style: none;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /*# sourceMappingURL=index.css.map */

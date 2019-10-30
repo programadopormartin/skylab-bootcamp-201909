@@ -1,7 +1,8 @@
 @import ../../config
 
 .bottom       
-    margin-top: 3rem
+    margin-top: 2rem
+    margin-bottom: 1rem
        
     
 .go-up
@@ -12,21 +13,26 @@
         
     &__button    
         background-color: rgba(255,255,255,0.2)
-        background-image: url("../film-fest-design/img/arrow-up.png")
+        background-image: url("../film-fest-design/img/arrow-up3.png")
         background-repeat: no-repeat
         background-position: center
         border-radius: 50%       
-        width: 15vw
-        height: 15vw
+        width: 35px
+        height: 35px
         font-weight: bold
         font-size: 25px
         font-family: roboto
-        bottom: 5px
-        right: 5px
+        bottom: 15vw
+        right: 5vw
         position: fixed
         z-index: 1
         display: flex
         box-shadow: 0 0 6px   
+        cursor: pointer
+       
+
+        &:hover
+            cursor: pointer
              
 
 
@@ -36,8 +42,13 @@
     height: auto        
     display: flex    
     flex-direction: row   
-    justify-content: space-around
+    justify-content: center
     text-align: center
+    margin-bottom: 1rem
+    &__icon
+        margin-right: 1vw
+        margin-left: 1vw
+        cursor: pointer
 
 
 .copyright
