@@ -8,7 +8,7 @@ class App extends Component {
         super()
 
         this.state = { view: 'login', error: undefined, query: undefined, user: undefined, movies: undefined, title: 'Pepito', movie: undefined, title: 'Trendy Movies', genres: undefined}
-
+    }
 
     componentWillMount() {
 
@@ -164,7 +164,7 @@ class App extends Component {
 
     render() {
 
-        const { state: { view, error, movies, title, genres,user }, handleRegister, handleLogin, handleGoLogin, handleGoRegister, handleGoHome, handleGoWatchlist, handleGoPersonalArea, handleChangeIcon, handleMovieRender, handleResetHash, handleGetMoviesByGenre, handleSearchMovies } = this
+        const { state: { view, error, movies, title, genres,user, movie  },handleToggleFavSpecs, handleGoMovieSpecs,handleRegister, handleLogin, handleGoLogin, handleGoRegister, handleGoHome, handleGoWatchlist, handleGoPersonalArea, handleChangeIcon, handleMovieRender, handleResetHash, handleGetMoviesByGenre, handleSearchMovies } = this
 
 
         return <>
