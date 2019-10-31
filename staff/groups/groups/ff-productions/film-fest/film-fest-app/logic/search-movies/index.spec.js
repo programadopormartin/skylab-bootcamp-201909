@@ -1,4 +1,4 @@
-describe ('search movies', () =>{  
+describe ('search movies', () => {  
     
     it ('should retrieve movies correctly', done => {
         const searchQuery = 'kjkj'

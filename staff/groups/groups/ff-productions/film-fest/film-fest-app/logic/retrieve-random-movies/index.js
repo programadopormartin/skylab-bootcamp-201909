@@ -1,4 +1,5 @@
 function retrieveRandomMovies(callback) {
+    validate.function (callback)
 
     const page = Math.floor(Math.random() * 100)
     const apiKey = "5396c3e7196bcc564336e933d566130b"
