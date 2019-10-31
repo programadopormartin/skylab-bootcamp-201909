@@ -4,7 +4,6 @@ function toggleFavMovie(userId, userToken, movieId, callback) {
         if (result.error) {
             callback(new Error(result.error));
         } else {
-            debugger
             let favArray = []
             if (result.data.favs) {
                 favArray = result.data.favs
