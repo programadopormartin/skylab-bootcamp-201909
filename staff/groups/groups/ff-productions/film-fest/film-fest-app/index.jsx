@@ -162,13 +162,19 @@ class App extends Component {
         })
     }
 
+    handleGoRandomMovies = () => {
+        retrieveRandomMovies((error, movies)=>{
+            error ? this.setState({ error: error.message }) : this.setState({ movies: movies.results, view: 'landing', title: `Search: Random Movies` })
+        })
+    }
+
     render() {
 
-        const { state: { view, error, movies, title, genres,user, movie  },handleToggleFavSpecs, handleGoMovieSpecs,handleRegister, handleLogin, handleGoLogin, handleGoRegister, handleGoHome, handleGoWatchlist, handleGoPersonalArea, handleChangeIcon, handleMovieRender, handleResetHash, handleGetMoviesByGenre, handleSearchMovies } = this
+        const { state: { view, error, movies, title, genres,user, movie  },handleToggleFavSpecs, handleGoMovieSpecs,handleRegister, handleLogin, handleGoLogin, handleGoRegister, handleGoHome, handleGoWatchlist, handleGoPersonalArea, handleGoRandomMovies, handleResetHash, handleGetMoviesByGenre, handleSearchMovies } = this
 
 
         return <>
-            <Header onGoHome={handleGoHome} onGoWatchlist={handleGoWatchlist} onGoPersonalArea={handleGoPersonalArea} onGenres={genres} onGetMoviesByGenre={handleGetMoviesByGenre} onSearchMovies={handleSearchMovies} />
+            <Header onGoHome={handleGoHome} onGoWatchlist={handleGoWatchlist} onGoPersonalArea={handleGoPersonalArea} onGenres={genres} onGetMoviesByGenre={handleGetMoviesByGenre} onSearchMovies={handleSearchMovies} onGoRandomMovies={handleGoRandomMovies}/>
 
 
             {view === 'landing' && movies !== undefined && <Movies title={title} movies={movies} items={movies} onMovieRender={item => <MovieItem item={item} key={item.id} onMovieSpecs={handleGoMovieSpecs} />} />}

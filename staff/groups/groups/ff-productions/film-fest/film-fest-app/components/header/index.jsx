@@ -1,4 +1,4 @@
-function Header({ onGoHome, onGoWatchlist, onGoPersonalArea, onGenres, onGetMoviesByGenre, onSearchMovies }) {
+function Header({ onGoHome, onGoWatchlist, onGoPersonalArea, onGenres, onGetMoviesByGenre, onSearchMovies, onGoRandomMovies }) {
     return <header id="top">
         <nav className="main-bar">
             <img className="main-bar__logo bar-icon" src="../film-fest-design/img/logo.png" alt="Logo" onClick={event => {
@@ -33,7 +33,7 @@ function Header({ onGoHome, onGoWatchlist, onGoPersonalArea, onGenres, onGetMovi
 
             <p key={Math.random()} className="main-bar__surprise-me header-button" onClick={event => {
                 event.preventDefault()
-                onGoHome()
+                onGoRandomMovies()
             }}>RANDOM</p>
         </nav>
     </header>
