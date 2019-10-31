@@ -106,7 +106,7 @@ class App extends Component {
  
 
     render() {
-        const { state: { view, error, movies, title }, handleRegister, handleLogin, handleGoLogin, handleGoRegister, handleGoHome, handleGoGenre, handleGoWatchlist, handleGoPersonalArea, handleChangeIcon, handleMovieRender } = this
+        const { state: { view, error, movies, title }, handleRegister, handleLogin, handleGoLogin, handleGoRegister, handleGoHome, handleGoGenre, handleGoWatchlist, handleGoPersonalArea, handleChangeIcon, handleMovieRende,handleResetHash } = this
 
         return <>
             <Header onGoHome={handleGoHome} onGoGenre={handleGoGenre} onGoWatchlist={handleGoWatchlist} onGoPersonalArea={handleGoPersonalArea} />
@@ -118,7 +118,7 @@ class App extends Component {
             {view === 'register' && <Register onRegister={handleRegister} onGoLogin={handleGoLogin} error={error} />}
             {view === 'login' && <Login onLogin={handleLogin} onGoRegister={handleGoRegister} error={error} />} 
            
-            <Footer onResetHash={handleResetHash} />
+          <Footer onResetHash={handleResetHash} />
             
         </>
     }
