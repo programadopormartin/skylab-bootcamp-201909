@@ -1,137 +1,100 @@
-{
-    const { random } = Math
-    /* Retrieve movie detail movie specs:
-        a) User should be able to get movie details when click in one of the movie results.
-        b) If user is logged, detail result will incorporate favorites information.
-        c) Empty search will return non-filtered list of movies
-    */
-    describe('logic - retrieve movie', () => {
-        let user
-        
+describe('logic - retrieve movie', () => {
+    let name, surname, email, password, id, token, cresult
 
-        beforeEach(() =>
-            user = {
-                name: 'John-' + random(),
-                surname: 'Doe-' + random(),
-                username: 'johndoe-' + random() + '@mail.com',
-                password: '123-' + random(),
-                favorites: []
+    beforeEach(done => {
+
+        name = `name-${Math.random()}`
+        surname = `surname-${Math.random()}`
+        email = `email-${Math.random()}@mail.com`
+        password = `password-${Math.random()}`
+        call('POST', undefined, 'https://skylabcoders.herokuapp.com/api/user', { name, surname, username: email, password }, result => {
+            if (result.error) done(new Error(result.error))
+            else {
+                call('POST', undefined, 'https://skylabcoders.herokuapp.com/api/auth', { username: email, password }, result => {
+                    if (result.error) done(new Error(result.error))
+                    else {
+                        const { data } = result
+                        cresult = result
+                        id = data.id
+                        token = data.token
+                        done()
+                    }
+                })
             }
-        )
-
-        it('should succed on valid movie id', () => {
-            const id = "11804"
-
-            return logic.retrieveMovie(undefined, undefined, id)
-                .then(movie => {
-
-                    expect(movie.movieComplete.vote_count).toBeDefined()
-                    expect(movie.movieComplete.id).toBeDefined()
-                    expect(movie.movieComplete.video).toBeDefined()
-                    expect(movie.movieComplete.title).toBeDefined()
-                    expect(movie.movieComplete.popularity).toBeDefined()
-                    expect(movie.movieComplete.poster_path).toBeDefined()
-                    expect(movie.movieComplete.original_language).toBeDefined()
-                    expect(movie.movieComplete.original_title).toBeDefined()
-                    expect(movie.movieComplete.genres).toBeDefined()
-                    expect(movie.movieComplete.backdrop_path).toBeDefined()
-                    expect(movie.movieComplete.adult).toBeDefined()
-                    expect(movie.movieComplete.overview).toBeDefined()
-                    expect(movie.movieComplete.release_date).toBeDefined()
-                    expect(movie.director).toBeDefined()
-                    expect(movie.mainCast).toBeDefined()
-                    expect(movie.favorite).toBeUndefined()
-                    
-                })
-        })
-
-        it('should fail on non valid movie id', ()=>{
-            const id = 'fhsdjue'
-
-            return logic.retrieveMovie(undefined, undefined, id)
-            .then(response => expect(response).toBeUndefined())
-            .catch(error => expect(error).toBeDefined())
-  
-            })
-        
-        it('should fail with no id', ()=>
-
-            expect (() => 
-                logic.retrieveMovie(undefined, undefined, '')
-             ).toThrowError(Error, 'movie id is empty or blank')
-        )
-        
-         
-            it('should fail with no string id', () => 
-            expect(()=>
-                logic.retrieveMovie(undefined, undefined, undefined)
-            ).toThrowError(Error, 'movie id with value undefined is not a string')
-        )
-        
-
-        describe('logic - retrieve movie - user with favorites', ()=>{
-            const id= "11804"
-            let data
-
-            beforeEach(() => {
-
-                user.favorites.push(id)
-
-                return call('https://skylabcoders.herokuapp.com/api/user', 'post', { 'content-type': 'application/json' }, user)
-                .then(response =>{
-                    if(response.status === 'KO')throw new Error(response.error)
-
-                    return call('https://skylabcoders.herokuapp.com/api/auth','post',{ 'content-type': 'application/json' }, { username: user.username, password: user.password })
-                    .then(response => {
-                        if(response.status === 'KO')throw new Error(response.error)
-
-                        data = response.data
-                    })
-                })
-            })
-
-            it('should succeed on valid id',()=>
-            logic.retrieveMovie(data.id, data.token, id)
-            .then(movie => {
-                    expect(movie.movieComplete.vote_count).toBeDefined()
-                    expect(movie.movieComplete.id).toBeDefined()
-                    expect(movie.movieComplete.video).toBeDefined()
-                    expect(movie.movieComplete.title).toBeDefined()
-                    expect(movie.movieComplete.popularity).toBeDefined()
-                    expect(movie.movieComplete.poster_path).toBeDefined()
-                    expect(movie.movieComplete.original_language).toBeDefined()
-                    expect(movie.movieComplete.original_title).toBeDefined()
-                    expect(movie.movieComplete.genres).toBeDefined()
-                    expect(movie.movieComplete.backdrop_path).toBeDefined()
-                    expect(movie.movieComplete.adult).toBeDefined()
-                    expect(movie.movieComplete.overview).toBeDefined()
-                    expect(movie.movieComplete.release_date).toBeDefined()
-                    expect(movie.director).toBeDefined()
-                    expect(movie.mainCast).toBeDefined()
-                    expect(movie.favorite).toBeUndefined()
-            }))
-            it('should fail on non valid id', () => {
-                const id = 'fsfesf'
-                return logic.retrieveMovie(data.id, data.token, id)
-                .then(response => expect(response).toBeUndefined())
-                .catch(error => expect(error).toBeDefined())
-            })
-
-            it('should fail with emtpy id', () => 
-                expect(()=>
-                    logic.retrieveMovie(data.id, data.token, '')
-                ).toThrowError(Error, 'movie id is empty or blank')
-            )
-                   
-
-            it('should fail with no string id', () => 
-                expect(()=>
-                    logic.retrieveMovie(data.id, data.token, undefined)
-                ).toThrowError(Error, 'movie id with value undefined is not a string')
-            )
-
-            
         })
     })
-   
-}
+
+    it('should throw an error because genreID is not a number', () => {
+
+        let o = id
+        expect(name).toBeDefined()
+
+    })
+
+
+    it('should retrieve movieId correctly', done => {
+
+        let movieId = 475557
+        let userToken = token
+        let userID = id
+        let error = cresult.error
+        let result = cresult
+
+
+        retrieveMovie(movieId, userToken, userID, (error, result) => {
+
+            expect(error).toBeUndefined()
+            expect(result).toBeDefined()
+                //expect(result.results instanceof Array).toBeTruthy()
+            debugger
+
+            expect(result.poster).toBe("https://image.tmdb.org/t/p/original/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg")
+            expect(result.title).toBe("Joker")
+
+            // expect(typeof element.poster_path === 'string').toBeTruthy()
+            // expect(typeof element.title === 'string').toBeTruthy()
+
+
+            done()
+        })
+
+    })
+
+    it('should use correct userID correctly', (done) => {
+
+        let movieId = 475557
+        let userToken = token
+        let userID = id
+        let error = cresult.error
+        let result = cresult
+
+
+        retrieveMovie(movieId, userToken, userID, (error, result) => {
+            expect(typeof userID).toBe('string')
+            expect(error).toBeUndefined()
+            expect(result).toBeDefined()
+            done()
+        })
+
+    })
+
+    it('should retrieve movieId correctly', (done) => {
+
+        let movieId = 475557
+        let userToken = token
+        let userID = id
+        let error = cresult.error
+        let result = cresult
+
+
+        retrieveMovie(movieId, userToken, userID, (error, result) => {
+
+            expect(error).toBeUndefined()
+            expect(result).toBeDefined()
+            expect(typeof userToken).toBe('string')
+            done()
+        })
+
+    })
+
+})
