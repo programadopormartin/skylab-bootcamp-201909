@@ -19,8 +19,6 @@ function retrieveMovie(movieId, userToken, userID, callback) {
                     if (user.error) {
                         callback(new Error(user.error));
                     } else {
-                        debugger
-
 
                         let movie = {}
                         movie.id = movieId
