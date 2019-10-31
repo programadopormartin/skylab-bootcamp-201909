@@ -38,12 +38,11 @@ function retrieveMovie(movieId, userToken, userID, callback) {
                         result.runtime ? movie.runtime = result.runtime : movie.runtime = 'No info, sorry'
                         result.vote_average ? movie.vote_average = result.vote_average : movie.vote_average = 'No info, sorry'
 
-                        (user.data.favs && user.data.favs.includes(result.id)) ? movie.fav = true: movie.fav = false
                         if (user.data.favs) {
                             if (user.data.favs.includes(result.id)) {
-                                movie.fav = false
-                            } else {
                                 movie.fav = true
+                            } else {
+                                movie.fav = false
                             }
                         } else {
                             movie.fav = false

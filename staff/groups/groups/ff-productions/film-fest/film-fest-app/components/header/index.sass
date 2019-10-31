@@ -1,15 +1,11 @@
 @import ../../config
 
-
 i
     font-size: 1rem
 
-
 header
-    height: 30vh
+    height: 23vh
     margin: 0 1rem 0 1rem
-
-
 
 .bar-icon
     background-size: cover
@@ -24,20 +20,23 @@ header
     width: 100vw
     height: 10vh
     display: grid
-    grid-template-columns: repeat(4, 25vw)  
+    grid-template-columns: repeat(4, 25vw)
     grid-template-rows: 15vh 5vh
     &__logo
         grid-area: 1 / 1 / 2 / 2
+        height: 15vh
+        width: 16vh
     &__search
         grid-area: 1 / 2 / 2 / 4
         display: flex
         flex-wrap: nowrap
         align-items: center
-        margin: 0 
+        margin: 0
+
         .search-bar__search
             padding: 0.6rem
             margin-left: 0.5 rem
-            margin-right: -2rem
+            margin-right: -3rem
             background-color: $color2
             border: solid thin $color2
             color: $colorFont
@@ -78,3 +77,29 @@ header
     cursor: pointer
     font-weight: bolder
     background-color: $color2
+
+.search-buton
+    background-color: $color2
+    border: none
+    color: $colorFont
+
+.search-bar
+    margin-left: 5vw
+
+.main-bar__drop-down-list
+    display: none
+    z-index: 1
+    position: absolute
+    top: 4vh
+    background-color: $color2
+    border-radius:1rem 1rem 1rem 1rem
+    font-size: .8rem
+.main-bar__genre
+    position: relative
+
+
+.main-bar__genre:hover  .main-bar__drop-down-list 
+    display: block
+
+.main-bar__drop-down-list
+    padding: 1rem
