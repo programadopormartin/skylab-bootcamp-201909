@@ -1,5 +1,8 @@
 function retrieveMovie(movieId, userToken, userID, callback) {
     validate.number(movieId)
+    validate.string(userToken)
+    validate.string(userID)
+    validate.function(callback)
 
     const apiKey = '5396c3e7196bcc564336e933d566130b'
 

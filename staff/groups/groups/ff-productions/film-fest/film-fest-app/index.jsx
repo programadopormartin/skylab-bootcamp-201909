@@ -103,7 +103,6 @@ class App extends Component {
     }
 
     handleGoWatchlist = () => {
-        debugger
         try {
             if (sessionStorage.id && sessionStorage.token) {
                 retrieveWatchlistMovies(sessionStorage.id, sessionStorage.token, (error, movies) => {
@@ -133,7 +132,6 @@ class App extends Component {
     }
 
     handleGoMovieSpecs = (movieId) => {
-        debugger
         try {
             if (sessionStorage.id && sessionStorage.token) {
                 retrieveMovie(movieId, sessionStorage.token, sessionStorage.id, (error, movie) => {
@@ -177,14 +175,11 @@ class App extends Component {
                     if (result.error) {
                         this.setState({ error: result.error })
                     } else {
-                        debugger
                         try{
                         retrieveWatchlistMovies(sessionStorage.id, sessionStorage.token, (error, movies) => {
-                            debugger
                             error ? this.setState({ error }) : this.setState({ view: 'watchlist', movies })
                         })
                     } catch(error){
-                        debugger
                         this.setState({ error: error.message })
                     }
                     }
