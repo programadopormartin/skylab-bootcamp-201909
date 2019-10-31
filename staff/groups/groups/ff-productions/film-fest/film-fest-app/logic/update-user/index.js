@@ -1,4 +1,4 @@
-function updateUser(name, surname, email,password, passwordConfirmation, id, token, callback) {
+function updateUser(name, surname, email, password, passwordConfirmation, id, token, callback) {
 
     validate.string(name)
     validate.string.notVoid('name', name)
@@ -15,9 +15,8 @@ function updateUser(name, surname, email,password, passwordConfirmation, id, tok
     validate.string(token)
     validate.string.notVoid('token', token)
     validate.function(callback)
-  
-    passwordConfirmation !== password ? callback (new Error('password do not match')) : call('PUT', undefined, 'https://skylabcoders.herokuapp.com/api/user/' + id, {name, surname, username: email, password}, result => {
-        result.error ? callback(new Error(result.error)) : callback(undefined, result.data)        
+
+    passwordConfirmation !== password ? callback(new Error('password do not match')) : call('PUT', undefined, 'https://skylabcoders.herokuapp.com/api/user/' + id, { name, surname, username: email, password }, result => {
+        result.error ? callback(new Error(result.error)) : callback(undefined, result.data)
     })
 }
-    

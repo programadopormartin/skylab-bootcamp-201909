@@ -4,7 +4,7 @@ const { id, token } = sessionStorage
 
 class App extends Component {
 
-    constructor() {
+    constructor() {debugger
         super()
         this.state = {view:'login', error: undefined, query: undefined, user: undefined, movies: undefined, title: 'Pepito' }
     }
@@ -24,7 +24,7 @@ class App extends Component {
         })
     }
 
-    handleLogin = (username, password) => {
+    handleLogin = (username, password) => {debugger
         try {
             authenticateUser(username, password, (error, data) => {
                 if (error) this.setState({ error: error.message })
@@ -35,7 +35,7 @@ class App extends Component {
                         sessionStorage.id = id
                         sessionStorage.token = token
 
-                        retrieveUser(id, token, (error, user) => {
+                        retrieveUser(id, token, (error, user) => {debugger
                             if (error) this.setState({ error: error.message })
                             else {
                                 this.setState({ view: 'landing', user: user })
@@ -102,8 +102,17 @@ class App extends Component {
         })
     }
 
-    handleSave = () => {
-        this.setState({ view: 'landing' })    
+    handleSave = (name, surname, email, password, passwordConfirmation) => {
+        
+        try {
+            updateUser(name, surname, email, password, passwordConfirmation, error => {
+                if (error) this.setState({ error: error.message })
+                else this.setState({ view: 'landing' })
+            })
+        } catch (error) {
+            this.setState({ error: error.message })
+        }   
+      
     }
 
     handleSignOut = () =>{
