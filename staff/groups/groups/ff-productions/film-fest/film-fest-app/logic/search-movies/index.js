@@ -1,4 +1,6 @@
-function searchMovies(searchQuery, callback) {
+function searchMovies(searchQuery, callback) {   
+    validate.function(callback)
+    validate.string(searchQuery)
     call('GET', undefined, `https://api.themoviedb.org/3/search/movie?api_key=5396c3e7196bcc564336e933d566130b&language=en-US&query=${searchQuery}&page=1&include_adult=false`, undefined, result => {
 
         if (result.status_message) {

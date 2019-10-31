@@ -1,11 +1,7 @@
 function MovieSpecs({ movie, onToggleFavSpecs, error, user }) {
-    console.log(movie.poster)
     return <section className="view specs">
         <img className="specs__image" src={movie.poster} />
-       
-
         <h2 className="specs__title">{movie.title}</h2>
-        
 
         {( typeof user !== 'undefined') && ((movie.fav !==true) ?  <>
         <div className="watchlist" onClick={event=>{
@@ -22,8 +18,6 @@ function MovieSpecs({ movie, onToggleFavSpecs, error, user }) {
         <p className="watchlist__title">Remove from watchlist</p>
         <i className="material-icons">remove_circle</i></div></>)}
 
-            
-        
         {error && <Feedback message={error} />}
         <p className="specs__description">{movie.description}</p>
         <p className="specs__genre">{movie.genre}</p>

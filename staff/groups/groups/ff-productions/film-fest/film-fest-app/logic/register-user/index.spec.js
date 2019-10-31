@@ -29,7 +29,6 @@ describe('logic - register user', () => {
 
         it('should fail on already existing user', done => {
             registerUser(name, surname, email, password, password, (error, response) => {
-                debugger
                 expect(response).toBeUndefined()
                 expect(error).toBeDefined()
 
