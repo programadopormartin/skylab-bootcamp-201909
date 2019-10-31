@@ -24,7 +24,7 @@ function retrieveMovie(movieId, userToken, userID, callback) {
 
                         let movie = {}
                         movie.id = movieId
-                        result.poster_path ? movie.poster = result.poster_path : movie.poster = 'No info, sorry'
+                        result.poster_path === null ? (movie.poster = '../film-fest-design/img/notfound.jpeg') : movie.poster = "https://image.tmdb.org/t/p/original" + result.poster_path
                         result.original_title ? movie.title = result.original_title : movie.title = 'No info, sorry'
                         result.overview ? movie.description = result.overview : movie.description = 'No info, sorry'
                         if (result.genres) {
@@ -55,7 +55,9 @@ function retrieveMovie(movieId, userToken, userID, callback) {
 
                 let movie = {};
                 movie.id = movieId
-                result.poster_path ? movie.poster = result.poster_path : movie.poster = 'No info, sorry'
+                result.poster_path === null ? (movie.poster = '../film-fest-design/img/notfound.jpeg') : movie.poster = "https://image.tmdb.org/t/p/original" + result.poster_path
+
+
                 result.original_title ? movie.title = result.original_title : movie.title = 'No info, sorry'
                 result.overview ? movie.description = result.overview : movie.description = 'No info, sorry'
                 if (result.genres) {

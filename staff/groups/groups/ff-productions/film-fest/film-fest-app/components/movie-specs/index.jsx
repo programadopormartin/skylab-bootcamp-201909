@@ -1,7 +1,7 @@
 function MovieSpecs({ movie, onToggleFavSpecs, error, user }) {
-    console.log(movie)
+    console.log(movie.poster)
     return <section className="view specs">
-        <img className="specs__image" src={"https://image.tmdb.org/t/p/original" + movie.poster} />
+        <img className="specs__image" src={movie.poster} />
        
 
         <h2 className="specs__title">{movie.title}</h2>

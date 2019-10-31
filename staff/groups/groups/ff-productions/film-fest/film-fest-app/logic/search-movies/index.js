@@ -5,8 +5,10 @@ function searchMovies(searchQuery, callback) {
             callback(new Error(result.status_message))
         } else {
             result.results.forEach(element => {
-                element.poster_path === null && (element.poster_path = '../film-fest-design/img/notfound.jpeg')
+                element.poster_path === null ? (element.poster_path = '../film-fest-design/img/notfound.jpeg') :element.poster_path ="https://image.tmdb.org/t/p/original/"+element.poster_path
+                
             });
+            console.log(result.results)
             callback(undefined, result)
         }
 
