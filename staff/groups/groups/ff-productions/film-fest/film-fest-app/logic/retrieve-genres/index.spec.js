@@ -1,27 +1,5 @@
 describe('retrieve genres', () => {
 
-    it('should retrieve movies correctly', done => {
-
-        retrieveGenres((error, result) => {
-            expect(error).toBeUndefined()
-            expect(result).toBeDefined()
-            expect(result.results instanceof Array).toBeTruthy()
-
-            expect(result.results.lenght === 20).toBeFalsy()
-
-            result.results.forEach(element => {
-                expect(element.poster_path).toBeDefined()
-                expect(element.title).toBeDefined()
-                expect(element.id).toBeDefined()
-
-                expect(typeof element.id === 'number').toBeTruthy()
-                expect(typeof element.poster_path === 'string').toBeTruthy()
-                expect(typeof element.title === 'string').toBeTruthy()
-            });
-            done()
-        })
-    })
-
 
     it('should throw an error because ID is not a number', () => {
         const id = undefined
@@ -47,10 +25,6 @@ describe('retrieve genres', () => {
         expect(() => retrieveGenres(id, undefined)).toThrowError(TypeError, id + ' is not a function')
         expect(() => retrieveGenres(id, null)).toThrowError(TypeError, id + ' is not a function')
     })
-
-
-
-
 
 })
 
