@@ -38,10 +38,9 @@ describe('retrieve-genre-by-id', () => {
 
     })
 
-    it('should throw an error because calback is not a function', () => {
+    it('should throw an error because callback is not a function', () => {
         const genreID = 123
         const callback = undefined
-        expect(() => retrieveGenreIdMovies(genreID, callback)).toThrowError(TypeError, callback + ' is not a function')
         expect(() => retrieveGenreIdMovies(genreID, callback)).toThrowError(TypeError, callback + ' is not a function')
         expect(() => retrieveGenreIdMovies(genreID, true)).toThrowError(TypeError, 'true is not a function')
         expect(() => retrieveGenreIdMovies(genreID, [])).toThrowError(TypeError, ' is not a function')
