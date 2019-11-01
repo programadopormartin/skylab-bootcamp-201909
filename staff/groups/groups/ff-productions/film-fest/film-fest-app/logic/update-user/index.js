@@ -29,7 +29,6 @@ function updateUser(name, surname, email, password, passwordConfirmation, id, to
     validate.string.notVoid('password', password)
     validate.string(passwordConfirmation)
     validate.string.notVoid('passwordConfirmation', passwordConfirmation)
-    debugger
     validate.string(id)
     validate.string.notVoid('id', id)
     validate.string(token)
