@@ -23,7 +23,7 @@ function registerUser(name, surname, email, password, passwordConfirmation, call
     validate.string.notVoid('passwordConfirmation', passwordConfirmation)
     validate.function(callback)
 
-    passwordConfirmation !== password ? callback(new Error('passwords do not match')) : call('POST', undefined, 'https://skylabcoders.herokuapp.com/api/user', { name, surname, username: email, password }, result => {
+    passwordConfirmation !== password ? callback(new Error('passwords do not match')) : call('POST', undefined, 'https://skylabcoders.herokuapp.com/api/user', { name, surname, username: email, password, favs: [] }, result => {
         result.error ? callback(new Error(result.error)) : callback(undefined, result);
     })
 }
