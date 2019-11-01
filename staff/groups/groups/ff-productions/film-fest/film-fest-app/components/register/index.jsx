@@ -35,13 +35,18 @@ function Register({ onRegister, onGoLogin, error }) {
                                 <li><span />
                                         <button className="register__submit" >SIGN IN</button>
                                         <span /></li>
+                                <li>
+                                        <span />
+                                        <button className="register__submit" onClick={event => {
+                                                event.preventDefault()
+                                                onGoLogin()
+                                        }}>LOGIN!</button>
+                                        <span />
+                                </li>
                         </ul>
                 </form>
                 <span />
-                <button className="register__submit" onClick={event => {
-                        event.preventDefault()
-                        onGoLogin()
-                }}>LOGIN!</button>
+
                 <span />
 
 

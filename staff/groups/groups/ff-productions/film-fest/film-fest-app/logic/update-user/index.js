@@ -1,3 +1,22 @@
+/**
+ * 
+ * Function receives name, surname, email(username), password, 
+ * passwordConfirmation, id, token and callback,
+ * 
+ * function should make a put into db by user API Rest, on a user 
+ * with specific id and token, put is gonna overwrite the specific fields
+ * 
+ * implements
+ * call-> fetch ->xhr 
+ * @param {string} name 
+ * @param {string} surname 
+ * @param {string} email 
+ * @param {string} password 
+ * @param {string} passwordConfirmation 
+ * @param {string} id 
+ * @param {string} token 
+ * @param {Function} callback 
+ */
 function updateUser(name, surname, email, password, passwordConfirmation, id, token, callback) {
 
     validate.string(name)
@@ -18,6 +37,9 @@ function updateUser(name, surname, email, password, passwordConfirmation, id, to
     validate.function(callback)
 
     passwordConfirmation !== password ? callback(new Error('password do not match')) : call('PUT', token, 'https://skylabcoders.herokuapp.com/api/user/' + id, { name, surname, username: email, password }, result => {
+
         result.error ? callback(new Error(result.error)) : callback(undefined, result.data)
+
     })
+
 }

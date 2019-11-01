@@ -1,3 +1,11 @@
+/**
+ * Function receives a genreId and should return an
+ * array of movies mathced by genre 
+ * call-> fetch ->xhr 
+ * 
+ * @param {number} genreID 
+ * @param {Function} callback 
+ */
 function retrieveGenreIdMovies(genreID, callback) {
     validate.number(genreID)
     validate.function(callback)

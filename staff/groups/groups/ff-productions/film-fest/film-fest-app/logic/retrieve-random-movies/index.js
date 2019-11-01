@@ -1,5 +1,11 @@
+/**
+ * Function without parameters,
+ * request for an array of random movies against the database by 
+ * call-> fetch ->xhr 
+ * @param {Function} callback 
+ */
 function retrieveRandomMovies(callback) {
-    validate.function (callback)
+    validate.function(callback)
 
     const page = Math.floor(Math.random() * 100)
     const apiKey = "5396c3e7196bcc564336e933d566130b"

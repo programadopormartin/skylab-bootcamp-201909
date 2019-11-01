@@ -1,3 +1,14 @@
+/**
+ * Function receives anmovieId, userId, userToken,
+ * request for a specific movie against the theMovieDB and looks for match
+ * into userApi  by 
+ * call-> fetch ->xhr 
+ * 
+ * @param {number} movieId 
+ * @param {string} userToken 
+ * @param {string} userID 
+ * @param {function} callback 
+ */
 function retrieveMovie(movieId, userToken, userID, callback) {
     validate.number(movieId)
 
