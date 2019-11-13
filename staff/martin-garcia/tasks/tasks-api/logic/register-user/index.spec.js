@@ -17,44 +17,44 @@ describe('logic - register user', () => {
 
     it('should succeed on correct credentials', () =>
         registerUser(name, surname, email, username, password)
-            .then(response => {
-                expect(response).to.be.undefined
+        .then(response => {
+            expect(response).to.be.undefined
 
-                return fs.readFile(path.join(__dirname, '../../data/users.json'))
-            })
-            .then(json => {
-                const users = JSON.parse(json)
+            return fs.readFile(path.join(__dirname, '../../data/users.json'))
+        })
+        .then(json => {
+            const users = JSON.parse(json)
 
-                const user = users.find(user => user.username === username)
+            const user = users.find(user => user.username === username)
 
-                expect(user).to.exist
+            expect(user).to.exist
 
-                expect(user.name).to.equal(name)
-                expect(user.surname).to.equal(surname)
-                expect(user.email).to.equal(email)
-                expect(user.username).to.equal(username)
-                expect(user.password).to.equal(password)
-            })
+            expect(user.name).to.equal(name)
+            expect(user.surname).to.equal(surname)
+            expect(user.email).to.equal(email)
+            expect(user.username).to.equal(username)
+            expect(user.password).to.equal(password)
+        })
     )
 
     describe.skip('when user already exists', () => {
         beforeEach(done => {
-            
+
         })
 
         it('should fail on already existing user', () =>
             registerUser(name, surname, email, password)
-                .then(() => {
-                    throw Error('should not reach this point')
-                })
-                .catch(error => {
-                    expect(error).to.exist
+            .then(() => {
+                throw Error('should not reach this point')
+            })
+            .catch(error => {
+                expect(error).to.exist
 
-                    expect(error.message).to.exist
-                    expect(typeof error.message).to.equal('string')
-                    expect(error.message.length).to.be.greaterThan(0)
-                    expect(error.message).to.equal(`user with username "${email}" already exists`)
-                })
+                expect(error.message).to.exist
+                expect(typeof error.message).to.equal('string')
+                expect(error.message.length).to.be.greaterThan(0)
+                expect(error.message).to.equal(`user with username "${email}" already exists`)
+            })
         )
     })
 
