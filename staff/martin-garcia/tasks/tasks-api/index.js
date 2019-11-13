@@ -13,6 +13,7 @@ api.post('/users', jsonBodyParser, (req, res) => {
     const { body: { name, surname, email, username, password } } = req
 
     registerUser(name, surname, email, username, password)
+        .then
 
     res.json({
         message: `ok, registered :P ${name} ${surname} ${email} ${username} ${password}`
