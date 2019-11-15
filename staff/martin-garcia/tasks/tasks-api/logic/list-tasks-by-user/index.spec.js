@@ -1,15 +1,14 @@
 const { expect } = require('chai')
 const users = require('../../data/users')('test')
 const tasks = require('../../data/tasks')('test')
-const createTask = require('.')
+const listTasks = require('.')
 const { random } = Math
 const uuid = require('uuid')
 
-describe('logic - create task', () => {
+describe.only('logic - list tasks', () => {
     before(() => Promise.all([users.load(), tasks.load()]))
 
-    let id, name, surname, email, username, password
-    let taskId, title, description, user, status, date
+    let id, name, surname, email, username, password, title, description
 
     beforeEach(() => {
         id = uuid()
@@ -23,6 +22,9 @@ describe('logic - create task', () => {
 
         title = `title-${random()}`
         description = `description-${random()}`
+
+
+
     })
 
     it('should succeed on correct user and task data', () =>
