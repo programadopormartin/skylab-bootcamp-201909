@@ -3,5 +3,6 @@ module.exports = {
     authenticateUser: require('./authenticate-user'),
     retrieveUser: require('./retrieve-user'),
     listTasks: require('./list-tasks-by-user'),
-    createTask: require('./create-task')
+    createTask: require('./create-task'),
+    modifyTask: require('./modify-task')
 }
