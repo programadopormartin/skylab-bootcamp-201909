@@ -1,4 +1,4 @@
-const fs = require('fs').promises
+const DataManager = require('./../../utils/data-manager')
 const path = require('path')
 const validate = require('../../utils/validate')
 
@@ -8,19 +8,6 @@ module.exports = function(name = 'index') {
     validate.string(name)
     validate.string.notVoid('name', name)
 
-    return manager ? manager : manager = {
-        load() {
-            return this.users ? Promise.resolve() : fs.readFile(path.join(__dirname, `./${name}.json`))
-                .then(json => JSON.parse(json))
-                .then(users => { this.users = users })
-        },
+    return manager ? manager : manager = new DataManager(path.join(__dirname, `./${name}.json`))
 
-        persist() {
-            return fs.writeFile(path.join(__dirname, `./${name}.json`), JSON.stringify(this.users, undefined, 4))
-        },
-
-        get data() {
-            return this.users
-        }
-    }
 }

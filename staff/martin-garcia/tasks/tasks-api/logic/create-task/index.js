@@ -12,8 +12,9 @@ module.exports = function(userId, title, description) {
     validate.string.notVoid('title', title)
     validate.string(description)
     validate.string.notVoid('description', description)
-
+    debugger
     return new Promise((resolve, reject) => {
+        debugger
         const user = users.data.find(user => user.id === userId)
 
         if (!user) return reject(new NotFoundError(`user with id ${userId} not found`))
