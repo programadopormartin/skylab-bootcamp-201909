@@ -1,6 +1,6 @@
 const validate = require('../../utils/validate')
-const users = require('../../data/users')()
 const { CredentialsError } = require('../../utils/errors')
+const database = require('../../utils/database')
 
 module.exports = function(username, password) {
     validate.string(username)
@@ -8,16 +8,23 @@ module.exports = function(username, password) {
     validate.string(password)
     validate.string.notVoid('password', password)
 
-    return new Promise((resolve, reject) => {
+    const client = database()
+    return client.connect()
+        .then(connection => {
+            const users = connection.db().collection('users')
 
-        const user = users.data.find(user => user.username === username && user.password === password)
+            return users.findOne({ username, password })
+                .then(user => {
+                    if (!user) throw new CredentialsError('wrong credentials')
 
-        if (!user) return reject(new CredentialsError('wrong credentials'))
+                    const { _id } = user
 
-        user.lastAcces = new Date
+                    return users.updateOne({ _id }, { $set: { lastAccess: new Date } })
+                        .then(result => {
+                            if (!result.modifiedCount) throw Error('could not update user')
 
-        users.persist()
-            .then(() => resolve(user.id))
-            .catch(reject)
-    })
+                            return _id.toString()
+                        })
+                })
+        })
 }

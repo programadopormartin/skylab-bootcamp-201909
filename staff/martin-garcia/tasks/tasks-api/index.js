@@ -3,23 +3,21 @@ require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const { name, version } = require('./package.json')
-const users = require('./data/users')()
-const tasks = require('./data/tasks')()
 const { registerUser, authenticateUser, retrieveUser, modifyTask, createTask, listTasks } = require('./logic')
 const { ConflictError, CredentialsError, NotFoundError } = require('./utils/errors')
 const jwt = require('jsonwebtoken')
 const api = express()
-const { argv: [, , port], env: { SECRET, PORT = port || 9090 } } = process
+const { argv: [, , port], env: { SECRET, PORT = port || 9090, DB_URL } } = process
 const jsonBodyParser = bodyParser.json()
 const tokenVerifier = require('./utils/token/token-verifier')(SECRET)
+const database = require('./utils/database')
 
 
 api.post('/users', jsonBodyParser, (req, res) => {
-    debugger
     const { body: { name, surname, email, username, password } } = req
     try {
         registerUser(name, surname, email, username, password)
-            .then(() => res.json({ message: 'user registered succesessfully' }))
+            .then(() => res.status(201).end())
             .catch(error => {
                 if (error instanceof ConflictError)
                     return res.status(409).json({ message: error.message })
@@ -127,5 +125,10 @@ api.patch('/tasks/:taskId', tokenVerifier, jsonBodyParser, (req, res) => {
     }
 })
 
-Promise.all([users.load(), tasks.load()])
+api.delete('/tasks/:taskId', tokenVerifier, (req, res) => {
+    res.send('TODO puto vago')
+})
+
+database(DB_URL)
+    .connect()
     .then(() => api.listen(PORT, () => console.log(`${name} ${version} up and running on port ${PORT}`)))
