@@ -1,47 +1,42 @@
 const validate = require('../../utils/validate')
 const { NotFoundError } = require('../../utils/errors/not-found-error')
-const database = require('../../utils/database')
-const { ObjectId } = database
+const { models: { User, Task } } = require('../../data')
+const { Types: { ObjectId } } = require('mongoose')
 
 module.exports = function(id) {
     validate.string(id)
     validate.string.notVoid('id', id)
 
-    const client = database()
-    return client.connect()
-        .then(connection => {
-            const tasks = connection.db().collection('tasks')
-            const users = connection.db().collection('users')
-
-            return users.findOne({ _id: ObjectId(id) })
-                .then(user => {
-
-                    if (!user) throw new NotFoundError(`user with id ${id} not found`)
 
 
-                    return tasks.find({ "user": id }).toArray()
-                })
-                .then((_tasks) => {
-                    if (!_tasks) throw new NotFoundError(`_tasks not found`)
-                    const lastAcces = new Date
+    return User.findOne({ _id: ObjectId(id) })
+        .then(user => {
 
-                    const updates = _tasks.map(({ _id }) => tasks.updateOne({ _id }, { $set: { lastAcces } }))
-
-                    return Promise.all(updates)
-                        .then(() => {
+            if (!user) throw new NotFoundError(`user with id ${id} not found`)
 
 
-                            _tasks.forEach(element => {
-                                element.id = element._id.toString()
-                                delete element._id
+            return Task.find({ "user": id })
+        })
+        .then((_tasks) => {
+            if (!_tasks) throw new NotFoundError(`_tasks not found`)
+            const lastAcces = new Date
 
-                                element.lastAcces = lastAcces
-                            });
+            const updates = _tasks.map(({ _id }) => Task.updateOne({ _id }, { $set: { lastAcces } }))
 
-                            return _tasks
+            return Promise.all(updates)
+                .then(() => {
 
-                        })
+
+                    _tasks.forEach(element => {
+                        element.id = element._id.toString()
+                        delete element._id
+
+                        element.lastAcces = lastAcces
+                    });
+
+                    return _tasks
 
                 })
+
         })
 }

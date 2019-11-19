@@ -1,7 +1,7 @@
-const database = require('../../utils/database')
 const validate = require('../../utils/validate')
 const { NotFoundError } = require('../../utils/errors')
-const { ObjectId } = database
+const { Types: { ObjectId } } = require('mongoose')
+const { models: { User, Task } } = require('../../data')
 
 
 module.exports = function(userId, taskId) {
@@ -11,25 +11,18 @@ module.exports = function(userId, taskId) {
     validate.string(taskId)
     validate.string.notVoid('taskId', taskId)
 
-    const cliente = database()
 
-    return cliente.connect()
-        .then(connection => {
-            debugger
-            const users = connection.db().collection('users')
-            const tasks = connection.db().collection('tasks')
 
-            return users.findOne({ "_id": ObjectId(userId) })
-                .then(_user => {
-                    if (!_user) throw new NotFoundError(`user with id ${id} not found`)
-                    return tasks.findOne({ "_id": ObjectId(taskId) })
-                        .then(_task => {
-                            if (!_task) throw new NotFoundError(`task with id ${taskId} not found`)
 
-                            tasks.deleteOne({ "_id": ObjectId(taskId) })
-                                .then(result => { return {} })
-                        })
+    return User.findOne({ _id: ObjectId(userId) })
+        .then(_user => {
+            if (!_user) throw new NotFoundError(`user with id ${id} not found`)
+            return Task.findOne({ _id: ObjectId(taskId) })
+                .then(_task => {
+                    if (!_task) throw new NotFoundError(`task with id ${taskId} not found`)
 
+                    return Task.deleteOne({ _id: ObjectId(taskId) })
                 })
+                .then(() => { return {} })
         })
 }

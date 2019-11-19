@@ -8,7 +8,6 @@ module.exports = function(username, password) {
     validate.string(password)
     validate.string.notVoid('password', password)
 
-    debugger
     return User.findOne({ username, password })
         .then(user => {
             if (!user) throw new CredentialsError('wrong credentials')

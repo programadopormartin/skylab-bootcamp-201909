@@ -73,7 +73,7 @@ api.post('/tasks', tokenVerifier, jsonBodyParser, (req, res) => {
     try {
         const { id, body: { title, description } } = req
         createTask(id, title, description)
-            .then(id => res.status(201).json({ id }))
+            .then(() => res.status(201).end())
             .catch(error => {
                 if (error instanceof NotFoundError) return res.status(404), json({ message: error.message })
 
