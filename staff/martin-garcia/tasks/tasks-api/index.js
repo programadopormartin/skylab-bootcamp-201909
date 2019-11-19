@@ -10,7 +10,7 @@ const api = express()
 const { argv: [, , port], env: { SECRET, PORT = port || 9090, DB_URL } } = process
 const jsonBodyParser = bodyParser.json()
 const tokenVerifier = require('./utils/token/token-verifier')(SECRET)
-const database = require('./utils/database')
+const { database } = require('./data')
 
 
 api.post('/users', jsonBodyParser, (req, res) => {
@@ -137,6 +137,5 @@ api.delete('/tasks/:taskId', tokenVerifier, (req, res) => {
     }
 })
 
-database(DB_URL)
-    .connect()
+database.connect(DB_URL)
     .then(() => api.listen(PORT, () => console.log(`${name} ${version} up and running on port ${PORT}`)))

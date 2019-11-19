@@ -3,7 +3,7 @@ const users = require('../../data/users')('test')
 const registerUser = require('.')
 const { ContentError } = require('../../utils/errors')
 
-describe('logic - register user', () => {
+describe.only('logic - register user', () => {
     before(() => users.load())
 
     let name, surname, email, username, password
