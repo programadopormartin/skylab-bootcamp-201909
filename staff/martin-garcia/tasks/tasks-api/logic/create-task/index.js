@@ -27,7 +27,7 @@ module.exports = function(userId, title, description) {
                         .then(result => {
 
                             if (!result.insertedId) throw new Error('failed to create task')
-                            return result.insertedId
+                            return result.insertedId.toString()
                         })
 
                 })
