@@ -3,7 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const { name, version } = require('./package.json')
-const { registerUser, authenticateUser, retrieveUser, modifyTask, createTask, listTasks } = require('./logic')
+const { registerUser, authenticateUser, retrieveUser, modifyTask, createTask, listTasks, deleteTask } = require('./logic')
 const { ConflictError, CredentialsError, NotFoundError } = require('./utils/errors')
 const jwt = require('jsonwebtoken')
 const api = express()
@@ -31,9 +31,7 @@ api.post('/users', jsonBodyParser, (req, res) => {
 
 api.post('/auth', jsonBodyParser, (req, res) => {
     const { body: { username, password } } = req
-    debugger
     try {
-        debugger
         authenticateUser(username, password)
             .then(id => {
                 const token = jwt.sign({ sub: id }, SECRET, { expiresIn: '1d' })
@@ -56,7 +54,7 @@ api.get('/users', tokenVerifier, (req, res) => {
         const { id } = req
 
         retrieveUser(id)
-            .then(user => res.json({ user }))
+            .then(user => res.json(user))
             .catch(error => {
                 if (error instanceof NotFoundError)
                     return res.status(404).json({ message: error.message })
@@ -77,9 +75,9 @@ api.post('/tasks', tokenVerifier, jsonBodyParser, (req, res) => {
         createTask(id, title, description)
             .then(id => res.status(201).json({ id }))
             .catch(error => {
-                if (error instanceof NotFoundError) return res.status(404), json({ message })
+                if (error instanceof NotFoundError) return res.status(404), json({ message: error.message })
 
-                res.status(500).json({ message })
+                res.status(500).json({ message: error.message })
             })
     } catch ({ message }) {
         res.status(400).json({ message })
@@ -94,9 +92,9 @@ api.get('/tasks', tokenVerifier, (req, res) => {
         listTasks(id)
             .then(tasks => res.json(tasks))
             .catch(error => {
-                if (error instanceof NotFoundError) return res.send(404).json({ message })
+                if (error instanceof NotFoundError) return res.send(404).json({ message: error.message })
 
-                res.status(500).json({ message })
+                res.status(500).json({ message: error.message })
 
             })
     } catch ({ message }) {
@@ -106,15 +104,13 @@ api.get('/tasks', tokenVerifier, (req, res) => {
 
 api.patch('/tasks/:taskId', tokenVerifier, jsonBodyParser, (req, res) => {
     try {
-        debugger
         const { id, params: { taskId }, body: { title, description, status } } = req
 
         modifyTask(id, taskId, title, description, status)
             .then(() => res.end())
             .catch(error => {
-                debugger
-                if (error instanceof NotFoundError) return res.status(404).json({ message })
-                if (error instanceof ConflictError) return res.status(409).json({ message })
+                if (error instanceof NotFoundError) return res.status(404).json({ message: error.message })
+                if (error instanceof ConflictError) return res.status(409).json({ message: error.message })
                 res.status(500).json(error.message)
             })
     } catch ({ message }) {
@@ -124,7 +120,21 @@ api.patch('/tasks/:taskId', tokenVerifier, jsonBodyParser, (req, res) => {
 })
 
 api.delete('/tasks/:taskId', tokenVerifier, (req, res) => {
-    res.send('TODO puto vago')
+    try {
+        const { id, params: { taskId } } = req
+        deleteTask(id, taskId)
+            .then(() => res.end())
+            .catch(error => {
+                debugger
+                if (error instanceof NotFoundError) return res.status(404).json({ message: error.message })
+                if (error instanceof ConflictError) return res.status(409).json({ message: error.message })
+                res.status(500).json(error.message)
+            })
+
+
+    } catch ({ message }) {
+        return res.status(400).json({ message })
+    }
 })
 
 database(DB_URL)

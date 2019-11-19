@@ -1,6 +1,6 @@
-const validate = require("../../utils/validate")
-const users = require('../../data/users')()
-const tasks = require('../../data/tasks')()
+const validate = require('../../utils/validate')
+const database = require('../../utils/database')
+const { ObjectId } = database
 const { NotFoundError, ConflictError } = ('../../utils/errors')
 
 
@@ -19,26 +19,39 @@ module.exports = function(id, taskId, title, description, status) {
     }
     if (status) {
         validate.string(status)
-        validate.string.notVoid(status)
+        validate.string.notVoid('status', status)
         validate.matches('status', status, 'TODO', 'DOING', 'REVIEW', 'DONE')
     }
 
-    return new Promise((resolve, reject) => {
-        debugger
-        const user = users.data.find(user => user.id === id)
+    const client = database()
 
-        if (!user) return reject(new NotFoundError(`user with id ${id} not found`))
+    return client.connect()
+        .then(connection => {
 
-        const task = tasks.data.find(({ id }) => id === taskId)
+            const users = connection.db().collection('users')
+            const tasks = connection.db().collection('tasks')
 
-        if (!task) return reject(new NotFoundError(`user does not have task with id ${taskId}`))
-        if (task.user !== id) return reject(new ConflictError(`user with id ${id} does not correspond to task with id ${taskId}`))
 
-        title && (task.title = title)
-        description && (task.description = description)
-        status && (task.status = status)
-        task.lastAcces = new Date
 
-        tasks.persist().then(resolve).catch(reject)
-    })
+            return users.findOne({ "_id": ObjectId(id) })
+                .then(user => {
+
+                    if (!user) throw new NotFoundError(`user with id ${id} not found`)
+
+                    return tasks.findOne({ "_id": ObjectId(taskId) })
+                        .then(task => {
+                            if (!task) return reject(new NotFoundError(`user does not have task with id ${taskId}`))
+                            if (task.user !== id) return reject(new ConflictError(`user with id ${id} does not correspond to task with id ${taskId}`))
+
+                            if (!title) title = task.title
+                            if (!description) description = task.description
+                            if (!status) status = task.status
+                            const lastAcces = new Date
+
+                            return tasks.updateOne({ "_id": ObjectId(taskId) }, { $set: { title, description, status, lastAcces } })
+                                .then(result => {})
+
+                        })
+                })
+        })
 }

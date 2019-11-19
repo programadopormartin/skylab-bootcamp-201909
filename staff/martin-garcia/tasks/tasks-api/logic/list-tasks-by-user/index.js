@@ -8,7 +8,6 @@ module.exports = function(id) {
     validate.string.notVoid('id', id)
 
     const client = database()
-    debugger
     return client.connect()
         .then(connection => {
             const tasks = connection.db().collection('tasks')
@@ -24,7 +23,7 @@ module.exports = function(id) {
                         .then((_tasks) => {
 
 
-                            debugger
+
                             if (!_tasks) throw new NotFoundError(`_tasks not found`)
 
                             _tasks.forEach(element => element.lastAcces = new Date);
