@@ -1,19 +1,24 @@
+require('dotenv').config()
+const { env: { DB_URL_TEST } } = process
 const { expect } = require('chai')
-const users = require('../../data/users')('test')
 const registerUser = require('.')
 const { ContentError } = require('../../utils/errors')
+const { random } = Math
+const { database, models: { User } } = require('../../data')
 
-describe.only('logic - register user', () => {
-    before(() => users.load())
+describe('logic - register user', () => {
+    before(() => database.connect(DB_URL_TEST))
 
     let name, surname, email, username, password
 
     beforeEach(() => {
-        name = `name-${Math.random()}`
-        surname = `surname-${Math.random()}`
-        email = `email-${Math.random()}@mail.com`
-        username = `username-${Math.random()}`
-        password = `password-${Math.random()}`
+        name = `name-${random()}`
+        surname = `surname-${random()}`
+        email = `email-${random()}@mail.com`
+        username = `username-${random()}`
+        password = `password-${random()}`
+
+        return User.deleteMany()
     })
 
     it('should succeed on correct credentials', () =>
@@ -21,8 +26,9 @@ describe.only('logic - register user', () => {
         .then(response => {
             expect(response).to.be.undefined
 
-            const user = users.data.find(user => user.username === username)
-            debugger
+            return User.findOne({ username })
+        })
+        .then(user => {
             expect(user).to.exist
 
             expect(user.name).to.equal(name)
@@ -30,35 +36,28 @@ describe.only('logic - register user', () => {
             expect(user.email).to.equal(email)
             expect(user.username).to.equal(username)
             expect(user.password).to.equal(password)
-
-            const { id } = user
-            expect(id).to.exist
-            expect(id).to.be.a('string')
-            expect(id).to.have.length.greaterThan(0)
-
         })
-
     )
 
     describe('when user already exists', () => {
-        beforeEach(() => {
-            users.data.push({ name, surname, email, username, password })
-        })
+        beforeEach(() =>
+            User.create({ name, surname, email, username, password })
+        )
 
-        it('should fail on alRodrigo Sorogoyenready existing user', () => {
+        it('should fail on already existing user', () =>
             registerUser(name, surname, email, username, password)
-                .then(() => {
-                    throw Error('should not reach this point')
-                })
-                .catch(error => {
-                    expect(error).to.exist
+            .then(() => {
+                throw Error('should not reach this point')
+            })
+            .catch(error => {
+                expect(error).to.exist
 
-                    expect(error.message).to.exist
-                    expect(typeof error.message).to.equal('string')
-                    expect(error.message.length).to.be.greaterThan(0)
-                    expect(error.message).to.equal(`user with username "${email}" already exists`)
-                })
-        })
+                expect(error.message).to.exist
+                expect(typeof error.message).to.equal('string')
+                expect(error.message.length).to.be.greaterThan(0)
+                expect(error.message).to.equal(`user with username ${username} already exists`)
+            })
+        )
     })
 
     it('should fail on incorrect name, surname, email, password, or expression type and content', () => {
@@ -107,4 +106,6 @@ describe.only('logic - register user', () => {
     })
 
     // TODO other cases
+
+    after(() => User.deleteMany().then(database.disconnect))
 })
