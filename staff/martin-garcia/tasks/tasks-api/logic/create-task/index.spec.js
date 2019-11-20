@@ -17,14 +17,16 @@ describe('logic - create task', () => {
         username = `username-${random()}`
         password = `password-${random()}`
 
-        return Promise.all([User.deleteMany(), Task.deleteMany()])
-            .then(() => User.create({ name, surname, email, username, password }))
-            .then(user => {
-                id = user.id
+        return (async() => {
+            await Promise.all([User.deleteMany(), Task.deleteMany()])
+            const user = await User.create({ name, surname, email, username, password })
 
-                title = `title-${random()}`
-                description = `description-${random()}`
-            })
+            id = user.id
+
+            title = `title-${random()}`
+            description = `description-${random()}`
+
+        })
 
     })
 
