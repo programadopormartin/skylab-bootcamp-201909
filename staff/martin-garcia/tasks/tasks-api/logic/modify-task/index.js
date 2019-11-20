@@ -23,9 +23,6 @@ module.exports = function(id, taskId, title, description, status) {
         validate.matches('status', status, 'TODO', 'DOING', 'REVIEW', 'DONE')
     }
 
-
-
-
     return User.findOne({ _id: ObjectId(id) })
         .then(user => {
 
@@ -33,18 +30,17 @@ module.exports = function(id, taskId, title, description, status) {
 
             return Task.findOne({ _id: ObjectId(taskId) })
                 .then(task => {
-                    if (!task) return reject(new NotFoundError(`user does not have task with id ${taskId}`))
-                    if (task.user !== id) return reject(new ConflictError(`user with id ${id} does not correspond to task with id ${taskId}`))
+                    if (!task) throw new NotFoundError(`user does not have task with id ${taskId}`)
+                    if (task.user !== id) throw new ConflictError(`user with id ${id} does not correspond to task with id ${taskId}`)
 
-                    if (!title) title = task.title
-                    if (!description) description = task.description
-                    if (!status) status = task.status
-                    const lastAcces = new Date
+                    title && (task.title = title)
+                    description && (task.description = description)
+                    status && (task.status = status)
+                    task.lastAccess = new Date
 
-                    return Task.updateOne({ _id: ObjectId(taskId) }, { $set: { title, description, status, lastAcces } })
-                        .then(result => {})
-
+                    return task.save()
                 })
+                .then(() => {})
 
         })
 }

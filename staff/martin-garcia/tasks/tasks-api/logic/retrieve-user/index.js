@@ -11,15 +11,18 @@ module.exports = function(id) {
 
     return User.findOne({ _id: ObjectId(id) })
         .then(user => {
-            if (!user) return reject(new NotFoundError(`user with id ${id} not found`))
+            if (!user) throw new NotFoundError(`user with id ${id} not found`)
             const { name, surname, email, username } = user
-            const lastAccess = new Date
-
-            return User.updateOne({ _id: ObjectId(id) }, { $set: { lastAccess } })
-                .then(result => {
-                    if (result.nModified === 0) throw Error('could not retrieve user')
-                    return { name, surname, email, username, lastAccess }
-                })
+            user.lastAccess = new Date
+            return user.save()
         })
+        .then(user => {
+            user = user.toObject()
 
+            user.id = user._id.toString()
+            delete user._id
+            delete user.password
+
+            return user
+        })
 }

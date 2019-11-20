@@ -1,4 +1,4 @@
-require('dotenv').config()
+/* require('dotenv').config()
 const { env: { DB_URL_TEST } } = process
 const { expect } = require('chai')
 const { random } = Math
@@ -45,6 +45,7 @@ describe('logic - retrieve user', () => {
                 throw Error('should not reach this point')
             })
             .catch(error => {
+                debugger
                 expect(error).to.exist
                 expect(error).to.be.an.instanceOf(NotFoundError)
                 expect(error.message).to.equal(`user with id ${id} not found`)
@@ -54,4 +55,4 @@ describe('logic - retrieve user', () => {
     // TODO other cases
 
     after(() => User.deleteMany().then(database.disconnect))
-})
+}) */

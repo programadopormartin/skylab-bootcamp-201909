@@ -27,7 +27,7 @@ module.exports = function(id) {
                 .then(() => {
 
 
-                    _tasks.forEach(element => {
+                    _tasks.map(element => {
                         element.id = element._id.toString()
                         delete element._id
 

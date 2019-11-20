@@ -103,7 +103,6 @@ describe('logic - remove task', () => {
                 return deleteTask(id, taskId)
                     .then(() => { throw new Error('should not reach this point') })
                     .catch(error => {
-                        debugger
                         expect(error).to.exist
                             /*  expect(error).to.be.an.instanceOf(ConflictError)
                              expect(error.message).to.equal(`user with id ${id} does not correspond to task with id ${taskId}`) */
