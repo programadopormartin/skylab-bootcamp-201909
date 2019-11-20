@@ -15,11 +15,10 @@ module.exports = function(name, surname, email, username, password) {
     validate.string(password)
     validate.string.notVoid('password', password)
 
-    return User.findOne({ username })
-        .then(user => {
-            if (user) throw new ConflictError(`user with username ${username} already exists`)
+    return (async() => {
+        const user = await User.findOne({ username })
+        if (user) throw new ConflictError(`user with username ${username} already exists`)
 
-            return User.create({ name, surname, email, username, password })
-        })
-        .then(() => {})
+        await User.create({ name, surname, email, username, password })
+    })()
 }

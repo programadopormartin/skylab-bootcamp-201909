@@ -18,9 +18,11 @@ describe('logic - authenticate user', () => {
         username = `username-${random()}`
         password = `password-${random()}`
 
-        return User.deleteMany()
-            .then(() => User.create({ name, surname, email, username, password }))
-            .then(user => id = user.id)
+        return (async() => {
+            await User.deleteMany()
+            const user = await User.create({ name, surname, email, username, password })
+            return id = user.id
+        })()
     })
 
     it('should succeed on correct credentials', () =>

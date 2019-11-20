@@ -11,13 +11,14 @@ module.exports = function(userId, title, description) {
     validate.string(description)
     validate.string.notVoid('description', description)
 
-    return User.findOne(ObjectId(userId))
-        .then(userExist => {
-            if (!userExist) throw new NotFoundError(`user with id ${userId} not found`)
-            const status = 'TODO'
-            const date = new Date
-            const user = userId
-            return Task.create({ title, user, description, status, date })
-        })
-        .then(task => task.id)
+    return (async() => {
+        const userExist = await User.findOne(ObjectId(userId))
+        if (!userExist) throw new NotFoundError(`user with id ${userId} not found`)
+        const status = 'TODO'
+        const date = new Date
+        const user = userId
+        const task = await Task.create({ title, user, description, status, date })
+
+        return task.id
+    })()
 }

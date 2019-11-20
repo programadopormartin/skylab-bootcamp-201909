@@ -55,38 +55,40 @@ describe('logic - list tasks', () => {
             })
     })
 
-    it('should succeed on correct user and task data', () =>
+    it('should succeed on correct user and task data', () => {
+        debugger
+
         listTasks(id)
-        .then(tasks => {
-            expect(tasks).to.exist
-            expect(tasks).to.have.lengthOf(10)
+            .then(tasks => {
+                expect(tasks).to.exist
+                expect(tasks).to.have.lengthOf(10)
 
-            tasks.forEach(task => {
-                expect(task.id).to.exist
-                expect(task.id).to.be.a('string')
-                expect(task.id).to.have.length.greaterThan(0)
-                expect(task.id).be.oneOf(taskIds)
+                tasks.forEach(task => {
+                    expect(task.id).to.exist
+                    expect(task.id).to.be.a('string')
+                    expect(task.id).to.have.length.greaterThan(0)
+                    expect(task.id).be.oneOf(taskIds)
 
-                expect(task.user).to.equal(id)
+                    expect(task.user).to.equal(id)
 
-                expect(task.title).to.exist
-                expect(task.title).to.be.a('string')
-                expect(task.title).to.have.length.greaterThan(0)
-                expect(task.title).be.oneOf(titles)
+                    expect(task.title).to.exist
+                    expect(task.title).to.be.a('string')
+                    expect(task.title).to.have.length.greaterThan(0)
+                    expect(task.title).be.oneOf(titles)
 
-                expect(task.description).to.exist
-                expect(task.description).to.be.a('string')
-                expect(task.description).to.have.length.greaterThan(0)
-                expect(task.description).be.oneOf(descriptions)
+                    expect(task.description).to.exist
+                    expect(task.description).to.be.a('string')
+                    expect(task.description).to.have.length.greaterThan(0)
+                    expect(task.description).be.oneOf(descriptions)
 
-                expect(task.date).to.exist
-                expect(task.date).to.be.an.instanceOf(Date)
+                    expect(task.date).to.exist
+                    expect(task.date).to.be.an.instanceOf(Date)
 
-                expect(task.lastAccess).to.exist
-                expect(task.lastAccess).to.be.an.instanceOf(Date)
+                    expect(task.lastAccess).to.exist
+                    expect(task.lastAccess).to.be.an.instanceOf(Date)
+                })
             })
-        })
-    )
+    })
 
     // TODO other test cases
 

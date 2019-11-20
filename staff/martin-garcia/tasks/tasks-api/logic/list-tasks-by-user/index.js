@@ -7,27 +7,20 @@ module.exports = function(id) {
     validate.string(id)
     validate.string.notVoid('id', id)
 
-
-
-    return User.findById(id)
-        .then(user => {
-
+    return (async() => {
+            const user = await User.findById(id)
             if (!user) throw new NotFoundError(`user with id ${id} not found`)
 
+            await Task.updateMany({ user: id }, { $set: { lastAccess: new Date } })
 
-            return Task.updateMany({ user: id }, { $set: { lastAccess: new Date } })
-        })
-        .then(() => Task.find({ user: id }).lean())
-        .then(tasks => {
+            const tasks = await Task.find({ user: id }).lean()
 
             tasks.forEach(element => {
                 element.id = element._id.toString()
                 delete element._id
                 element.user = id
             });
-
             return tasks
-
-
         })
+        ()
 }

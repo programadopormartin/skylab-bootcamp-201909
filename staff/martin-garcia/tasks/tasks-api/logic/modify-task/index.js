@@ -23,24 +23,20 @@ module.exports = function(id, taskId, title, description, status) {
         validate.matches('status', status, 'TODO', 'DOING', 'REVIEW', 'DONE')
     }
 
-    return User.findById(id)
-        .then(user => {
+    return (async() => {
+        const user = await User.findById(id)
 
-            if (!user) throw new NotFoundError(`user with id ${id} not found`)
+        if (!user) throw new NotFoundError(`user with id ${id} not found`)
 
-            return Task.findById(taskId)
-                .then(task => {
-                    if (!task) throw new NotFoundError(`user does not have task with id ${taskId}`)
-                    if (task.user !== id) throw new ConflictError(`user with id ${id} does not correspond to task with id ${taskId}`)
+        const task = await Task.findById(taskId)
+        if (!task) throw new NotFoundError(`user does not have task with id ${taskId}`)
+        if (task.user !== id) throw new ConflictError(`user with id ${id} does not correspond to task with id ${taskId}`)
 
-                    title && (task.title = title)
-                    description && (task.description = description)
-                    status && (task.status = status)
-                    task.lastAccess = new Date
+        title && (task.title = title)
+        description && (task.description = description)
+        status && (task.status = status)
+        task.lastAccess = new Date
 
-                    return task.save()
-                })
-                .then(() => {})
-
-        })
+        await task.save()
+    })()
 }
