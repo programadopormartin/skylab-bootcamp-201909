@@ -23,12 +23,12 @@ module.exports = function(id, taskId, title, description, status) {
         validate.matches('status', status, 'TODO', 'DOING', 'REVIEW', 'DONE')
     }
 
-    return User.findOne({ _id: ObjectId(id) })
+    return User.findById(id)
         .then(user => {
 
             if (!user) throw new NotFoundError(`user with id ${id} not found`)
 
-            return Task.findOne({ _id: ObjectId(taskId) })
+            return Task.findById(taskId)
                 .then(task => {
                     if (!task) throw new NotFoundError(`user does not have task with id ${taskId}`)
                     if (task.user !== id) throw new ConflictError(`user with id ${id} does not correspond to task with id ${taskId}`)

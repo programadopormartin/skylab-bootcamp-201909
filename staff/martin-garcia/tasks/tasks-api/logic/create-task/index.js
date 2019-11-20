@@ -13,7 +13,7 @@ module.exports = function(userId, title, description) {
 
     return User.findOne(ObjectId(userId))
         .then(userExist => {
-            if (!userExist) return reject(new NotFoundError(`user with id ${userId} not found`))
+            if (!userExist) throw new NotFoundError(`user with id ${userId} not found`)
             const status = 'TODO'
             const date = new Date
             const user = userId

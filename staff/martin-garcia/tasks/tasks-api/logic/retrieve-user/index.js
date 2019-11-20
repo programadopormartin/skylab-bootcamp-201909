@@ -9,7 +9,7 @@ module.exports = function(id) {
     validate.string(id)
     validate.string.notVoid('id', id)
 
-    return User.findOne({ _id: ObjectId(id) })
+    return User.findById(id)
         .then(user => {
             if (!user) throw new NotFoundError(`user with id ${id} not found`)
             const { name, surname, email, username } = user

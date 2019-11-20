@@ -9,34 +9,25 @@ module.exports = function(id) {
 
 
 
-    return User.findOne({ _id: ObjectId(id) })
+    return User.findById(id)
         .then(user => {
 
             if (!user) throw new NotFoundError(`user with id ${id} not found`)
 
 
-            return Task.find({ "user": id })
+            return Task.updateMany({ user: id }, { $set: { lastAccess: new Date } })
         })
-        .then((_tasks) => {
-            if (!_tasks) throw new NotFoundError(`_tasks not found`)
-            const lastAcces = new Date
+        .then(() => Task.find({ user: id }).lean())
+        .then(tasks => {
 
-            const updates = _tasks.map(({ _id }) => Task.updateOne({ _id }, { $set: { lastAcces } }))
+            tasks.forEach(element => {
+                element.id = element._id.toString()
+                delete element._id
+                element.user = id
+            });
 
-            return Promise.all(updates)
-                .then(() => {
+            return tasks
 
-
-                    _tasks.map(element => {
-                        element.id = element._id.toString()
-                        delete element._id
-
-                        element.lastAcces = lastAcces
-                    });
-
-                    return _tasks
-
-                })
 
         })
 }
