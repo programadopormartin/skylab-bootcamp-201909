@@ -1,24 +1,26 @@
+require('dotenv').config()
+const { env: { DB_URL_TEST } } = process
 const { expect } = require('chai')
 const { random } = Math
-const users = require('../../data/users')('test')
+const { database, models: { User } } = require('../../data')
 const retrieveUser = require('.')
-const uuid = require('uuid/v4')
 const { NotFoundError } = require('../../utils/errors')
 
 describe('logic - retrieve user', () => {
-    before(() => users.load())
+    before(() => database.connect(DB_URL_TEST))
 
     let id, name, surname, email, username, password
 
     beforeEach(() => {
-        id = uuid()
         name = `name-${random()}`
         surname = `surname-${random()}`
         email = `email-${random()}@mail.com`
         username = `username-${random()}`
         password = `password-${random()}`
 
-        users.data.push({ id, name, surname, email, username, password })
+        return User.deleteMany()
+            .then(() => User.create({ name, surname, email, username, password }))
+            .then(user => id = user.id)
     })
 
     it('should succeed on correct user id', () =>
@@ -26,6 +28,7 @@ describe('logic - retrieve user', () => {
         .then(user => {
             expect(user).to.exist
             expect(user.id).to.equal(id)
+            expect(user._id).to.not.exist
             expect(user.name).to.equal(name)
             expect(user.surname).to.equal(surname)
             expect(user.email).to.equal(email)
@@ -35,7 +38,7 @@ describe('logic - retrieve user', () => {
     )
 
     it('should fail on wrong user id', () => {
-        const id = 'wrong'
+        const id = '012345678901234567890123'
 
         return retrieveUser(id)
             .then(() => {
@@ -48,14 +51,7 @@ describe('logic - retrieve user', () => {
             })
     })
 
+    // TODO other cases
 
-    it('should fail on incorrect id', () => {
-        expect(() => retrieveUser(1)).to.throw(TypeError, '1 is not a string')
-        expect(() => retrieveUser(true)).to.throw(TypeError, 'true is not a string')
-        expect(() => retrieveUser([])).to.throw(TypeError, ' is not a string')
-        expect(() => retrieveUser({})).to.throw(TypeError, '[object Object] is not a string')
-        expect(() => retrieveUser(undefined)).to.throw(TypeError, 'undefined is not a string')
-        expect(() => retrieveUser(null)).to.throw(TypeError, 'null is not a string')
-    })
-
+    after(() => User.deleteMany().then(database.disconnect))
 })

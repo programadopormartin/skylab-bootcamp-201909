@@ -19,5 +19,5 @@ module.exports = function(userId, title, description) {
             const user = userId
             return Task.create({ title, user, description, status, date })
         })
-        .then(() => {})
+        .then(task => task.id)
 }

@@ -1,28 +1,31 @@
-/* const { expect } = require('chai')
-const users = require('../../data/users')('test')
-const tasks = require('../../data/tasks')('test')
+require('dotenv').config()
+const { env: { DB_URL_TEST } } = process
+const { expect } = require('chai')
 const createTask = require('.')
 const { random } = Math
-const uuid = require('uuid')
+const { database, models: { User, Task } } = require('../../data')
 
 describe('logic - create task', () => {
-    before(() => Promise.all([users.load(), tasks.load()]))
+    before(() => database.connect(DB_URL_TEST))
 
-    let id, name, surname, email, username, password
-    let taskId, title, description, user, status, date
+    let id, name, surname, email, username, password, title, description
 
     beforeEach(() => {
-        id = uuid()
         name = `name-${random()}`
         surname = `surname-${random()}`
         email = `email-${random()}@mail.com`
         username = `username-${random()}`
         password = `password-${random()}`
 
-        users.data.push({ id, name, surname, email, username, password })
+        return Promise.all([User.deleteMany(), Task.deleteMany()])
+            .then(() => User.create({ name, surname, email, username, password }))
+            .then(user => {
+                id = user.id
 
-        title = `title-${random()}`
-        description = `description-${random()}`
+                title = `title-${random()}`
+                description = `description-${random()}`
+            })
+
     })
 
     it('should succeed on correct user and task data', () =>
@@ -32,10 +35,11 @@ describe('logic - create task', () => {
             expect(taskId).to.be.a('string')
             expect(taskId).to.have.length.greaterThan(0)
 
-            const task = tasks.data.find(({ id }) => id === taskId)
-
+            return Task.findById(taskId)
+        })
+        .then(task => {
             expect(task).to.exist
-            expect(task.user).to.equal(id)
+            expect(task.user.toString()).to.equal(id)
             expect(task.title).to.equal(title)
             expect(task.description).to.equal(description)
             expect(task.status).to.equal('TODO')
@@ -45,4 +49,6 @@ describe('logic - create task', () => {
     )
 
     // TODO other test cases
-}) */
+
+    after(() => Promise.all([User.deleteMany(), Task.deleteMany()]).then(database.disconnect))
+})
