@@ -13,258 +13,243 @@ describe('logic - modify task', () => {
     const statuses = ['TODO', 'DOING', 'REVIEW', 'DONE']
     let id, name, surname, email, username, password, taskIds, titles, descriptions
 
-    beforeEach(() => {
+    beforeEach(async() => {
         name = `name-${random()}`
         surname = `surname-${random()}`
         email = `email-${random()}@mail.com`
         username = `username-${random()}`
         password = `password-${random()}`
 
-        return Promise.all([User.deleteMany(), Task.deleteMany()])
-            .then(() => User.create({ name, surname, email, username, password }))
-            .then(user => id = user.id)
-            .then(() => {
-                taskIds = []
-                titles = []
-                descriptions = []
+        await Promise.all([User.deleteMany(), Task.deleteMany()])
+        const user = await User.create({ name, surname, email, username, password })
+        id = user.id
+        taskIds = []
+        titles = []
+        descriptions = []
 
-                const insertions = []
+        const insertions = []
 
-                for (let i = 0; i < 10; i++) {
-                    const task = {
-                        user: ObjectId(id),
-                        title: `title-${random()}`,
-                        description: `description-${random()}`,
-                        status: 'REVIEW',
-                        date: new Date
-                    }
+        for (let i = 0; i < 10; i++) {
+            const task = {
+                user: ObjectId(id),
+                title: `title-${random()}`,
+                description: `description-${random()}`,
+                status: 'REVIEW',
+                date: new Date
+            }
 
-                    insertions.push(Task.create(task)
-                        .then(task => taskIds.push(task.id)))
+            insertions.push(Task.create(task)
+                .then(task => taskIds.push(task.id)))
 
-                    titles.push(task.title)
-                    descriptions.push(task.description)
-                }
+            titles.push(task.title)
+            descriptions.push(task.description)
+        }
 
-                for (let i = 0; i < 10; i++)
-                    insertions.push(Task.create({
-                        user: ObjectId(),
-                        title: `title-${random()}`,
-                        description: `description-${random()}`,
-                        status: 'REVIEW',
-                        date: new Date
-                    }))
+        for (let i = 0; i < 10; i++)
+            insertions.push(Task.create({
+                user: ObjectId(),
+                title: `title-${random()}`,
+                description: `description-${random()}`,
+                status: 'REVIEW',
+                date: new Date
+            }))
 
-                return Promise.all(insertions)
-            })
+        await Promise.all(insertions)
     })
 
-    it('should succeed on correct user and task data', () => {
+    it('should succeed on correct user and task data', async() => {
         const taskId = taskIds.random()
         const newTitle = `new-title-${random()}`
         const newDescription = `new-description-${random()}`
         const newStatus = statuses.random()
 
-        return modifyTask(id, taskId, newTitle, newDescription, newStatus)
-            .then(response => {
-                expect(response).to.not.exist
+        const response = await modifyTask(id, taskId, newTitle, newDescription, newStatus)
+        expect(response).to.not.exist
 
-                return Task.findById(taskId)
-            })
-            .then(task => {
-                expect(task.user.toString()).to.equal(id)
+        const task = await Task.findById(taskId)
 
-                expect(task.title).to.exist
-                expect(task.title).to.be.a('string')
-                expect(task.title).to.have.length.greaterThan(0)
-                expect(task.title).to.equal(newTitle)
+        expect(task.user.toString()).to.equal(id)
 
-                expect(task.description).to.exist
-                expect(task.description).to.be.a('string')
-                expect(task.description).to.have.length.greaterThan(0)
-                expect(task.description).to.equal(newDescription)
+        expect(task.title).to.exist
+        expect(task.title).to.be.a('string')
+        expect(task.title).to.have.length.greaterThan(0)
+        expect(task.title).to.equal(newTitle)
 
-                expect(task.status).to.exist
-                expect(task.status).to.be.a('string')
-                expect(task.status).to.have.length.greaterThan(0)
-                expect(task.status).to.equal(newStatus)
+        expect(task.description).to.exist
+        expect(task.description).to.be.a('string')
+        expect(task.description).to.have.length.greaterThan(0)
+        expect(task.description).to.equal(newDescription)
 
-                expect(task.date).to.exist
-                expect(task.date).to.be.an.instanceOf(Date)
+        expect(task.status).to.exist
+        expect(task.status).to.be.a('string')
+        expect(task.status).to.have.length.greaterThan(0)
+        expect(task.status).to.equal(newStatus)
 
-                expect(task.lastAccess).to.exist
-                expect(task.lastAccess).to.be.an.instanceOf(Date)
-            })
+        expect(task.date).to.exist
+        expect(task.date).to.be.an.instanceOf(Date)
+
+        expect(task.lastAccess).to.exist
+        expect(task.lastAccess).to.be.an.instanceOf(Date)
+
     })
 
-    it('should succeed on correct user and new task data, except for title', () => {
+    it('should succeed on correct user and new task data, except for title', async() => {
         const taskId = taskIds.random()
         const newDescription = `new-description-${random()}`
         const newStatus = statuses.random()
 
-        return Task.findById(taskId)
-            .then(({ title }) => {
-                return modifyTask(id, taskId, undefined, newDescription, newStatus)
-                    .then(response => {
-                        expect(response).to.not.exist
+        const { title } = await Task.findById(taskId)
 
-                        return Task.findById(taskId)
-                    })
-                    .then(task => {
-                        expect(task.user.toString()).to.equal(id)
+        const response = await modifyTask(id, taskId, undefined, newDescription, newStatus)
 
-                        expect(task.title).to.exist
-                        expect(task.title).to.be.a('string')
-                        expect(task.title).to.have.length.greaterThan(0)
-                        expect(task.title).to.equal(title)
+        expect(response).to.not.exist
+        const task = await Task.findById(taskId)
 
-                        expect(task.description).to.exist
-                        expect(task.description).to.be.a('string')
-                        expect(task.description).to.have.length.greaterThan(0)
-                        expect(task.description).to.equal(newDescription)
 
-                        expect(task.status).to.exist
-                        expect(task.status).to.be.a('string')
-                        expect(task.status).to.have.length.greaterThan(0)
-                        expect(task.status).to.equal(newStatus)
+        expect(task.user.toString()).to.equal(id)
 
-                        expect(task.date).to.exist
-                        expect(task.date).to.be.an.instanceOf(Date)
+        expect(task.title).to.exist
+        expect(task.title).to.be.a('string')
+        expect(task.title).to.have.length.greaterThan(0)
+        expect(task.title).to.equal(title)
 
-                        expect(task.lastAccess).to.exist
-                        expect(task.lastAccess).to.be.an.instanceOf(Date)
-                    })
-            })
+        expect(task.description).to.exist
+        expect(task.description).to.be.a('string')
+        expect(task.description).to.have.length.greaterThan(0)
+        expect(task.description).to.equal(newDescription)
+
+        expect(task.status).to.exist
+        expect(task.status).to.be.a('string')
+        expect(task.status).to.have.length.greaterThan(0)
+        expect(task.status).to.equal(newStatus)
+
+        expect(task.date).to.exist
+        expect(task.date).to.be.an.instanceOf(Date)
+
+        expect(task.lastAccess).to.exist
+        expect(task.lastAccess).to.be.an.instanceOf(Date)
     })
 
-    it('should succeed on correct user and new task data, except for description', () => {
+    it('should succeed on correct user and new task data, except for description', async() => {
         const taskId = taskIds.random()
         const newTitle = `new-title-${random()}`
         const newStatus = statuses.random()
 
-        return Task.findById(taskId)
-            .then(({ description }) => {
-                return modifyTask(id, taskId, newTitle, undefined, newStatus)
-                    .then(response => {
-                        expect(response).to.not.exist
+        const { description } = await Task.findById(taskId)
+        const response = await modifyTask(id, taskId, newTitle, undefined, newStatus)
+        expect(response).to.not.exist
 
-                        return Task.findById(taskId)
-                    })
-                    .then(task => {
-                        expect(task.user.toString()).to.equal(id)
+        const task = await Task.findById(taskId)
+        expect(task.user.toString()).to.equal(id)
 
-                        expect(task.title).to.exist
-                        expect(task.title).to.be.a('string')
-                        expect(task.title).to.have.length.greaterThan(0)
-                        expect(task.title).to.equal(newTitle)
+        expect(task.title).to.exist
+        expect(task.title).to.be.a('string')
+        expect(task.title).to.have.length.greaterThan(0)
+        expect(task.title).to.equal(newTitle)
 
-                        expect(task.description).to.exist
-                        expect(task.description).to.be.a('string')
-                        expect(task.description).to.have.length.greaterThan(0)
-                        expect(task.description).to.equal(description)
+        expect(task.description).to.exist
+        expect(task.description).to.be.a('string')
+        expect(task.description).to.have.length.greaterThan(0)
+        expect(task.description).to.equal(description)
 
-                        expect(task.status).to.exist
-                        expect(task.status).to.be.a('string')
-                        expect(task.status).to.have.length.greaterThan(0)
-                        expect(task.status).to.equal(newStatus)
+        expect(task.status).to.exist
+        expect(task.status).to.be.a('string')
+        expect(task.status).to.have.length.greaterThan(0)
+        expect(task.status).to.equal(newStatus)
 
-                        expect(task.date).to.exist
-                        expect(task.date).to.be.an.instanceOf(Date)
+        expect(task.date).to.exist
+        expect(task.date).to.be.an.instanceOf(Date)
 
-                        expect(task.lastAccess).to.exist
-                        expect(task.lastAccess).to.be.an.instanceOf(Date)
-                    })
-            })
+        expect(task.lastAccess).to.exist
+        expect(task.lastAccess).to.be.an.instanceOf(Date)
     })
 
-    it('should succeed on correct user and new task data, except for status', () => {
+    it('should succeed on correct user and new task data, except for status', async() => {
         const taskId = taskIds.random()
         const newTitle = `new-title-${random()}`
         const newDescription = `new-description-${random()}`
 
-        return Task.findById(taskId)
-            .then(({ status }) => {
-                return modifyTask(id, taskId, newTitle, newDescription, undefined)
-                    .then(response => {
-                        expect(response).to.not.exist
+        const { status } = await Task.findById(taskId)
 
-                        return Task.findById(taskId)
-                    })
-                    .then(task => {
-                        expect(task.user.toString()).to.equal(id)
+        const response = await modifyTask(id, taskId, newTitle, newDescription, undefined)
+        expect(response).to.not.exist
 
-                        expect(task.title).to.exist
-                        expect(task.title).to.be.a('string')
-                        expect(task.title).to.have.length.greaterThan(0)
-                        expect(task.title).to.equal(newTitle)
+        const task = await Task.findById(taskId)
 
-                        expect(task.description).to.exist
-                        expect(task.description).to.be.a('string')
-                        expect(task.description).to.have.length.greaterThan(0)
-                        expect(task.description).to.equal(newDescription)
+        expect(task.user.toString()).to.equal(id)
 
-                        expect(task.status).to.exist
-                        expect(task.status).to.be.a('string')
-                        expect(task.status).to.have.length.greaterThan(0)
-                        expect(task.status).to.equal(status)
+        expect(task.title).to.exist
+        expect(task.title).to.be.a('string')
+        expect(task.title).to.have.length.greaterThan(0)
+        expect(task.title).to.equal(newTitle)
 
-                        expect(task.date).to.exist
-                        expect(task.date).to.be.an.instanceOf(Date)
+        expect(task.description).to.exist
+        expect(task.description).to.be.a('string')
+        expect(task.description).to.have.length.greaterThan(0)
+        expect(task.description).to.equal(newDescription)
 
-                        expect(task.lastAccess).to.exist
-                        expect(task.lastAccess).to.be.an.instanceOf(Date)
-                    })
-            })
+        expect(task.status).to.exist
+        expect(task.status).to.be.a('string')
+        expect(task.status).to.have.length.greaterThan(0)
+        expect(task.status).to.equal(status)
+
+        expect(task.date).to.exist
+        expect(task.date).to.be.an.instanceOf(Date)
+
+        expect(task.lastAccess).to.exist
+        expect(task.lastAccess).to.be.an.instanceOf(Date)
     })
 
-    it('should fail on unexisting user and correct task data', () => {
+    it('should fail on unexisting user and correct task data', async() => {
         const id = ObjectId().toString()
         const taskId = taskIds.random()
         const newTitle = `new-title-${random()}`
         const newDescription = `new-description-${random()}`
         const newStatus = statuses.random()
-        return modifyTask(id, taskId, newTitle, newDescription, newStatus)
-            .then(() => { throw new Error('should not reach this point') })
-            .catch(error => {
-                expect(error).to.exist
-                    /*   expect(error).to.be.an.instanceOf(NotFoundError)
-                      expect(error.message).to.equal(`user with id ${id} not found`) */
-            })
+
+        try {
+            await modifyTask(id, taskId, newTitle, newDescription, newStatus)
+            throw new Error('should not reach this point')
+        } catch (error) {
+            expect(error).to.exist
+                /*   expect(error).to.be.an.instanceOf(NotFoundError)
+                  expect(error.message).to.equal(`user with id ${id} not found`) */
+        }
     })
 
-    it('should fail on correct user and unexisting task data', () => {
+    it('should fail on correct user and unexisting task data', async() => {
         const taskId = ObjectId().toString()
         const newTitle = `new-title-${random()}`
         const newDescription = `new-description-${random()}`
         const newStatus = statuses.random()
 
-        return modifyTask(id, taskId, newTitle, newDescription, newStatus)
-            .then(() => { throw new Error('should not reach this point') })
-            .catch(error => {
-                expect(error).to.exist
-                    /*                 expect(error).to.be.an.instanceOf(NotFoundError)
-                     
-                    expect(error.message).to.equal(`user does not have task with id ${taskId}`)
-                    */
-            })
+        try {
+            await modifyTask(id, taskId, newTitle, newDescription, newStatus)
+            throw new Error('should not reach this point')
+        } catch (error) {
+            expect(error).to.exist
+                /*expect(error).to.be.an.instanceOf(NotFoundError)
+                expect(error.message).to.equal(`user does not have task with id ${taskId}`)
+                */
+        }
     })
 
-    it('should fail on correct user and wrong task data', () => {
-        return Task.findOne({ _id: { $nin: taskIds.map(taskId => ObjectId(taskId)) } })
-            .then(({ _id }) => {
-                const taskId = _id.toString()
-                const newTitle = `new-title-${random()}`
-                const newDescription = `new-description-${random()}`
-                const newStatus = statuses.random()
+    it('should fail on correct user and wrong task data', async() => {
+        const _id = await Task.findOne({ _id: { $nin: taskIds.map(taskId => ObjectId(taskId)) } })
+        const taskId = _id.toString()
+        const newTitle = `new-title-${random()}`
+        const newDescription = `new-description-${random()}`
+        const newStatus = statuses.random()
 
-                return modifyTask(id, taskId, newTitle, newDescription, newStatus)
-                    .then(() => { throw new Error('should not reach this point') })
-                    .catch(error => {
-                        expect(error).to.exist
-                            /*  expect(error).to.be.an.instanceOf(ConflictError)
-                             expect(error.message).to.equal(`user with id ${id} does not correspond to task with id ${taskId}`) */
-                    })
-            })
+        try {
+            await modifyTask(id, taskId, newTitle, newDescription, newStatus)
+            throw new Error('should not reach this point')
+        } catch (error) {
+            expect(error).to.exist
+                /*  expect(error).to.be.an.instanceOf(ConflictError)
+                 expect(error.message).to.equal(`user with id ${id} does not correspond to task with id ${taskId}`) */
+        }
+
     })
 
     it('should fail on correct user and wrong task status', () => {

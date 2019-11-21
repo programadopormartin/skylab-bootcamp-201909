@@ -11,33 +11,30 @@ describe('logic - register user', () => {
 
     let name, surname, email, username, password
 
-    beforeEach(() => {
+    beforeEach(async() => {
         name = `name-${random()}`
         surname = `surname-${random()}`
         email = `email-${random()}@mail.com`
         username = `username-${random()}`
         password = `password-${random()}`
 
-        return User.deleteMany()
+        await User.deleteMany()
     })
 
-    it('should succeed on correct credentials', () =>
-        registerUser(name, surname, email, username, password)
-        .then(response => {
-            expect(response).to.be.undefined
+    it('should succeed on correct credentials', async() => {
+        const response = await registerUser(name, surname, email, username, password)
 
-            return User.findOne({ username })
-        })
-        .then(user => {
-            expect(user).to.exist
+        expect(response).to.be.undefined
 
-            expect(user.name).to.equal(name)
-            expect(user.surname).to.equal(surname)
-            expect(user.email).to.equal(email)
-            expect(user.username).to.equal(username)
-            expect(user.password).to.equal(password)
-        })
-    )
+        const user = await User.findOne({ username })
+        expect(user).to.exist
+
+        expect(user.name).to.equal(name)
+        expect(user.surname).to.equal(surname)
+        expect(user.email).to.equal(email)
+        expect(user.username).to.equal(username)
+        expect(user.password).to.equal(password)
+    })
 
     describe('when user already exists', () => {
         beforeEach(() =>

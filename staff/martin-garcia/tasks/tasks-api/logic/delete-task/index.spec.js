@@ -12,102 +12,99 @@ describe('logic - remove task', () => {
 
     let id, name, surname, email, username, password, taskIds, titles, descriptions
 
-    beforeEach(() => {
+    beforeEach(async() => {
         name = `name-${random()}`
         surname = `surname-${random()}`
         email = `email-${random()}@mail.com`
         username = `username-${random()}`
         password = `password-${random()}`
 
-        return Promise.all([User.deleteMany(), Task.deleteMany()])
-            .then(() => User.create({ name, surname, email, username, password }))
-            .then(user => id = user.id)
-            .then(() => {
-                taskIds = []
-                titles = []
-                descriptions = []
 
-                const insertions = []
+        await Promise.all([User.deleteMany(), Task.deleteMany()])
+        const user = await User.create({ name, surname, email, username, password })
+        id = user.id
+        taskIds = []
+        titles = []
+        descriptions = []
 
-                for (let i = 0; i < 10; i++) {
-                    const task = {
-                        user: id,
-                        title: `title-${random()}`,
-                        description: `description-${random()}`,
-                        status: 'REVIEW',
-                        date: new Date
-                    }
+        const insertions = []
 
-                    insertions.push(Task.create(task)
-                        .then(task => taskIds.push(task.id)))
+        for (let i = 0; i < 10; i++) {
+            const task = {
+                user: id,
+                title: `title-${random()}`,
+                description: `description-${random()}`,
+                status: 'REVIEW',
+                date: new Date
+            }
 
-                    titles.push(task.title)
-                    descriptions.push(task.description)
-                }
+            insertions.push(Task.create(task)
+                .then(task => taskIds.push(task.id)))
 
-                for (let i = 0; i < 10; i++)
-                    insertions.push(Task.create({
-                        user: ObjectId(),
-                        title: `title-${random()}`,
-                        description: `description-${random()}`,
-                        status: 'REVIEW',
-                        date: new Date
-                    }))
+            titles.push(task.title)
+            descriptions.push(task.description)
+        }
 
-                return Promise.all(insertions)
-            })
+        for (let i = 0; i < 10; i++)
+            insertions.push(Task.create({
+                user: ObjectId(),
+                title: `title-${random()}`,
+                description: `description-${random()}`,
+                status: 'REVIEW',
+                date: new Date
+            }))
+
+        await Promise.all(insertions)
     })
 
-    it('should succeed on correct user and task data', () => {
+    it('should succeed on correct user and task data', async() => {
         const taskId = taskIds.random()
 
-        return deleteTask(id, taskId)
-            .then(response => {
-                expect(response).to.not.exist
+        const response = await deleteTask(id, taskId)
+        expect(response).to.not.exist
 
-                return Task.findById(taskId)
-            })
-            .then(task => expect(task).to.not.exist)
+        const task = await Task.findById(taskId)
+        expect(task).to.not.exist
     })
 
-    it('should fail on unexisting user and correct task data', () => {
+    it('should fail on unexisting user and correct task data', async() => {
         const id = ObjectId().toString()
         const taskId = taskIds.random()
-
-        return deleteTask(id, taskId)
-            .then(() => { throw new Error('should not reach this point') })
-            .catch(error => {
-                expect(error).to.exist
-                    /* expect(error).to.be.an.instanceOf(NotFoundError)
-                    expect(error.message).to.equal(`user with id ${id} not found`) */
-            })
+        try {
+            await deleteTask(id, taskId)
+            throw new Error('should not reach this point')
+        } catch (error) {
+            expect(error).to.exist
+                /* expect(error).to.be.an.instanceOf(NotFoundError)
+                expect(error.message).to.equal(`user with id ${id} not found`) */
+        }
     })
 
-    it('should fail on correct user and unexisting task data', () => {
+    it('should fail on correct user and unexisting task data', async() => {
         const taskId = ObjectId().toString()
-
-        return deleteTask(id, taskId)
-            .then(() => { throw new Error('should not reach this point') })
-            .catch(error => {
-                expect(error).to.exist
-                expect(error).to.be.an.instanceOf(NotFoundError)
-                expect(error.message).to.equal(`user does not have task with id ${taskId}`)
-            })
+        try {
+            await deleteTask(id, taskId)
+            throw new Error('should not reach this point')
+        } catch (error) {
+            expect(error).to.exist
+            expect(error).to.be.an.instanceOf(NotFoundError)
+            expect(error.message).to.equal(`user does not have task with id ${taskId}`)
+        }
     })
 
-    it('should fail on correct user and wrong task data', () => {
-        return Task.findOne({ _id: { $nin: taskIds.map(taskId => ObjectId(taskId)) } })
-            .then(({ _id }) => {
-                const taskId = _id.toString()
+    it('should fail on correct user and wrong task data', async() => {
+        const _id = await Task.findOne({ _id: { $nin: taskIds.map(taskId => ObjectId(taskId)) } })
+        const taskId = _id.toString()
 
-                return deleteTask(id, taskId)
-                    .then(() => { throw new Error('should not reach this point') })
-                    .catch(error => {
-                        expect(error).to.exist
-                            /*  expect(error).to.be.an.instanceOf(ConflictError)
-                             expect(error.message).to.equal(`user with id ${id} does not correspond to task with id ${taskId}`) */
-                    })
-            })
+        try {
+            await deleteTask(id, taskId)
+            throw new Error('should not reach this point')
+        } catch (error) {
+            expect(error).to.exist
+                /*  expect(error).to.be.an.instanceOf(ConflictError)
+                 expect(error.message).to.equal(`user with id ${id} does not correspond to task with id ${taskId}`) */
+        }
+
     })
 
     // TODO other test cases
