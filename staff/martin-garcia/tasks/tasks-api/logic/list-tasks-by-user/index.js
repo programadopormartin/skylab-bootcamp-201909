@@ -1,7 +1,5 @@
-const validate = require('../../utils/validate')
-const { NotFoundError } = require('../../utils/errors/not-found-error')
-const { models: { User, Task } } = require('../../data')
-const { Types: { ObjectId } } = require('mongoose')
+const { validate, errors: { NotFoundError } } = require('tasks-util')
+const { models: { User, Task } } = require('tasks-data')
 
 module.exports = function(id) {
     validate.string(id)

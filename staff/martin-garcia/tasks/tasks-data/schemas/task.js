@@ -1,5 +1,6 @@
 const { Schema } = require('mongoose')
-const { doMatch } = require('../../utils/validators')
+const { validators: { doMatch } } = require('tasks-util')
+
 
 module.exports = new Schema({
     title: {

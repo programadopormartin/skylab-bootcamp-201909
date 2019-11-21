@@ -4,13 +4,13 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const { name, version } = require('./package.json')
 const { registerUser, authenticateUser, retrieveUser, modifyTask, createTask, listTasks, deleteTask } = require('./logic')
-const { ConflictError, CredentialsError, NotFoundError } = require('./utils/errors')
+const { ConflictError, CredentialsError, NotFoundError } = require('tasks-util')
 const jwt = require('jsonwebtoken')
 const api = express()
 const { argv: [, , port], env: { SECRET, PORT = port || 9090, DB_URL } } = process
 const jsonBodyParser = bodyParser.json()
-const tokenVerifier = require('./utils/token/token-verifier')(SECRET)
-const { database } = require('./data')
+const tokenVerifier = require('./helpers/token-verifier')(SECRET)
+const { database } = require('tasks-data')
 
 
 api.post('/users', jsonBodyParser, (req, res) => {

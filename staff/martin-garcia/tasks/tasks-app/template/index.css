@@ -1,0 +1,129 @@
+body {
+  background-color: #d9eeec;
+  font-family: "arial";
+}
+
+* {
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+ul {
+  padding: none;
+}
+
+h2 {
+  margin: 0;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  background-color: #42b883;
+  width: 90%;
+  text-align: center;
+  color: white;
+  padding: 2rem;
+  font-weight: bolder;
+}
+
+.tasks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-width: 300px;
+}
+.tasks__column {
+  margin-right: 0.3rem;
+  margin-left: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 300px;
+  max-width: 400px;
+  align-items: center;
+}
+.tasks__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  padding: 0;
+  max-height: 70vh;
+  overflow: auto;
+}
+.tasks__column--todo h2 {
+  background-color: #3fc5f0;
+  width: 100%;
+  padding: 0.3rem;
+  text-align: center;
+}
+.tasks__column--doing h2 {
+  background-color: #6decb9;
+  width: 100%;
+  padding: 0.3rem;
+  text-align: center;
+}
+.tasks__column--review h2 {
+  background-color: #f6da63;
+  width: 100%;
+  padding: 0.3rem;
+  text-align: center;
+}
+.tasks__column--done h2 {
+  background-color: #c355f5;
+  width: 100%;
+  padding: 0.3rem;
+  text-align: center;
+}
+
+.task {
+  margin-bottom: 0.5rem;
+}
+.task__title {
+  text-align: center;
+  min-width: 300px;
+  margin: 0.5rem;
+}
+.task__nav {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 0.5rem;
+}
+.task__description {
+  padding: 1rem;
+  min-width: 300px;
+}
+.task__last-access {
+  text-align: center;
+}
+.task--todo {
+  background-color: #3fc5f0;
+}
+.task--doing {
+  background-color: #6decb9;
+}
+.task--review {
+  background-color: #f6da63;
+}
+.task--done {
+  background-color: #c355f5;
+}
+
+i.material-icons {
+  margin-left: 0.3rem;
+  margin-right: 0.3rem;
+  font-size: 1rem;
+}
+
+i:hover {
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=index.css.map */
