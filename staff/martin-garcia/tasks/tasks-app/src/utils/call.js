@@ -1,11 +1,11 @@
-module.exports = function (url, { method = 'GET', headers, body } = {}) {
+module.exports = function(url, { method = 'GET', headers, body } = {}) {
     return new Promise((resolve, reject) => {
         try {
             var xhr = new XMLHttpRequest
 
             xhr.open(method, url)
 
-            xhr.onreadystatechange = function () {
+            xhr.onreadystatechange = function() {
                 if (this.readyState == 4) {
                     if (this.status === 0) {
 
