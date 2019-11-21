@@ -1,11 +1,12 @@
 require('dotenv').config()
 const { env: { DB_URL_TEST } } = process
 const { expect } = require('chai')
-const { ObjectId, database, models: { User, Task } } = require('../../data')
 const deleteTask = require('.')
 const { random } = Math
-require('../../utils/array-random')
-const { NotFoundError, ConflictError } = require('../../utils/errors')
+const { errors: { NotFoundError }, polyfills: { arrayRandom } } = require('tasks-util')
+const { ObjectId, database, models: { User, Task } } = require('tasks-data')
+
+arrayRandom()
 
 describe('logic - remove task', () => {
     before(() => database.connect(DB_URL_TEST))
@@ -19,7 +20,7 @@ describe('logic - remove task', () => {
         username = `username-${random()}`
         password = `password-${random()}`
 
-
+        debugger
         await Promise.all([User.deleteMany(), Task.deleteMany()])
         const user = await User.create({ name, surname, email, username, password })
         id = user.id

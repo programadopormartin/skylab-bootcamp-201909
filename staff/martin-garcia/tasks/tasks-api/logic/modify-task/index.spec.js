@@ -1,11 +1,14 @@
 require('dotenv').config()
 const { env: { DB_URL_TEST } } = process
 const { expect } = require('chai')
-const { ObjectId, database, models: { User, Task } } = require('../../data')
 const modifyTask = require('.')
 const { random } = Math
-require('../../utils/array-random')
-const { NotFoundError, ConflictError, ContentError } = require('../../utils/errors')
+
+const { errors: { NotFoundError, ConflictError, ContentError }, polyfills: { arrayRandom } } = require('tasks-util')
+const { ObjectId, database, models: { User, Task } } = require('tasks-data')
+
+arrayRandom()
+
 
 describe('logic - modify task', () => {
     before(() => database.connect(DB_URL_TEST))
