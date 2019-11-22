@@ -1,10 +1,22 @@
 import React from 'react';
-import './index.css';
+import './index.sass';
+import Board from '../Board'
+import Login from '../Login'
+import Register from '../Register'
+import {Route, withRouter} from 'react-router-dom'
 
-function App() {
-  return (
-    <div>Hola mundo </div>
-  );
-}
+export default withRouter(function ({ history }) {
 
-export default App;
+
+
+
+
+
+
+
+  return <>
+    <Route path='/login' render={()=><Login />} />
+   </>
+  
+})
+
