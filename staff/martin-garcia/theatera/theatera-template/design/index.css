@@ -4,6 +4,10 @@
   margin: 0;
 }
 
+ul {
+  list-style: none;
+}
+
 button, input[type=submit], input[type=reset] {
   background: none;
   color: inherit;
@@ -22,6 +26,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  background-color: #fccfb23d;
 }
 
 .login {
@@ -124,6 +129,21 @@ body {
   background-color: white;
 }
 
+button, input[type=submit], input[type=reset] {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
 .header {
   padding: 1vh 4vw;
   display: flex;
@@ -134,6 +154,7 @@ body {
 }
 .header__image {
   width: 20vw;
+  height: 20vw;
   border-radius: 50%;
   border: solid 2px white;
 }
@@ -159,6 +180,76 @@ body {
   border: 0.5vw solid white;
   border-radius: 100%;
   padding: 1vw;
+}
+
+.footer {
+  width: 100vw;
+  height: 10vh;
+  border-top: thin solid #ffad87;
+  margin-top: 1rem;
+  background-color: white;
+}
+.footer__list {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-around;
+}
+.footer__list .button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.post {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  padding: 0.6rem 0.6rem 0rem 0.6rem;
+  background-color: #fffdf9;
+  margin: 1rem 0;
+}
+.post__nav {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 0.2rem;
+}
+.post__main {
+  padding: 0.3rem;
+}
+.post__interactions {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem;
+  border-top: 2px solid #ffad87;
+  border-bottom: 2px solid #ffad87;
+}
+.post__header {
+  display: flex;
+  justify-content: space-around;
+}
+.post__header .header-info {
+  display: flex;
+  flex-direction: column;
+  width: 70vw;
+  /* &__date 
+  *  font-size: .7rem */
+}
+.post__header .header-info .header-item {
+  margin: 0.1rem;
+}
+.post__header .header-info .header__user-username {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.post__header .post-image {
+  width: 15vw;
+  height: 15vw;
+  border-radius: 50%;
+  border: solid 2px white;
+}
+
+.header__date {
+  font-size: 0.7rem;
 }
 
 /*# sourceMappingURL=index.css.map */
