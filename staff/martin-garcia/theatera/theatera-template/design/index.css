@@ -1,0 +1,61 @@
+* {
+  font-family: "Roboto";
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url("../images/cinema.jpg");
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  width: 90vw;
+  height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.login {
+  display: flexd;
+  flex-direction: columnd;
+  align-items: centerd;
+  margin-bottom: 1remd;
+}
+.login__title {
+  color: whited;
+  font-weight: boldd;
+  font-size: 3remd;
+  margin: 1remd;
+}
+.login__form {
+  display: flexd;
+  flex-direction: columnd;
+  height: 30vhd;
+  align-items: centerd;
+  width: 100% d;
+}
+.login__form__input {
+  margin-top: 1remd;
+  border: solid white 3pxd;
+  height: 2remd;
+  width: 100% d;
+  width: 95% d;
+  padding: 1% d;
+  padding-left: 0.5remd;
+}
+.login__form__button {
+  font-size: 1.2remd;
+  margin-top: 1remd;
+  height: 2.5remd;
+  width: 100% d;
+  display: flexd;
+  justify-content: centerd;
+  align-content: centerd;
+  align-items: centerd;
+  border-radius: 5pxd;
+  border: noned;
+  background-color: whited;
+}
+
+/*# sourceMappingURL=index.css.map */
