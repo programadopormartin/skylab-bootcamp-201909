@@ -16,6 +16,8 @@ export default withRouter(function ({ history }) {
 
   return <>
     <Route path='/login' render={()=><Login />} />
+    <Route path='/register' render={()=><Register />} />
+    <Route path='/tasks' render={()=><Board />} />
    </>
   
 })
