@@ -184,13 +184,13 @@ button, input[type=submit], input[type=reset] {
 
 .footer {
   width: 100vw;
-  height: 10vh;
+  height: 8vh;
   border-top: thin solid #ffad87;
   margin-top: 1rem;
   background-color: white;
 }
 .footer__list {
-  padding: 0.5rem;
+  padding: 0.3rem;
   display: flex;
   justify-content: space-around;
 }
@@ -198,6 +198,7 @@ button, input[type=submit], input[type=reset] {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-size: 0.8rem;
 }
 
 .post {
