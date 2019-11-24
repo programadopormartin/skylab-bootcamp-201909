@@ -8,7 +8,7 @@ ul {
   list-style: none;
 }
 
-button, input[type=submit], input[type=reset] {
+button, input[type=submit], input[type=reset], textarea {
   background: none;
   color: inherit;
   border: none;
@@ -250,6 +250,81 @@ button, input[type=submit], input[type=reset] {
 
 .header__date {
   font-size: 0.7rem;
+  color: grey;
+}
+
+.header__user-introduction {
+  color: grey;
+}
+
+.comment {
+  display: flex;
+  padding: 0.6rem 0.6rem 0rem 0.6rem;
+  justify-content: space-around;
+}
+.comment__image {
+  width: 12vw;
+  height: 12vw;
+  border-radius: 100%;
+}
+.comment__text {
+  background-color: #a7a5a434;
+  width: 80vw;
+  padding: 0.5rem;
+  border-radius: 3vw;
+}
+.comment__text .text__user-name {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+.comment__text .text__user-info {
+  font-size: 0.8rem;
+  color: #524d4d;
+}
+.comment__text .text__date {
+  font-size: 0.8rem;
+  color: #524d4d;
+}
+.comment__text .text__comment {
+  margin-top: 0.3rem;
+}
+
+.comment--mine .comment__text {
+  background-color: #b4e49e9c;
+}
+
+.post-detail {
+  background-color: white;
+}
+
+.new-comment {
+  padding: 0.3rem 0.6rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: start;
+  height: 10vh;
+  margin-bottom: 1rem;
+}
+.new-comment__image {
+  width: 12vw;
+  height: 12vw;
+  border-radius: 100%;
+}
+.new-comment__form {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  background-color: #b4e49e9c;
+  border-radius: 1rem;
+  width: 80vw;
+  padding: 0.2rem;
+}
+.new-comment__form .form__textarea {
+  width: 70vw;
+  padding: 0.8rem;
+}
+.new-comment__form .form__button {
+  width: 20vw;
 }
 
 /*# sourceMappingURL=index.css.map */
