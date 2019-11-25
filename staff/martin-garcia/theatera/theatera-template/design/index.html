@@ -22,6 +22,7 @@
             <input class="login__form__input" type="text" placeholder="mail@mail.com"></input>
             <input class="login__form__input" type="password" placeholder="*****"></input>
             <button class="login__form__button">Next</button>
+            <button class="login__form__button">Register</button>
 
         </form>
     </section>
@@ -33,9 +34,12 @@
     <section class="register">
         <h1 class="register__title">Register</h1>
         <form class="register__form " action="">
-            <input class="register__form__input" type="text" placeholder="mail@mail.com"></input>
-            <input class="register__form__input" type="password" placeholder="*****"></input>
+            <input class="register__form__input" name="mail" type="text" placeholder="mail@mail.com"></input>
+            <input class="register__form__input" name="password" type="password" placeholder="*****"></input>
+            <input class="register__form__input" name="name" type="text" placeholder="name"></input>
+            <input class="register__form__input" name="surname" type="text" placeholder="surname"></input>
             <button class="register__form__button">Register</button>
+            <button class="register__form__button">Login</button>
         </form>
     </section>
 
@@ -131,10 +135,10 @@
                         <p class="button__text ">Post</p>
                     </button>
         
-                    <button class="buttons__notifications button ">
+                   <!--  <button class="buttons__notifications button ">
                         <i class="material-icons ">notifications_active</i>
                         <p class="button__text ">News</p>
-                    </button>
+                    </button> -->
         
                     <button class="buttons__jobs button ">
                         <i class="material-icons ">theaters</i>
@@ -248,10 +252,10 @@
                         <p class="button__text">Post</p>
                     </button>
 
-                <button class="buttons__notifications button">
+                <!-- <button class="buttons__notifications button">
                         <i class="material-icons">notifications_active</i>
                         <p class="button__text">News</p>
-                    </button>
+                    </button> -->
 
                 <button class="buttons__jobs button">
                         <i class="material-icons">theaters</i>
@@ -539,11 +543,11 @@
 
                 <label class="info-form__label">
                         <span>Age: </span>
-                        <input type="text" name="age"  />
+                        <input id="small-input" type="text" name="age"  />
                     </label>
                 <label class="info-form__label">
                         <span>Phone: </span>
-                        <input type="text" name="phone"  />
+                        <input class="medium-input" type="text" name="phone"  />
                     </label>
                 <label class="info-form__label">
                         <span>Email: </span>
@@ -732,10 +736,10 @@
                         <p class="button__text ">Post</p>
                     </button>
         
-                    <button class="buttons__notifications button ">
+                 <!--    <button class="buttons__notifications button ">
                         <i class="material-icons ">notifications_active</i>
                         <p class="button__text ">News</p>
-                    </button>
+                    </button> -->
         
                     <button class="buttons__jobs button ">
                         <i class="material-icons ">theaters</i>
@@ -834,10 +838,10 @@
                                             <p class="button__text ">Post</p>
                                         </button>
 
-                        <button class="buttons__notifications button ">
+                        <!--  <button class="buttons__notifications button ">
                                             <i class="material-icons ">notifications_active</i>
                                             <p class="button__text ">News</p>
-                                        </button>
+                                        </button> -->
 
                         <button class="buttons__jobs button ">
                                             <i class="material-icons ">theaters</i>
@@ -896,16 +900,13 @@
                                             <input type="text " name="languages " />
                                         </label>
                                     <label class="filters-form__label ">
-                                        <span>Mr: </span>
-                                        <input  type="radio " name="genre " value="man " />
+                                    <span >Gender: </span>
+                                        <select class="medium-input " name=" " id=" ">
+                                            <option value=" ">Man</option>
+                                            <option value=" ">Woman</option>
+                                            <option value=" " selected>Both</option>
 
-                                        <input type="radio " name=" " id=" ">
-                                        <input type="radio " name=" " id=" ">
-                                        <input type="radio " name=" " id=" ">
-
-                                        
-                                        <span>Mrs: </span>
-                                        <input  type="radio " name="genre " value="woman " />
+                                        </select>
                                     </label>
                         
                                     <label class="filters-form__label ">
@@ -1040,10 +1041,10 @@
                             <p class="button__text ">Post</p>
                         </button>
             
-                        <button class="buttons__notifications button ">
+                        <!-- <button class="buttons__notifications button ">
                             <i class="material-icons ">notifications_active</i>
                             <p class="button__text ">News</p>
-                        </button>
+                        </button> -->
             
                         <button class="buttons__jobs button ">
                             <i class="material-icons ">theaters</i>
@@ -1051,7 +1052,28 @@
                         </button>
                     </form>
                 </footer>
-    
+
+
+
+                <h2>New Post</h2>
+                <section class=" post ">
+                        <div class=" post__header ">
+                            <img class=" post-image " src=" https://media.licdn.com/dms/image/C4D03AQGJs_fj9WmNsQ/profile-displayphoto-shrink_200_200/0?e=1579737600&amp;v=beta&amp;t=aXY597WUWHurjEtV8y9ORSngTUm7RYWjjGdoHvpUXCg " alt=" profile image ">
+                            <div class=" header-info ">
+                                <p class=" header-item header__user-username ">Julian Assange</p>
+                                <p class=" header-item header__user-introduction ">Dramatic actor</p>
+                            </div>
+                        </div>
+                
+                       <textarea class="post-textarea " name=" " id=" " cols="30 " placeholder="write here ... " rows="10 "></textarea>
+                
+                        <form action=" " class=" post__nav__button ">
+                            <button class=" post-button ">
+                                    <i class=" material-icons ">add_circle_outline</i> 
+                            </button>
+                            
+                        </form>
+                    </section>
 
 
         </section>

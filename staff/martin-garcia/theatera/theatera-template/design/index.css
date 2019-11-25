@@ -8,15 +8,16 @@ ul {
   list-style: none;
 }
 
-/* button, input[type="submit"],input[type="number"], input[type="reset"], input[type="text"], input[type="date"], textarea
- *  background: none
- *  color: inherit
- *  border: none
- *  padding: 0
- *  font: inherit
- *  cursor: pointer
- *  outline: inherit
- * */
+button, input[type=submit], input[type=number], input[type=reset], input[type=text], input[type=date], textarea, select {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
 body {
   width: 100vw;
   height: 100%;
@@ -28,104 +29,20 @@ body {
   background-color: #fccfb23d;
 }
 
-.login {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 1rem;
-  background-image: url("./images/cinema.jpg");
-  background-position: 50%;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  height: 100vh;
-}
-.login__title {
-  color: white;
-  font-weight: bold;
-  font-size: 3rem;
-  margin: 1rem;
-}
-.login__form {
-  display: flex;
-  flex-direction: column;
-  height: 30vh;
-  align-items: center;
-  width: 100%;
-}
-.login__form__input {
-  margin-top: 1rem;
-  border: solid white 3px;
-  height: 2rem;
-  width: 100%;
-  width: 95%;
-  padding: 1%;
-  padding-left: 0.5rem;
-}
-.login__form__button {
-  font-size: 1.2rem;
-  margin-top: 1rem;
-  height: 2.5rem;
-  width: 95%;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  border-radius: 5px;
-  border: none;
-  background-color: white;
+#small-input {
+  width: 3rem;
 }
 
-.register {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 1rem;
-  background-image: url("./images/cinema.jpg");
-  background-position: 50%;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  height: 100vh;
+#medium-input {
+  width: 5rem;
 }
-.register__title {
-  color: white;
-  font-weight: bold;
-  font-size: 3rem;
-  margin: 1rem;
+
+.small-input {
+  width: 3rem;
 }
-.register__form {
-  display: flex;
-  flex-direction: column;
-  height: 30vh;
-  align-items: center;
-  width: 100%;
-}
-.register__form__input {
-  margin-top: 1rem;
-  border: solid white 3px;
-  height: 2rem;
-  width: 100%;
-  width: 95%;
-  padding: 1%;
-  padding-left: 0.5rem;
-}
-.register__form__button {
-  font-size: 1.2rem;
-  margin-top: 1rem;
-  height: 2.5rem;
-  width: 95%;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  border-radius: 5px;
-  border: none;
-  background-color: white;
+
+.medium-input {
+  width: 5rem;
 }
 
 button, input[type=submit], input[type=reset] {
@@ -208,6 +125,7 @@ button, input[type=submit], input[type=reset] {
   padding: 0.6rem 0.6rem 0rem 0.6rem;
   background-color: #fffdf9;
   margin-top: 1rem;
+  padding-bottom: 1rem;
 }
 .post__nav {
   display: flex;
@@ -374,7 +292,7 @@ button, input[type=submit], input[type=reset] {
   padding-top: 0.5rem;
   display: flex;
   justify-content: space-around;
-  width: 100vw;
+  width: 100%;
 }
 .account-details__header .buttons .button {
   display: flex;
@@ -591,7 +509,7 @@ button, input[type=submit], input[type=reset] {
   padding: 0.4rem;
   border-radius: 1rem;
   font-size: 1rem;
-  width: 80vw;
+  width: 80%;
   color: grey;
 }
 .personal-info .info-form__buttons {
@@ -606,6 +524,9 @@ button, input[type=submit], input[type=reset] {
 .connections__title {
   padding: 1rem 1rem;
   background-color: #ffad87;
+}
+.connections__container {
+  background-color: #fccfb23d;
 }
 
 .acc-resume {
@@ -648,6 +569,7 @@ button, input[type=submit], input[type=reset] {
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
+  border-bottom: thin solid #ffad87;
 }
 .filters-form__label {
   display: flex;
@@ -660,7 +582,7 @@ button, input[type=submit], input[type=reset] {
 .filters-form__label button {
   align-self: center;
 }
-.filters-form__label input, .filters-form__label textarea {
+.filters-form__label input, .filters-form__label textarea, .filters-form__label select {
   background-color: #ffad8763;
   padding: 0.4rem;
   border-radius: 1rem;
@@ -685,8 +607,132 @@ button, input[type=submit], input[type=reset] {
   border: none;
 }
 
-.small-input {
-  width: 3rem;
+.post-textarea {
+  align-self: center;
+  margin: 0.3rem;
+  background-color: #a7a5a434;
+  width: 90vw;
+  padding: 0.8rem;
+  border-radius: 3vw;
+}
+
+.post__nav__button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  margin: 0.3rem 0;
+  border-radius: 0.5rem;
+  background-color: #ffad87;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: white;
+  width: 5rem;
+  align-self: center;
+  border: none;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+  background-image: url("./images/cinema.jpg");
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100vh;
+}
+.login__title {
+  color: white;
+  font-weight: bold;
+  font-size: 3rem;
+  margin: 1rem;
+}
+.login__form {
+  display: flex;
+  flex-direction: column;
+  height: 30vh;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.login__form__input {
+  margin-top: 1rem;
+  border: solid white 3px;
+  height: 2rem;
+  width: 90%;
+  padding: 1%;
+  padding-left: 0.5rem;
+  background-color: white !important;
+}
+.login__form__button {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  height: 2.5rem;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  border-radius: 5px;
+  border: none;
+  background-color: white;
+}
+
+.register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+  background-image: url("./images/cinema.jpg");
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100vh;
+}
+.register__title {
+  color: white;
+  font-weight: bold;
+  font-size: 3rem;
+  margin: 1rem;
+}
+.register__form {
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.register__form__input {
+  margin-top: 1rem;
+  border: solid white 3px;
+  height: 2rem;
+  width: 100%;
+  width: 90%;
+  padding: 1%;
+  padding-left: 0.5rem;
+  background-color: white !important;
+}
+.register__form__button {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  height: 2.5rem;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  border-radius: 5px;
+  border: none;
+  background-color: white;
 }
 
 /*# sourceMappingURL=index.css.map */
