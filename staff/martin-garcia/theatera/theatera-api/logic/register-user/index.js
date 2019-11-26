@@ -1,18 +1,15 @@
 const { validate, errors: { ConflictError } } = require('theatera-util')
 const { models: { User } } = require('theatera-data')
 
-module.exports = function(name, surname, email, username, password) {
+module.exports = function(name, email, password, isCompany) {
     validate.string(name)
     validate.string.notVoid('name', name)
-    validate.string(surname)
-    validate.string.notVoid('surname', surname)
     validate.string(email)
     validate.string.notVoid('e-mail', email)
     validate.email(email)
-    validate.string(username)
-    validate.string.notVoid('username', username)
     validate.string(password)
     validate.string.notVoid('password', password)
+    validate.boolean(isCompany)
 
     return (async() => {
         const user = await User.findOne({ username })
