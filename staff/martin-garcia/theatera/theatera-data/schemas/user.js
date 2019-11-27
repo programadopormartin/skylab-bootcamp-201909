@@ -2,6 +2,7 @@ const { Schema, ObjectId } = require('mongoose')
 const { validators: { isEmail } } = require('theatera-util')
 const Chat = require('./chat')
 const Post = require('./post')
+const ExperienceItem = require('./experienceItem')
 
 
 module.exports = new Schema({
@@ -57,8 +58,8 @@ module.exports = new Schema({
         type: [String],
         require: false
     },
-    experiences: {
-        type: String,
+    experience: {
+        type: [ExperienceItem],
         required: false
     },
     rol: {
