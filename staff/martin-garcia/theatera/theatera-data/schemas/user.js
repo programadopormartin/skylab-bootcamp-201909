@@ -1,6 +1,5 @@
 const { Schema, ObjectId } = require('mongoose')
-    /* const { validators: { isEmail } } = require('../utils/is-email')
-     */
+const { validators: { isEmail } } = require('theatera-util')
 const Chat = require('./chat')
 const Post = require('./post')
 
@@ -14,8 +13,8 @@ module.exports = new Schema({
     email: {
         type: String,
         required: true,
-        /*         validate: isEmail
-         */
+        validate: isEmail
+
     },
     password: {
         type: String,
@@ -26,7 +25,7 @@ module.exports = new Schema({
         contentType: String,
         required: false
     },
-    lastaccess: {
+    lastAccess: {
         type: Date,
         required: false
     },
@@ -69,7 +68,7 @@ module.exports = new Schema({
     },
     specificInfo: {
         type: Object,
-        required: true
+        required: false
     },
     chats: {
         type: [Chat],

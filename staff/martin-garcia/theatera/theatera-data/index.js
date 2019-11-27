@@ -1,4 +1,5 @@
-const { connect, disconnect, ObjectId } = require('mongoose')
+const { connect, disconnect } = require('mongoose')
+const { ObjectId } = require('mongodb')
 
 module.exports = {
     database: {
