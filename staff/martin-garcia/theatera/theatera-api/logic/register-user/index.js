@@ -1,5 +1,8 @@
 const { validate, errors: { ConflictError } } = require('theatera-util')
 const { models: { User } } = require('theatera-data')
+const bcrypt = require('bcryptjs')
+require('dotenv').config()
+const { env: { SALT } } = process
 
 module.exports = function(name, email, password, isCompany) {
     validate.string(name)
@@ -12,10 +15,16 @@ module.exports = function(name, email, password, isCompany) {
     validate.boolean(isCompany)
 
     return (async() => {
-        const user = await User.findOne({ username })
+        const user = await User.findOne({ email })
 
-        if (user) throw new ConflictError(`user with username ${username} already exists`)
+        if (user) throw new ConflictError(`user with email ${email} already exists`)
 
-        await User.create({ name, surname, email, username, password })
+        password = await bcrypt.hash(password, parseInt(SALT));
+
+        let rol
+
+        isCompany ? rol = 'COMPANY' : rol = 'PERSON'
+
+        await User.create({ name, email, password, rol })
     })()
 }
