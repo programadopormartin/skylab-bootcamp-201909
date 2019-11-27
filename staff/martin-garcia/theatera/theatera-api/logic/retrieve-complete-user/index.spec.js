@@ -9,7 +9,7 @@ const { database, models: { User } } = require('theatera-data')
 describe('logic - retrieve-summary-user', () => {
     before(() => database.connect(TEST_DB_URL))
 
-    let id, name, email, password, rol, img, introduction
+    let id, name, email, password, rol, img, introduction, city, description, skills, experience
 
     beforeEach(async() => {
         name = `name-${random()}`
@@ -17,8 +17,18 @@ describe('logic - retrieve-summary-user', () => {
         password = `password-${random()}`
         random() > 0.5 ? rol = 'COMPANY' : rol = 'PERSON'
         introduction = `introduction-${random()}`
+        description = `description-${random()}`
+        description = description.slice(0, 140)
+        city = `city-${random()}`
+        skills
 
         await User.deleteMany()
+
+        if (rol === 'PERSON') {
+            const user = await User.create({ name, email, password, rol, introduction })
+
+            id = user.id
+        }
 
         const user = await User.create({ name, email, password, rol, introduction })
 

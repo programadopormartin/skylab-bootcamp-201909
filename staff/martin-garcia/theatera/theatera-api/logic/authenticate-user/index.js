@@ -5,6 +5,7 @@ require('dotenv').config()
 const { env: { SALT } } = process
 
 module.exports = function(email, password) {
+
     validate.string(email)
     validate.string.notVoid('email', email)
     validate.string(password)
@@ -12,6 +13,7 @@ module.exports = function(email, password) {
 
     return (async() => {
         const user = await User.findOne({ email })
+        if (!user) throw new CredentialsError('wrong credentials')
         const valid = await bcrypt.compare(password, user.password)
         if (!user || !valid) throw new CredentialsError('wrong credentials')
 

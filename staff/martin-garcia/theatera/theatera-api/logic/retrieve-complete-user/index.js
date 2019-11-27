@@ -16,10 +16,22 @@ module.exports = function(id) {
 
         await user.save()
 
-        let { name, img, introduction, hola } = user.toObject()
+        if (user.rol === 'PERSON') {
+
+            const { name, img, surname, city, description, skills, experience } = user.toObject()
+            let { introduction } = user.Object()
+
+            !introduction ? introduction = '' : introduction = introduction.slice(0, 20) + '...'
+
+            return { id, name, img, surname, city, description, skills, experience, introduction }
+        }
+
+        const { name, img, city, description, skills, experience } = user.toObject()
+        let { introduction } = user.Object()
 
         !introduction ? introduction = '' : introduction = introduction.slice(0, 20) + '...'
 
-        return { id, name, img, introduction }
+        return { id, name, img, city, description, skills, experience }
+
     })()
 }
