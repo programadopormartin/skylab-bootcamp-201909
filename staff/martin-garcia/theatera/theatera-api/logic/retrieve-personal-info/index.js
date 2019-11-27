@@ -15,7 +15,7 @@ module.exports = function(id) {
         await user.save()
 
         if (user.rol === 'PERSON') {
-            const { img, name, email, introduction, specificInfo: { surname }, description, gender, age, phone, website, city, languages, height, weight } = user.toObject()
+            const { img, name, email, introduction, specificInfo: { surname, gender, age, languages, height, weight }, description, phone, website, city, } = user.toObject()
 
             return { id, img, name, email, introduction, surname, description, gender, age, phone, website, city, languages, height, weight }
         }

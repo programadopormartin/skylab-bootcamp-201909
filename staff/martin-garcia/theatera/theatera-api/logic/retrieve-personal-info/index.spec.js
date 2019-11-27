@@ -32,10 +32,10 @@ describe('logic - retrieve-complete-user', () => {
             age = Math.floor(random() * 90)
             random() > 0.5 ? gender = 'MAN' : gender = 'WOMAN'
             languages = [`language-${random()}`, `language-${random()}`]
-            height = `${random()}`
-            weight = `${random()}`
+            height = random()
+            weight = random()
 
-            const specificInfo = await Person.create({ surname })
+            const specificInfo = await Person.create({ surname, gender, age, weight, height, languages })
             const user = await User.create({ name, email, password, rol, introduction, description, city, phone, website, specificInfo })
             id = user.id
         } else {
@@ -75,11 +75,11 @@ describe('logic - retrieve-complete-user', () => {
             expect(user.gender).to.equal(gender)
             expect(user.gender).to.be.a('string')
             expect(user.age).to.equal(age)
-            expect(user.age).to.be.a('string')
+            expect(user.age).to.be.a('number')
             expect(user.height).to.equal(height)
-            expect(user.height).to.be.a('string')
+            expect(user.height).to.be.a('number')
             expect(user.weight).to.equal(weight)
-            expect(user.weight).to.be.a('string')
+            expect(user.weight).to.be.a('number')
         }
 
         /* img test? */

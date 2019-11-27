@@ -18,12 +18,12 @@ module.exports = new Schema({
         require: false,
     },
     languages: {
-        type: String,
+        type: [String],
         require: false
     },
     gender: {
         type: String,
-        enum: ['MAN', 'WOMAN'],
+        /*  enum: ['MAN', 'WOMAN'], */
         require: false,
     }
 })

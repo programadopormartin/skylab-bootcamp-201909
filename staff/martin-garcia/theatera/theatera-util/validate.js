@@ -17,6 +17,9 @@ const validate = {
     number(target) {
         this.typeOf('number', target)
     },
+    date(target) {
+        this.instanceOf(Date, target)
+    },
 
     boolean(target) {
         this.typeOf('boolean', target)
@@ -35,11 +38,11 @@ const validate = {
     },
 
     matches(name, target, ...values) {
-        if (!values.includes(target)) throw new ContentError(`${target} does not match any of the valid ${name} values: ${values}`)   
+        if (!values.includes(target)) throw new ContentError(`${target} does not match any of the valid ${name} values: ${values}`)
     }
 }
 
-validate.string.notVoid = function (name, target) {
+validate.string.notVoid = function(name, target) {
     if (!target.trim().length) throw new ContentError(`${name} is empty or blank`)
 }
 
