@@ -11,27 +11,20 @@ module.exports = function(id) {
         const user = await User.findById(id)
 
         if (!user) throw new NotFoundError(`user with id ${id} not found`)
-
         user.lastAccess = new Date
-
         await user.save()
 
         if (user.rol === 'PERSON') {
-
-            const { name, img, surname, city, description, skills, experience } = user.toObject()
-            let { introduction } = user.Object()
-
+            const { name, img, specificInfo: { surname }, city, description, skills, experience } = user.toObject()
+            let { introduction } = user.toObject();
             !introduction ? introduction = '' : introduction = introduction.slice(0, 20) + '...'
-
             return { id, name, img, surname, city, description, skills, experience, introduction }
         }
 
         const { name, img, city, description, skills, experience } = user.toObject()
-        let { introduction } = user.Object()
-
-        !introduction ? introduction = '' : introduction = introduction.slice(0, 20) + '...'
-
-        return { id, name, img, city, description, skills, experience }
+        let introduction;
+        !user.toObject().introduction ? introduction = '' : introduction = user.toObject().introduction.slice(0, 20) + '...'
+        return { id, name, img, city, description, skills, experience, introduction }
 
     })()
 }

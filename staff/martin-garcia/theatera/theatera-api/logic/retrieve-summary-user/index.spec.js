@@ -41,7 +41,6 @@ describe('logic - retrieve-summary-user', () => {
         expect(user.introduction).to.equal(_introduction)
         expect(user.introduction).to.be.a('string')
 
-        debugger
 
         /* img test? */
 

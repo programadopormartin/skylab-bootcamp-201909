@@ -39,19 +39,15 @@ describe('logic - authenticate user', () => {
     describe('when wrong credentials', () => {
         it('should fail on wrong email', async() => {
             const email = 'wrong'
-            debugger
             try {
                 await authenticateUser(email, password)
 
                 throw new Error('should not reach this point')
             } catch (error) {
                 expect(error).to.exist
-                debugger
                 expect(error).to.be.an.instanceOf(CredentialsError)
-
                 const { message } = error
-                /*                 expect(message).to.equal(`Cannot read property 'password' of null`)
-                 */
+
                 expect(message).to.equal(`wrong credentials`)
 
             }
