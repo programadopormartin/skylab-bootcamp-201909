@@ -46,9 +46,8 @@ describe('logic - authenticate user', () => {
                 throw new Error('should not reach this point')
             } catch (error) {
                 expect(error).to.exist
-                debugger
-                /*                 expect(error).to.be.an.instanceOf(CredentialsError)
-                 */
+                    /*                 expect(error).to.be.an.instanceOf(CredentialsError)
+                     */
                 const { message } = error
                 expect(message).to.equal(`Cannot read property 'password' of null`)
 
