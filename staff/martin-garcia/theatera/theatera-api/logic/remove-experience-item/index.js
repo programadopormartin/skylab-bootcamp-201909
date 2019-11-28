@@ -14,7 +14,7 @@ module.exports = function(userId, experienceId) {
         const user = await User.findById(userId)
         if (!user) throw new NotFoundError(`user with id ${userId} not found`)
         const experience = await User.findOne({ "experience._id": ObjectId(experienceId) }, { "experience.$": 1 })
-        if (!experience) throw new NotFoundError(`user does not have task with id ${experienceId}`)
+        if (!experience) throw new NotFoundError(`user does not have experience with id ${experienceId}`)
 
 
         const arr = await user.experience.filter(ele => ele.id !== experienceId)

@@ -44,7 +44,7 @@ describe('logic - createExperienceItem', () => {
 
     })
 
-    it('Should succed on correct task', async() => {
+    it('Should succed on correct experience', async() => {
 
 
         user = await User.findById(userId)
@@ -65,7 +65,7 @@ describe('logic - createExperienceItem', () => {
     })
 
 
-    it('should fail on unexisting user and correct task data', async() => {
+    it('should fail on unexisting user and correct experience', async() => {
         const userId = ObjectId().toString()
 
         try {
@@ -78,7 +78,7 @@ describe('logic - createExperienceItem', () => {
         }
     })
 
-    it('should fail on correct user and unexisting task data', async() => {
+    it('should fail on correct user and unexisting experience data', async() => {
         const experienceId = ObjectId().toString()
 
         try {
@@ -88,7 +88,7 @@ describe('logic - createExperienceItem', () => {
         } catch (error) {
             expect(error).to.exist
             expect(error).to.be.an.instanceOf(NotFoundError)
-            expect(error.message).to.equal(`user does not have task with id ${experienceId}`)
+            expect(error.message).to.equal(`user does not have experience with id ${experienceId}`)
         }
     })
 
