@@ -76,7 +76,5 @@ describe('logic - retrieve-post', () => {
     })
 
 
-    // TODO other cases
-
     after(() => User.deleteMany().then(database.disconnect))
 })
