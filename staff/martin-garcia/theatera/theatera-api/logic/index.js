@@ -5,5 +5,6 @@ module.exports = {
     retrieveSummaryUser: require('./retrieve-summary-user'),
     retrieveCompleteUser: require('./retrieve-complete-user'),
     retrievePersonalInfo: require('./retrieve-personal-info'),
-    createExperienceItem: require('./create-experience-item')
+    createExperienceItem: require('./create-experience-item'),
+    removeExperienceItem: require('./remove-experience-item')
 }
