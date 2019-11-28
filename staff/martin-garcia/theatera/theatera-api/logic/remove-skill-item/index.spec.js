@@ -80,7 +80,6 @@ describe('logic - createskillItem', () => {
             await removeSkillItem(wrongUserId, skill)
             throw new Error('should not reach this point')
         } catch (error) {
-            debugger
             expect(error).to.exist
             expect(error).to.be.an.instanceOf(ContentError)
             expect(error.message).to.equal(`${wrongUserId} is not a valid id`)

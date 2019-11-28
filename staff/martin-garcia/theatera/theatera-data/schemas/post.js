@@ -1,9 +1,11 @@
 const { Schema, ObjectId } = require('mongoose')
 const Comment = require('./comment')
+const Post = require('./post')
+
 
 module.exports = new Schema({
     user: {
-        type: Object,
+        type: ObjectId,
         require: true,
         ref: 'User'
     },

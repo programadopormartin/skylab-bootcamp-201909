@@ -9,5 +9,5 @@ module.exports = {
     removeExperienceItem: require('./remove-experience-item'),
     createSkillItem: require('./create-skill-item'),
     removeSkillItem: require('./remove-skill-item'),
-
+    createPost: require('./create-post')
 }
