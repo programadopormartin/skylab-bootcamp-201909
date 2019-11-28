@@ -47,7 +47,6 @@ describe('logic - createPost', () => {
             throw new Error('should not reach this point')
         } catch (error) {
             expect(error).to.exist
-            debugger
             expect(error).to.be.an.instanceOf(NotFoundError)
             expect(error.message).to.equal(`user with id ${userId} not found`)
         }

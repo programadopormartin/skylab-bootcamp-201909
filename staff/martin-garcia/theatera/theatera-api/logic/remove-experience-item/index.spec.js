@@ -6,7 +6,7 @@ const removeExperienceItem = require('.')
 const { errors: { NotFoundError } } = require('theatera-util')
 const { ObjectId, database, models: { User, ExperienceItem } } = require('theatera-data')
 
-describe('logic - createExperienceItem', () => {
+describe('logic - removeExperienceItem', () => {
     before(() => database.connect(TEST_DB_URL))
 
     let userId, experienceId, title, dateStart, dateEnd, body, type

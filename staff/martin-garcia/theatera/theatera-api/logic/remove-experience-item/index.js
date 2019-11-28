@@ -21,6 +21,6 @@ module.exports = function(userId, experienceId) {
         user.experience = arr
         await user.save()
 
-
+        return experienceId
     })()
 }
