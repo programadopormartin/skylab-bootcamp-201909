@@ -65,7 +65,6 @@ describe('logic - createSkillItem', () => {
 
             throw new Error('should not reach this point')
         } catch (error) {
-            debugger
             expect(error).to.exist
             expect(error).to.be.an.instanceOf(ConflictError)
             expect(error.message).to.equal(`user with skill ${skill} already exists`)

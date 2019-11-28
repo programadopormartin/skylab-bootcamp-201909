@@ -7,5 +7,7 @@ module.exports = {
     retrievePersonalInfo: require('./retrieve-personal-info'),
     createExperienceItem: require('./create-experience-item'),
     removeExperienceItem: require('./remove-experience-item'),
-    createSkillItem: require('./create-skill-item')
+    createSkillItem: require('./create-skill-item'),
+    removeSkillItem: require('./remove-skill-item'),
+
 }
