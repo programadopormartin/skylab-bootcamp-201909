@@ -16,15 +16,16 @@ module.exports = function(userId, postId, description) {
 
         let commentId = undefined
 
-        await user.posts.filter(async p => {
+        await Promise.all(user.posts.filter(async p => {
             if (p.id === postId) {
                 comment = new Comment({ user: userId, description, date: new Date })
                 if (!comment) throw new ConflictError('internal error')
                 commentId = comment.id
                 p.comments.push(comment)
-                await user.save()
             }
-        })
+        }))
+
+        await user.save()
         return commentId
     })()
 

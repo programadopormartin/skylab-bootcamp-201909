@@ -24,7 +24,8 @@ module.exports = new Schema({
     },
     comments: {
         type: [Comment],
-        require: false
+        require: false,
+        default: []
     },
     type: {
         type: String,

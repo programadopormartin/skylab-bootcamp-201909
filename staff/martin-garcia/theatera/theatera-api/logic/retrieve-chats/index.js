@@ -18,8 +18,6 @@ module.exports = function(userId) {
 
         if (!chats) throw new NotFoundError(`chat with id ${chatId} not found`)
 
-        debugger
-
         return chats
 
 
