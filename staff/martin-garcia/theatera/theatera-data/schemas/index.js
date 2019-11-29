@@ -9,5 +9,6 @@ module.exports = {
     person: require('./person'),
     user: require('./user'),
     friendRequest: require('./friend-request'),
-    post: require('./post')
+    post: require('./post'),
+    notification: require('./notification')
 }

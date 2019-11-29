@@ -1,5 +1,5 @@
 const { validate, errors: { ContentError, NotFoundError, ConflictError } } = require('theatera-util')
-const { ObjectId, models: { User, FriendRequest } } = require('theatera-data')
+const { ObjectId, models: { User, FriendRequest, Notification } } = require('theatera-data')
 
 module.exports = function(emiterId, receiverId) {
     validate.string(emiterId)
@@ -33,8 +33,11 @@ module.exports = function(emiterId, receiverId) {
             receiver.connections.push(ObjectId(emiterId))
             const date = new Date
 
-            emiter.news.push({ message: "new friend", name: receiver.name, image: receiver.image, id: receiver.id, type: 'CONNECTION', date })
-            receiver.news.push({ message: "new friend", name: emiter.name, image: emiter.image, id: emiter.id, type: 'CONNECTION', date })
+            const noti1 = new Notification({ body: { message: "new friend", name: receiver.name, image: receiver.image, id: receiver.id, type: 'CONNECTION', date } })
+            emiter.news.push(noti1)
+
+            const noti2 = new Notification({ body: { message: "new friend", name: emiter.name, image: emiter.image, id: emiter.id, type: 'CONNECTION', date } })
+
 
             await emiter.save()
             await receiver.save()

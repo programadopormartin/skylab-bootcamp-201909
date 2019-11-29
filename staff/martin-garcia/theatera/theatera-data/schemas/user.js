@@ -87,6 +87,7 @@ module.exports = new Schema({
     },
     news: {
         type: [Object],
-        required: false
+        required: false,
+        default: []
     },
 })
