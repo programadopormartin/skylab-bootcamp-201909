@@ -11,5 +11,6 @@ module.exports = {
     removeSkillItem: require('./remove-skill-item'),
     createPost: require('./create-post'),
     removePost: require('./remove-post'),
-    retrievePostById: require('./retrieve-post-by-id')
+    retrievePostById: require('./retrieve-post-by-id'),
+    retrieveConnections: require('./retrieve-connections')
 }

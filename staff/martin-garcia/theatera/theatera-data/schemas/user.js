@@ -62,6 +62,7 @@ module.exports = new Schema({
     experience: {
         type: [ExperienceItem],
         required: false
+
     },
     rol: {
         type: String,
@@ -84,12 +85,8 @@ module.exports = new Schema({
         type: [ObjectId],
         required: false
     },
-    new: {
-        type: String,
+    news: {
+        type: [Object],
         required: false
     },
-    pending: {
-        type: ObjectId,
-        required: false
-    }
 })
