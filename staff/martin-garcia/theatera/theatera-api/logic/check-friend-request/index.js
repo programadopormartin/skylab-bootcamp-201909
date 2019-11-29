@@ -31,9 +31,10 @@ module.exports = function(emiterId, receiverId) {
 
             emiter.connections.push(ObjectId(receiverId))
             receiver.connections.push(ObjectId(emiterId))
+            const date = new Date
 
-            emiter.news.push({ message: "new friend", name: receiver.name, image: receiver.image, id: receiver.id })
-            receiver.news.push({ message: "new friend", name: emiter.name, image: emiter.image, id: emiter.id })
+            emiter.news.push({ message: "new friend", name: receiver.name, image: receiver.image, id: receiver.id, type: 'CONNECTION', date })
+            receiver.news.push({ message: "new friend", name: emiter.name, image: emiter.image, id: emiter.id, type: 'CONNECTION', date })
 
             await emiter.save()
             await receiver.save()

@@ -11,12 +11,15 @@ module.exports = function(userId) {
         if (!user) throw new NotFoundError(`user with id ${userId} not found`)
 
 
-        const result = Promise.all(user.connections.map(async con => {
+        const result = await Promise.all(user.connections.map(async con => {
             const friendId = con._id.toString()
             const friend = await User.findById(friendId)
-                /* let introduction = friend.introduction.slice(0, 20) + '...' */
+
+            let introduction
+            friend.introduction ? introduction = friend.introduction.slice(0, 20) + '...' : introduction = ''
+
             const { image, name, id } = friend
-            return { id, name, image }
+            return { id, name, image, introduction }
         }))
 
         return result

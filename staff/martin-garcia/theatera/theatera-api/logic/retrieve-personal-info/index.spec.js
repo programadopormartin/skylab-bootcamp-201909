@@ -6,16 +6,19 @@ const retrievePersonalInfo = require('.')
 const { errors: { NotFoundError } } = require('theatera-util')
 const { database, models: { User, Person } } = require('theatera-data')
 
-describe('logic - retrieve-complete-user', () => {
+describe('logic - retrieve-personal-info', () => {
     before(() => database.connect(TEST_DB_URL))
 
-    let id, img, name, email, introduction, surname, description, gender, age, phone, website, city, languages, height, weight
+    let id, companyId, img, name, email, introduction, surname, description, gender, age, phone, website, city, languages, height, weight
 
     beforeEach(async() => {
+        await User.deleteMany()
+
+        //PERSON
         name = `name-${random()}`
         email = `email-${random()}@mail.com`
         password = `password-${random()}`
-        random() > 0.5 ? rol = 'COMPANY' : rol = 'PERSON'
+        personRol = 'PERSON'
         introduction = `introduction-${random()}`
         description = `description-${random()}`
         description = description.slice(0, 140)
@@ -23,26 +26,30 @@ describe('logic - retrieve-complete-user', () => {
         phone = `phone-${random()}`
         website = `website-${random()}`
 
+        surname = `surname-${random()}`
+        age = Math.floor(random() * 90)
+        random() > 0.5 ? gender = 'MAN' : gender = 'WOMAN'
+        languages = [`language-${random()}`, `language-${random()}`]
+        height = random()
+        weight = random()
 
 
-        await User.deleteMany()
 
-        if (rol === 'PERSON') {
-            surname = `surname-${random()}`
-            age = Math.floor(random() * 90)
-            random() > 0.5 ? gender = 'MAN' : gender = 'WOMAN'
-            languages = [`language-${random()}`, `language-${random()}`]
-            height = random()
-            weight = random()
+        const personSpecificInfo = new Person({ surname, gender, age, weight, height, languages })
+        const user = await User.create({ name, email, password, rol: personRol, introduction, description, city, phone, website, specificInfo: personSpecificInfo })
+        id = user.id
 
-            const specificInfo = await Person.create({ surname, gender, age, weight, height, languages })
-            const user = await User.create({ name, email, password, rol, introduction, description, city, phone, website, specificInfo })
-            id = user.id
-        } else {
-            const specificInfo = await Person.create({})
-            const user = await User.create({ name, email, password, rol, introduction, description, city, phone, website, specificInfo })
-            id = user.id
-        }
+
+
+
+        //Company
+        companyRol = 'COMPANY'
+        const companySpecificInfo = {}
+        const company = await User.create({ name, email, password, rol: companyRol, introduction, description, city, phone, website, specificInfo: companySpecificInfo })
+        companyId = company.id
+
+
+
 
 
     })
@@ -67,7 +74,8 @@ describe('logic - retrieve-complete-user', () => {
         expect(user.city).to.equal(city)
         expect(user.city).to.be.a('string')
 
-        if (rol === 'PERSON') {
+
+        if (user.rol === 'PERSON') {
             expect(user.surname).to.be.a('string')
             expect(user.surname).to.be.equal(surname)
             expect(user.email).to.equal(email)
@@ -81,10 +89,37 @@ describe('logic - retrieve-complete-user', () => {
             expect(user.weight).to.equal(weight)
             expect(user.weight).to.be.a('number')
         }
-
         /* img test? */
 
     })
+
+
+    it('should succeed on correct user id', async() => {
+        const company = await retrievePersonalInfo(companyId)
+
+        debugger
+
+        if (company.rol === 'COMPANY') {
+            expect(company).to.exist
+            expect(company.id).to.equal(companyId)
+            expect(company.id).to.be.a('string')
+            expect(company._id).to.not.exist
+            expect(company.name).to.equal(name)
+            expect(company.name).to.be.a('string')
+            expect(company.password).to.be.undefined
+            expect(company.introduction).to.equal(introduction)
+            expect(company.introduction).to.be.a('string')
+            expect(company.introduction).to.equal(introduction)
+            expect(company.description).to.equal(description)
+            expect(company.description).to.be.a('string')
+            expect(company.website).to.equal(website)
+            expect(company.website).to.be.a('string')
+            expect(company.city).to.equal(city)
+            expect(company.city).to.be.a('string')
+        }
+    })
+
+
 
     it('should fail on wrong user id', async() => {
         const id = '012345678901234567890123'

@@ -36,6 +36,7 @@ describe('logic - retrieveConnections', () => {
         await User.deleteMany()
         const user = await User.create({ name, email, password, rol, introduction })
         const friend = await User.create({ name: friendName, email: friendEmail, password: friendPassword, rol: friendRol, introduction: friendIntroduction })
+        friendId = friend.id
         const friend1 = await User.create({ name: friendName1, email: friendEmail1, password: friendPassword1, rol: friendRol1 })
         user.connections.push(friend._id)
         user.connections.push(friend1._id)
@@ -51,23 +52,27 @@ describe('logic - retrieveConnections', () => {
 
     it('should succeed on correct friend', async() => {
 
-        const _friends = await retrieveConnections(id)
+        const _friends = await retrieveConnections(friendId)
 
         const _friend = _friends[0]
 
         expect(_friend.id).to.exist
         expect(_friend.id).to.be.a('string')
         expect(_friend.id).to.have.length.greaterThan(0)
-
+        expect(_friend.id).to.be.equal(id)
 
         expect(_friend.name).to.exist
         expect(_friend.name).to.be.a('string')
         expect(_friend.name).to.have.length.greaterThan(0)
+        expect(_friend.name).to.be.equal(name)
 
-
+        expect(_friend.introduction).to.exist
+        expect(_friend.introduction).to.be.a('string')
+        expect(_friend.introduction).to.have.length.greaterThan(0)
+        expect(_friend.introduction).to.be.equal(introduction.slice(0, 20) + '...')
     })
 
-    it('should succeed on user without friendd', async() => {
+    it('should succeed on user without friend', async() => {
 
         name = `name-${random()}`
         email = `email-${random()}@mail.com`

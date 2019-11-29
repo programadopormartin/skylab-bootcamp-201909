@@ -12,5 +12,9 @@ module.exports = {
     createPost: require('./create-post'),
     removePost: require('./remove-post'),
     retrievePostById: require('./retrieve-post-by-id'),
-    retrieveConnections: require('./retrieve-connections')
+    retrieveConnections: require('./retrieve-connections'),
+    checkFriendRequest: require('./check-friend-request'),
+    retrieveFriendRequests: require('./retrieve-friend-requests'),
+    retrieveConnections: require('./retrieve-connections'),
+    sendComment: require('./send-comment')
 }
