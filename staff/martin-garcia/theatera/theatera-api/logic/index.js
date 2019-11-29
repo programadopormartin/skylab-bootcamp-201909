@@ -16,5 +16,7 @@ module.exports = {
     checkFriendRequest: require('./check-friend-request'),
     retrieveFriendRequests: require('./retrieve-friend-requests'),
     retrieveConnections: require('./retrieve-connections'),
-    sendComment: require('./send-comment')
+    sendComment: require('./send-comment'),
+    createChat: require('./create-chat'),
+    retrieveChat: require('./retrieveChat')
 }

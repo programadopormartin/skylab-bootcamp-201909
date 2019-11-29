@@ -1,5 +1,5 @@
-const { validate, errors: { ContentError, NotFoundError } } = require('theatera-util')
-const { ObjectId, models: { User, Post } } = require('theatera-data')
+const { validate, errors: { ContentError, NotFoundError, ConflictError } } = require('theatera-util')
+const { ObjectId, models: { User, Post, Comment } } = require('theatera-data')
 
 module.exports = function(userId, postId, description) {
     validate.string(userId)
@@ -14,10 +14,18 @@ module.exports = function(userId, postId, description) {
         const user = await User.findById(userId)
         if (!user) throw new NotFoundError(`user with id ${userId} not found`)
 
-        debugger
+        let commentId = undefined
 
-
-
+        await user.posts.filter(async p => {
+            if (p.id === postId) {
+                comment = new Comment({ user: userId, description, date: new Date })
+                if (!comment) throw new ConflictError('internal error')
+                commentId = comment.id
+                p.comments.push(comment)
+                await user.save()
+            }
+        })
+        return commentId
     })()
 
 

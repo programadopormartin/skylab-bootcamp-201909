@@ -48,7 +48,6 @@ describe('logic - retrieve-personal-info', () => {
 
             throw Error('should not reach this point')
         } catch (error) {
-            debugger
             expect(error).to.exist
             expect(error).to.be.an.instanceOf(NotFoundError)
             expect(error.message).to.equal(`user with id ${fakeId} not found`)
@@ -63,7 +62,6 @@ describe('logic - retrieve-personal-info', () => {
 
             throw Error('should not reach this point')
         } catch (error) {
-            debugger
             expect(error).to.exist
             expect(error).to.be.an.instanceOf(NotFoundError)
             expect(error.message).to.equal(`user with id ${fakeId} not found`)

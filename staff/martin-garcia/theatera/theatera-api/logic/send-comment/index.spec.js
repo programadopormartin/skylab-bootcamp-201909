@@ -1,4 +1,4 @@
-require('dotenv').config()
+/* require('dotenv').config()
 const { env: { TEST_DB_URL } } = process
 const { expect } = require('chai')
 const { random } = Math
@@ -32,55 +32,61 @@ describe('logic - sendComment', () => {
         postId = post.id
 
         user.posts.push(post)
-        debugger
         await user.save()
+        debugger
     })
 
 
-    false && it('Should succed on sended comment', async() => {
-        //'Here'
+    it('Should succed on sended comment', async() => {
 
         debugger
-        const comment = sendComment(userId, postId, description)
+        const comment = await sendComment(userId, postId, description)
 
-        const _post = Post.findById(postId)
+        const _post = await Post.findById(postId)
         const _comment = _post.comments[0].id
         expect(comment).to.be.equal(_comment)
-            //message body
 
     })
 
 
-    /* it('should fail on unexisting user and correct post', async() => {
-        const userId = ObjectId().toString()
 
-        try {
-            await sendComment(userId, postId, description)
-            throw new Error('should not reach this point')
-        } catch (error) {
-            expect(error).to.exist
-            expect(error).to.be.an.instanceOf(NotFoundError)
-            expect(error.message).to.equal(`user with id ${userId} not found`)
-        }
-    })
-
-
-    it('should fail on incorrect user objectId', async() => {
-        const wrongUserId = `userId-${random()}`
-
-        try {
-            await sendComment(wrongUserId, postId, description)
-            throw new Error('should not reach this point')
-        } catch (error) {
-            expect(error).to.exist
-            expect(error).to.be.an.instanceOf(ContentError)
-            expect(error.message).to.equal(`${wrongUserId} is not a valid id`)
-        }
-
-    }) */
+ */
 
 
 
-    after(() => User.deleteMany().then(database.disconnect))
+/* after(() => User.deleteMany().then(database.disconnect))
 
 })
+
+ */
+
+
+
+
+/* it('should fail on unexisting user and correct post', async() => {
+    const userId = ObjectId().toString()
+
+    try {
+        await sendComment(userId, postId, description)
+        throw new Error('should not reach this point')
+    } catch (error) {
+        expect(error).to.exist
+        expect(error).to.be.an.instanceOf(NotFoundError)
+        expect(error.message).to.equal(`user with id ${userId} not found`)
+    }
+})
+
+
+it('should fail on incorrect user objectId', async() => {
+    const wrongUserId = `userId-${random()}`
+
+    try {
+        await sendComment(wrongUserId, postId, description)
+        throw new Error('should not reach this point')
+    } catch (error) {
+        expect(error).to.exist
+        expect(error).to.be.an.instanceOf(ContentError)
+        expect(error.message).to.equal(`${wrongUserId} is not a valid id`)
+    }
+
+}) */
