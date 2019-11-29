@@ -21,7 +21,6 @@ describe('logic - createPost', () => {
 
         let user = await User.create({ name, email, password, rol })
         userId = user.id
-        await user.save()
     })
 
 

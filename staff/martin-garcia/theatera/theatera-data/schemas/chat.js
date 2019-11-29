@@ -9,6 +9,7 @@ module.exports = new Schema({
     },
     messages: {
         type: [Message],
-        required: true
+        required: false,
+        default: []
     }
 })

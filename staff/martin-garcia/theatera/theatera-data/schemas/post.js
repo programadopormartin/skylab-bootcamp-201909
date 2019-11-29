@@ -15,7 +15,7 @@ module.exports = new Schema({
     },
     date: {
         type: Date,
-        require: false,
+        require: true,
     },
     likes: {
         type: [ObjectId],

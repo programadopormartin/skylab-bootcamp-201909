@@ -19,7 +19,7 @@ module.exports = function(userId, body) {
         const likes = []
         const comments = []
 
-        const post = await new Post({ date, type, user, likes, comments, body })
+        const post = new Post({ date, type, user, likes, comments, body })
         _user.posts.push(post)
         await _user.save()
         return post.id

@@ -8,5 +8,6 @@ module.exports = {
     message: require('./message'),
     person: require('./person'),
     user: require('./user'),
-    friendRequest: require('./friend-request')
+    friendRequest: require('./friend-request'),
+    post: require('./post')
 }

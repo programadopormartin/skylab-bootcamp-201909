@@ -125,11 +125,9 @@ describe('logic - checkFriendRequest', () => {
         const wrongUserId = "5de05f690f3ed472bea9d9bf"
 
         try {
-            debugger
             await checkFriendRequest(friendId, wrongUserId)
             throw new Error('should not reach this point')
         } catch (error) {
-            debugger
             expect(error).to.exist
             expect(error).to.be.an.instanceOf(NotFoundError)
             expect(error.message).to.equal(`user with id ${wrongUserId} not found`)
@@ -143,11 +141,9 @@ describe('logic - checkFriendRequest', () => {
         const wrongUserId = "5de05f690f3ed472bea9d9bf"
 
         try {
-            debugger
             await checkFriendRequest(wrongUserId, friendId)
             throw new Error('should not reach this point')
         } catch (error) {
-            debugger
             expect(error).to.exist
             expect(error).to.be.an.instanceOf(NotFoundError)
             expect(error.message).to.equal(`user with id ${wrongUserId} not found`)

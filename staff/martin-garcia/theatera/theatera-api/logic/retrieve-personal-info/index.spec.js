@@ -97,8 +97,6 @@ describe('logic - retrieve-personal-info', () => {
     it('should succeed on correct user id', async() => {
         const company = await retrievePersonalInfo(companyId)
 
-        debugger
-
         if (company.rol === 'COMPANY') {
             expect(company).to.exist
             expect(company.id).to.equal(companyId)
