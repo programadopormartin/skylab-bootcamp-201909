@@ -2,7 +2,6 @@ const { validate, errors: { NotFoundError, ContentError } } = require('theatera-
 const { ObjectId, models: { User, Post } } = require('theatera-data')
 
 module.exports = function(friendIds) {
-    debugger
     friendIds.forEach(id => {
         validate.string(id)
         validate.string.notVoid('id', id)
