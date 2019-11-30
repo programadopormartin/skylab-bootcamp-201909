@@ -20,5 +20,6 @@ module.exports = {
     createChat: require('./create-chat'),
     retrieveChat: require('./retrieveChat'),
     retrieveNews: require('./retrieve-news'),
-    retrieveUserPosts: require('./retrieve-user-posts')
+    retrieveUserPosts: require('./retrieve-user-posts'),
+    retrieveLatestPosts: require('./retrieve-latest-posts'),
 }

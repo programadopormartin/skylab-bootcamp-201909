@@ -14,8 +14,6 @@ module.exports = function(userId) {
 
         let result = []
 
-        debugger
-
         result = await Promise.all(posts.map(async post => {
             const { image, name } = user
             const { body, date, likes, comments, type } = post
