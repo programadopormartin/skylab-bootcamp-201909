@@ -60,7 +60,6 @@ describe('logic - retrieveNews', () => {
     })
 
     it('should succeed on user without friend', async() => {
-        debugger
         const news = await retrieveNews(id2)
         expect(news.length).to.be.equal(0)
 

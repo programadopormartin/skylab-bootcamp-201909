@@ -38,14 +38,10 @@ describe('logic - retrieve-post', () => {
         user.posts.push(post)
 
         await user.save()
-        user = await User.findById(userId)
-        const a = "asdfs"
     })
 
 
     it('should succeed on correct user id', async() => {
-
-
         const _post = await retrievePostById(userId, postId)
 
 

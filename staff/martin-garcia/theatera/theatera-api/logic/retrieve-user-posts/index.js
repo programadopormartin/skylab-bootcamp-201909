@@ -1,4 +1,4 @@
-const { validate, errors: { NotFoundError } } = require('theatera-util')
+const { validate, errors: { NotFoundError, ContentError } } = require('theatera-util')
 const { ObjectId, models: { User } } = require('theatera-data')
 
 module.exports = function(userId) {
@@ -12,11 +12,12 @@ module.exports = function(userId) {
 
         let result = []
 
-        result = await Promise.all(user.news.map(async con => {
-            return n = { body: con.body, id: con._id.toString() }
+        result = await Promise.all(user.posts.map(async post => {
+            const { image, name } = user
+            const { body, date, likes, comments, type } = post
+            return { user: { image, id: user.id, name }, post: { id: post.id, body, date, likes, comments, type } }
         }))
 
         return result
     })()
-
 }

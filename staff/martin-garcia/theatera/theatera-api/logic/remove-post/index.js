@@ -17,8 +17,8 @@ module.exports = function(userId, postId) {
         const post = await User.findOne({ "posts._id": ObjectId(postId) }, { "posts.$": 1 })
         if (!post) throw new NotFoundError(`user does not have post with id ${postId}`)
 
-        const arr = await user.posts.filter(ele => ele.id !== postId)
-        user.posts = arr
+        const arrayFiltered = await user.posts.filter(ele => ele.id !== postId)
+        user.posts = arrayFiltered
         await user.save()
 
         return postId

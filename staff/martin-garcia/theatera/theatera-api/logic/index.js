@@ -18,5 +18,7 @@ module.exports = {
     retrieveConnections: require('./retrieve-connections'),
     sendComment: require('./send-comment'),
     createChat: require('./create-chat'),
-    retrieveChat: require('./retrieveChat')
+    retrieveChat: require('./retrieveChat'),
+    retrieveNews: require('./retrieve-news'),
+    retrieveUserPosts: require('./retrieve-user-posts')
 }
