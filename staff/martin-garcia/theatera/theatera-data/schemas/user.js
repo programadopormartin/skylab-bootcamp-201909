@@ -65,9 +65,6 @@ module.exports = new Schema({
     chats: {
         type: [Chat],
     },
-    posts: {
-        type: [Post],
-    },
     connections: {
         type: [ObjectId],
         ref: 'Connection'

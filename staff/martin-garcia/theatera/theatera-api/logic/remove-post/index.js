@@ -1,5 +1,5 @@
-const { ObjectId, models: { User } } = require('theatera-data')
-const { validate, errors: { ContentError, NotFoundError } } = require('theatera-util')
+const { ObjectId, models: { User, Post } } = require('theatera-data')
+const { validate, errors: { ContentError, NotFoundError, ConflictError } } = require('theatera-util')
 
 module.exports = function(userId, postId) {
     validate.string(userId)
@@ -14,13 +14,12 @@ module.exports = function(userId, postId) {
         const user = await User.findById(userId)
         if (!user) throw new NotFoundError(`user with id ${userId} not found`)
 
-        const post = await User.findOne({ "posts._id": ObjectId(postId) }, { "posts.$": 1 })
+
+        const post = await Post.findById(postId)
         if (!post) throw new NotFoundError(`user does not have post with id ${postId}`)
+        const removedPost = await Post.remove({ "_id": ObjectId(postId) })
+        if (!removedPost) throw new ConflictError('internal Error')
 
-        const arrayFiltered = await user.posts.filter(ele => ele.id !== postId)
-        user.posts = arrayFiltered
-        await user.save()
-
-        return postId
+        return removedPost
     })()
 }

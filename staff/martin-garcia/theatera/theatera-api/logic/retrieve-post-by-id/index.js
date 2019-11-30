@@ -1,5 +1,5 @@
 const { validate, errors: { NotFoundError, ContentError } } = require('theatera-util')
-const { ObjectId, models: { User } } = require('theatera-data')
+const { ObjectId, models: { User, Post } } = require('theatera-data')
 
 module.exports = function(userId, postId) {
     validate.string(userId)
@@ -13,7 +13,12 @@ module.exports = function(userId, postId) {
     return (async() => {
         const user = await User.findById(userId)
         if (!user) throw new NotFoundError(`user with id ${userId} not found`)
-        const post = user.posts.find(ele => ele.id = postId)
+
+
+        const post = await Post.findById(postId)
+        if (!post) throw new NotFoundError(`post with id ${postId} not found`)
+
+
         const { image, name } = user
         const { body, date, likes, comments, type } = post
         let introduction = user.introduction.slice(0, 20) + '...'

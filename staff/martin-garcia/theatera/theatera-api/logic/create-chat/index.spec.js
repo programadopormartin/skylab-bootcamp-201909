@@ -71,6 +71,9 @@ describe('logic - retrieve-personal-info', () => {
 
     it('should fail on incorrect name, surname, email, password, or expression type and content', () => {
 
+        const fakeId = 'sadf'
+
+
         expect(() => createChat(1)).to.throw(TypeError, '1 is not a string')
         expect(() => createChat(true)).to.throw(TypeError, 'true is not a string')
         expect(() => createChat([])).to.throw(TypeError, ' is not a string')
@@ -80,6 +83,8 @@ describe('logic - retrieve-personal-info', () => {
 
         expect(() => createChat('')).to.throw(ContentError, 'userId1 is empty or blank')
         expect(() => createChat(' \t\r')).to.throw(ContentError, 'userId1 is empty or blank')
+        expect(() => createChat(fakeId)).to.throw(ContentError, `${fakeId} is not a valid id`)
+
 
 
         expect(() => createChat(id1, 1)).to.throw(TypeError, '1 is not a string')
@@ -91,6 +96,8 @@ describe('logic - retrieve-personal-info', () => {
 
         expect(() => createChat(id1, '')).to.throw(ContentError, 'userId2 is empty or blank')
         expect(() => createChat(id1, ' \t\r')).to.throw(ContentError, 'userId2 is empty or blank')
+        expect(() => createChat(id1, fakeId)).to.throw(ContentError, `${fakeId} is not a valid id`)
+
     })
 
 

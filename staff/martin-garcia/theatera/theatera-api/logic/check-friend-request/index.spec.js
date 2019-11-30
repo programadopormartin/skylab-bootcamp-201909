@@ -153,8 +153,33 @@ describe('logic - checkFriendRequest', () => {
 
 
 
-    //not Found User
-    //not Found friend
+
+    it('should fail on incorrect userId and postId', () => {
+
+        const fakeId = 'sadf'
+
+        expect(() => checkFriendRequest(1)).to.throw(TypeError, '1 is not a string')
+        expect(() => checkFriendRequest(true)).to.throw(TypeError, 'true is not a string')
+        expect(() => checkFriendRequest([])).to.throw(TypeError, ' is not a string')
+        expect(() => checkFriendRequest({})).to.throw(TypeError, '[object Object] is not a string')
+        expect(() => checkFriendRequest(undefined)).to.throw(TypeError, 'undefined is not a string')
+        expect(() => checkFriendRequest(null)).to.throw(TypeError, 'null is not a string')
+        expect(() => checkFriendRequest('')).to.throw(ContentError, 'emiterId is empty or blank')
+        expect(() => checkFriendRequest(' \t\r')).to.throw(ContentError, 'emiterId is empty or blank')
+        expect(() => checkFriendRequest(fakeId)).to.throw(ContentError, `${fakeId} is not a valid id`)
+
+        expect(() => checkFriendRequest(friendId, 1)).to.throw(TypeError, '1 is not a string')
+        expect(() => checkFriendRequest(friendId, true)).to.throw(TypeError, 'true is not a string')
+        expect(() => checkFriendRequest(friendId, [])).to.throw(TypeError, ' is not a string')
+        expect(() => checkFriendRequest(friendId, {})).to.throw(TypeError, '[object Object] is not a string')
+        expect(() => checkFriendRequest(friendId, undefined)).to.throw(TypeError, 'undefined is not a string')
+        expect(() => checkFriendRequest(friendId, null)).to.throw(TypeError, 'null is not a string')
+        expect(() => checkFriendRequest(friendId, '')).to.throw(ContentError, 'receiverId is empty or blank')
+        expect(() => checkFriendRequest(friendId, ' \t\r')).to.throw(ContentError, 'receiverId is empty or blank')
+        expect(() => checkFriendRequest(friendId, fakeId)).to.throw(ContentError, `${fakeId} is not a valid id`)
+
+
+    })
 
 
 

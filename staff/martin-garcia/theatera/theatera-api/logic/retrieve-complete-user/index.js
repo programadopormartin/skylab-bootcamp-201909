@@ -22,8 +22,8 @@ module.exports = function(id) {
         }
 
         const { name, img, city, description, skills, experience } = user.toObject()
-        let introduction;
-        !user.toObject().introduction ? introduction = '' : introduction = user.toObject().introduction.slice(0, 20) + '...'
+        let introduction = user.toObject()
+         !user.toObject().introduction ? introduction = '' : introduction = user.toObject().introduction.slice(0, 20) + '...'
         return { id, name, img, city, description, skills, experience, introduction }
 
     })()

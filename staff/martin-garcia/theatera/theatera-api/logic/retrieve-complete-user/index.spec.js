@@ -3,20 +3,18 @@ const { env: { TEST_DB_URL } } = process
 const { expect } = require('chai')
 const { random } = Math
 const retrieveCompleteUser = require('.')
-const { errors: { NotFoundError } } = require('theatera-util')
+const { errors: { NotFoundError, ContentError } } = require('theatera-util')
 const { database, models: { User, Person } } = require('theatera-data')
 
 describe('logic - retrieve-complete-user', () => {
     before(() => database.connect(TEST_DB_URL))
 
-    let id, name, email, password, rol, img, introduction, city, description, skills, experience, surname
+    let id1, id2, name, email, password, rol, img, introduction, city, description, skills, experience, surname
 
     beforeEach(async() => {
         name = `name-${random()}`
         email = `email-${random()}@mail.com`
         password = `password-${random()}`
-            /* random() */
-        random() > 0.5 ? rol = 'COMPANY' : rol = 'PERSON'
         introduction = `introduction-${random()}`
         description = `description-${random()}`
         description = description.slice(0, 140)
@@ -25,34 +23,57 @@ describe('logic - retrieve-complete-user', () => {
 
         await User.deleteMany()
 
-        if (rol === 'PERSON') {
-            surname = `surname-${random()}`
-            const specificInfo = await Person.create({ surname })
-            const user = await User.create({ name, email, password, rol, introduction, specificInfo })
-            id = user.id
-        } else {
-            const specificInfo = await Person.create({})
-            const user = await User.create({ name, email, password, rol, introduction, specificInfo })
-            id = user.id
-        }
+        surname = `surname-${random()}`
+        let specificInfo = await Person.create({ surname })
+        const user = await User.create({ name, email, password, rol, introduction, specificInfo, rol: 'PERSON' })
+        id1 = user.id
+
+        specificInfo = await Person.create({})
+        const company = await User.create({ name, email, password, rol, specificInfo, rol: 'COMPANY' })
+        id2 = company.id
+
 
 
     })
 
-    it('should succeed on correct user id', async() => {
-        const user = await retrieveCompleteUser(id)
-        let _introduction
-        introduction.length > 20 ? _introduction = introduction.slice(0, 20) + '...' : _introduction = introduction
+    it('should succeed on correct user id, PERSON', async() => {
+        const user = await retrieveCompleteUser(id1)
+        let _intro
+        user.introduction.length > 20 ? _intro = introduction.slice(0, 20) + '...' : _intro = ""
 
 
         expect(user).to.exist
-        expect(user.id).to.equal(id)
+        expect(user.id).to.equal(id1)
         expect(user.id).to.be.a('string')
         expect(user._id).to.not.exist
         expect(user.name).to.equal(name)
         expect(user.name).to.be.a('string')
         expect(user.password).to.be.undefined
-        expect(user.introduction).to.equal(_introduction)
+        expect(user.introduction).to.equal(_intro)
+        expect(user.introduction).to.be.a('string')
+
+        if (rol === 'PERSON')
+            expect(user.surname).to.be.equal(surname)
+
+        /* img test? */
+
+    })
+
+
+    it('should succeed on correct user id, COMPANY', async() => {
+        const user = await retrieveCompleteUser(id2)
+        let _intro
+
+        user.introduction.length > 20 ? _intro = introduction.slice(0, 20) + '...' : _intro = ''
+
+        expect(user).to.exist
+        expect(user.id).to.equal(id2)
+        expect(user.id).to.be.a('string')
+        expect(user._id).to.not.exist
+        expect(user.name).to.equal(name)
+        expect(user.name).to.be.a('string')
+        expect(user.password).to.be.undefined
+        expect(user.introduction).to.equal(_intro)
         expect(user.introduction).to.be.a('string')
 
         if (rol === 'PERSON')
@@ -76,7 +97,24 @@ describe('logic - retrieve-complete-user', () => {
         }
     })
 
-    // TODO other cases
+
+    it('should fail on incorrect userId and postId', () => {
+
+        const fakeId = 'sadf'
+
+        expect(() => retrieveCompleteUser(1)).to.throw(TypeError, '1 is not a string')
+        expect(() => retrieveCompleteUser(true)).to.throw(TypeError, 'true is not a string')
+        expect(() => retrieveCompleteUser([])).to.throw(TypeError, ' is not a string')
+        expect(() => retrieveCompleteUser({})).to.throw(TypeError, '[object Object] is not a string')
+        expect(() => retrieveCompleteUser(undefined)).to.throw(TypeError, 'undefined is not a string')
+        expect(() => retrieveCompleteUser(null)).to.throw(TypeError, 'null is not a string')
+        expect(() => retrieveCompleteUser('')).to.throw(ContentError, 'id is empty or blank')
+        expect(() => retrieveCompleteUser(' \t\r')).to.throw(ContentError, 'id is empty or blank')
+        expect(() => retrieveCompleteUser(fakeId)).to.throw(ContentError, `${fakeId} is not a valid id`)
+
+
+    })
+
 
     after(() => User.deleteMany().then(database.disconnect))
 })

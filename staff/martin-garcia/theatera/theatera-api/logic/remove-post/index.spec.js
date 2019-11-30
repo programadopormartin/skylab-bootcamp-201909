@@ -3,13 +3,13 @@ const { env: { TEST_DB_URL } } = process
 const { expect } = require('chai')
 const { random } = Math
 const removePost = require('.')
-const { errors: { NotFoundError } } = require('theatera-util')
+const { errors: { NotFoundError, ContentError } } = require('theatera-util')
 const { ObjectId, database, models: { User, Post } } = require('theatera-data')
 
 describe('logic - removePost', () => {
     before(() => database.connect(TEST_DB_URL))
 
-    let userId, postId, body, date, type
+    let userId, user_Id, postId, body, date, type
 
     beforeEach(async() => {
         name = `name-${random()}`
@@ -25,37 +25,29 @@ describe('logic - removePost', () => {
 
 
 
-        await Promise.all([User.deleteMany()])
+        await Promise.all([Post.deleteMany(), User.deleteMany()])
         let user = await User.create({ name, email, password, rol })
         userId = user.id
-        _userId = user._id
-        post = await new Post({ body, date, type, user: _userId, })
+        user_Id = user._id
+
+        post = await Post.create({ body, date, type, user: user_Id, })
         postId = post.id
 
-
-
-        user.posts.push(post)
-
-        await user.save()
-        user = await User.findById(userId)
-        const a = "asdfs"
     })
 
     it('Should succed on correct post', async() => {
 
 
-        user = await User.findById(userId)
-        const postBeforeRemove = user.posts.find(ele => ele.id === postId)
+
+        const postBeforeRemove = await Post.findById(postId)
         expect(postBeforeRemove).to.exist
 
         expect(postBeforeRemove.body).to.exist
         expect(postBeforeRemove.date).to.exist
         expect(postBeforeRemove.type).to.exist
-
         await removePost(userId, postId)
 
-        user = await User.findById(userId)
-        const postAfterRemove = user.posts.find(ele => ele.id === postId)
+        const postAfterRemove = await Post.findById(postId)
 
         expect(postAfterRemove).to.not.exist
 
@@ -89,7 +81,28 @@ describe('logic - removePost', () => {
         }
     })
 
+    it('should fail on incorrect userId and postId', () => {
 
-    after(() => User.deleteMany().then(database.disconnect))
+        expect(() => removePost(1)).to.throw(TypeError, '1 is not a string')
+        expect(() => removePost(true)).to.throw(TypeError, 'true is not a string')
+        expect(() => removePost([])).to.throw(TypeError, ' is not a string')
+        expect(() => removePost({})).to.throw(TypeError, '[object Object] is not a string')
+        expect(() => removePost(undefined)).to.throw(TypeError, 'undefined is not a string')
+        expect(() => removePost(null)).to.throw(TypeError, 'null is not a string')
+        expect(() => removePost('')).to.throw(ContentError, 'userId is empty or blank')
+        expect(() => removePost(' \t\r')).to.throw(ContentError, 'userId is empty or blank')
+
+        expect(() => removePost(userId, 1)).to.throw(TypeError, '1 is not a string')
+        expect(() => removePost(userId, true)).to.throw(TypeError, 'true is not a string')
+        expect(() => removePost(userId, [])).to.throw(TypeError, ' is not a string')
+        expect(() => removePost(userId, {})).to.throw(TypeError, '[object Object] is not a string')
+        expect(() => removePost(userId, undefined)).to.throw(TypeError, 'undefined is not a string')
+        expect(() => removePost(userId, null)).to.throw(TypeError, 'null is not a string')
+        expect(() => removePost(userId, '')).to.throw(ContentError, 'postId is empty or blank')
+        expect(() => removePost(userId, ' \t\r')).to.throw(ContentError, 'postId is empty or blank')
+    })
+
+
+    after(() => Promise.all([User.deleteMany(), Post.deleteMany()]).then(database.disconnect))
 
 })

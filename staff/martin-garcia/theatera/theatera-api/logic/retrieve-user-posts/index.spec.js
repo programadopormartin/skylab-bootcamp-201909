@@ -22,27 +22,22 @@ describe('logic - retrieve-user-posts', () => {
         type = 'ARTICLE'
 
 
-        await Promise.all([User.deleteMany()])
+        await Promise.all([User.deleteMany(), Post.deleteMany()])
         let user = await User.create({ name, email, password, rol })
         userId = user.id
         _userId = user._id
 
-        post1 = await new Post({ body, date, type, user: _userId, })
+        post1 = await Post.create({ body, date, type, user: _userId, })
         postId1 = post1.id
-
-        post2 = await new Post({ body, date, type, user: _userId, })
+        post2 = await Post.create({ body, date, type, user: _userId, })
         postId2 = post2.id
 
         postIds = [postId1, postId2]
-
-        user.posts.push(post1)
-        user.posts.push(post2)
-
-        await user.save()
     })
 
 
     it('should succeed on correct posts', async() => {
+        console.log(postId1)
         const posts = await retrieveUserPosts(userId)
         posts.forEach(element => {
             expect(element).to.exist
@@ -76,7 +71,6 @@ describe('logic - retrieve-user-posts', () => {
 
             throw Error('should not reach this point')
         } catch (error) {
-            debugger
             expect(error).to.exist
             expect(error).to.be.an.instanceOf(ContentError)
             expect(error.message).to.equal(`${id} is not a valid id`)

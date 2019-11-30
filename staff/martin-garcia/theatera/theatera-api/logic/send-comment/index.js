@@ -10,22 +10,21 @@ module.exports = function(userId, postId, description) {
     validate.string.notVoid('postId', postId)
     if (!ObjectId.isValid(postId)) throw new ContentError(`${postId} is not a valid id`)
 
+    validate.string(description)
+    validate.string.notVoid('description', description)
+
     return (async() => {
         const user = await User.findById(userId)
         if (!user) throw new NotFoundError(`user with id ${userId} not found`)
 
-        let commentId = undefined
+        const post = await Post.findById(postId)
+        if (!post) throw new NotFoundError(`post with id ${postId} not found`)
 
-        await Promise.all(user.posts.filter(async p => {
-            if (p.id === postId) {
-                comment = new Comment({ user: userId, description, date: new Date })
-                if (!comment) throw new ConflictError('internal error')
-                commentId = comment.id
-                p.comments.push(comment)
-            }
-        }))
+        comment = new Comment({ user: userId, description, date: new Date })
+        post.comments.push(comment)
+        let commentId = comment.id
 
-        await user.save()
+        await post.save()
         return commentId
     })()
 
