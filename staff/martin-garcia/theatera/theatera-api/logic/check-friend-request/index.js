@@ -34,7 +34,7 @@ module.exports = function(emiterId, receiverId) {
             const date = new Date
 
             const noti1 = new Notification({ body: { message: "new friend", name: receiver.name, image: receiver.image, id: receiver.id, type: 'CONNECTION', date } })
-            emiter.news.push(noti1)
+            emiter.notifications.push(noti1)
 
             const noti2 = new Notification({ body: { message: "new friend", name: emiter.name, image: emiter.image, id: emiter.id, type: 'CONNECTION', date } })
 

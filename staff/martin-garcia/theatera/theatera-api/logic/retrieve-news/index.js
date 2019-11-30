@@ -12,7 +12,7 @@ module.exports = function(userId) {
 
         let result = []
 
-        result = await Promise.all(user.news.map(async con => {
+        result = await Promise.all(user.notifications.map(async con => {
             return n = { body: con.body, id: con._id.toString() }
         }))
 

@@ -7,12 +7,10 @@ module.exports = new Schema({
         required: true,
     },
     startDate: {
-        type: Date,
-        required: false
+        type: Date
     },
     endDate: {
-        type: Date,
-        required: false
+        type: Date
     },
     body: {
         type: String,

@@ -25,43 +25,33 @@ module.exports = new Schema({
     },
     image: {
         type: String,
-        required: false
     },
     lastAccess: {
         type: Date,
-        required: false
     },
     phone: {
         type: String,
-        required: false
     },
     address: {
         type: String,
-        required: false
     },
     city: {
         type: String,
-        required: false
     },
     website: {
         type: String,
-        required: false
     },
     introduction: {
         type: String,
-        required: false
     },
     description: {
         type: String,
-        required: false
     },
     skills: {
         type: [String],
-        require: false
     },
     experience: {
         type: [ExperienceItem],
-        required: false
 
     },
     rol: {
@@ -71,23 +61,21 @@ module.exports = new Schema({
     },
     specificInfo: {
         type: Object,
-        required: false
     },
     chats: {
         type: [Chat],
-        require: false
     },
     posts: {
         type: [Post],
-        required: false
     },
     connections: {
         type: [ObjectId],
-        required: false
+        ref: 'Connection'
+
     },
-    news: {
+    notifications: {
         type: [Object],
-        required: false,
-        default: []
+        default: [],
+        ref: "Notification"
     },
 })

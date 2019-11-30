@@ -36,7 +36,7 @@ describe('logic - retrieveNews', () => {
         const notification = new Notification({ body: { text } })
         notificationId = notification.id
 
-        user1.news.push(notification)
+        user1.notifications.push(notification)
 
         await user1.save()
     })

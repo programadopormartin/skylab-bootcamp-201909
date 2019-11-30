@@ -19,12 +19,10 @@ module.exports = new Schema({
     },
     likes: {
         type: [ObjectId],
-        require: false,
         ref: 'User'
     },
     comments: {
         type: [Comment],
-        require: false,
         default: []
     },
     type: {
