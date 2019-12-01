@@ -10,6 +10,8 @@ module.exports = function(email, password) {
     validate.string.notVoid('email', email)
     validate.string(password)
     validate.string.notVoid('password', password)
+    validate.email(email)
+
 
     return (async() => {
         const user = await User.findOne({ email })

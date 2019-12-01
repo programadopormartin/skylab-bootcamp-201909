@@ -46,7 +46,7 @@ module.exports = function(emiterId, receiverId) {
         }
 
         if (!repeatedFriendRequest && !reciprocalFriendRequest) {
-            const request = await FriendRequest.create({ "creator": ObjectId(emiterId), "receiver": ObjectId(receiverId) })
+            await FriendRequest.create({ "creator": ObjectId(emiterId), "receiver": ObjectId(receiverId) })
             return "new request"
         }
 

@@ -87,7 +87,6 @@ describe('logic - sendMessage', () => {
         expect(() => sendMessage('')).to.throw(ContentError, 'chatId is empty or blank')
         expect(() => sendMessage(' \t\r')).to.throw(ContentError, 'chatId is empty or blank')
 
-
         expect(() => sendMessage(chatId, 1)).to.throw(TypeError, '1 is not a string')
         expect(() => sendMessage(chatId, true)).to.throw(TypeError, 'true is not a string')
         expect(() => sendMessage(chatId, [])).to.throw(TypeError, ' is not a string')
@@ -96,8 +95,6 @@ describe('logic - sendMessage', () => {
         expect(() => sendMessage(chatId, null)).to.throw(TypeError, 'null is not a string')
         expect(() => sendMessage(chatId, '')).to.throw(ContentError, 'userId is empty or blank')
         expect(() => sendMessage(chatId, ' \t\r')).to.throw(ContentError, 'userId is empty or blank')
-
-
 
         expect(() => sendMessage(chatId, id1, 1)).to.throw(TypeError, '1 is not a string')
         expect(() => sendMessage(chatId, id1, true)).to.throw(TypeError, 'true is not a string')
@@ -111,5 +108,6 @@ describe('logic - sendMessage', () => {
     })
 
 
-    after(() => User.deleteMany().then(database.disconnect))
+    after(() => Promise.all([User.deleteMany(), Chat.deleteMany()]).then(database.disconnect))
+
 })

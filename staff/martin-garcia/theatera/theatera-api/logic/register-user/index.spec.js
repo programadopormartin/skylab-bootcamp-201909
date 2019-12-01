@@ -76,8 +76,8 @@ describe('logic - register user', () => {
         expect(() => registerUser(name, undefined)).to.throw(TypeError, 'undefined is not a string')
         expect(() => registerUser(name, null)).to.throw(TypeError, 'null is not a string')
 
-        expect(() => registerUser(name, '')).to.throw(ContentError, 'e-mail is empty or blank')
-        expect(() => registerUser(name, ' \t\r')).to.throw(ContentError, 'e-mail is empty or blank')
+        expect(() => registerUser(name, '')).to.throw(ContentError, ' is not an e-mail')
+        expect(() => registerUser(name, ' \t\r')).to.throw(ContentError, ' is not an e-mail')
 
         expect(() => registerUser(name, email, 1)).to.throw(TypeError, '1 is not a string')
         expect(() => registerUser(name, email, true)).to.throw(TypeError, 'true is not a string')
@@ -92,7 +92,6 @@ describe('logic - register user', () => {
         expect(() => registerUser(name, email, password, 1)).to.throw(TypeError, '1 is not a boolean')
         expect(() => registerUser(name, email, password, [])).to.throw(TypeError, ' is not a boolean')
         expect(() => registerUser(name, email, password, {})).to.throw(TypeError, '[object Object] is not a boolean')
-        expect(() => registerUser(name, email, password, undefined)).to.throw(TypeError, 'undefined is not a boolean')
         expect(() => registerUser(name, email, password, null)).to.throw(TypeError, 'null is not a boolean')
 
         expect(() => registerUser(name, email, password, '')).to.throw(TypeError, ' is not a boolean')

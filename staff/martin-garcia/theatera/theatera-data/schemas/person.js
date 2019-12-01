@@ -18,6 +18,6 @@ module.exports = new Schema({
     },
     gender: {
         type: String,
-        /*  enum: ['MAN', 'WOMAN'], */
+        enum: ['MAN', 'WOMAN'],
     }
 })

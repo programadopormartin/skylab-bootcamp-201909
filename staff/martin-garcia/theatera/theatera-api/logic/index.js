@@ -19,6 +19,7 @@ module.exports = {
     sendComment: require('./send-comment'),
     createChat: require('./create-chat'),
     retrieveChat: require('./retrieve-chat'),
+    retrieveChats: require('./retrieve-chats'),
     retrieveNews: require('./retrieve-news'),
     retrieveUserPosts: require('./retrieve-user-posts'),
     retrieveLatestPosts: require('./retrieve-latest-posts'),
@@ -26,5 +27,6 @@ module.exports = {
     saveProfileImage: require('./save-profile-image'),
     loadProfileImage: require('./load-profile-image'),
     loadProfileImageUrl: require('./loadProfileImageUrl'),
-    search: require('./search')
+    search: require('./search'),
+    sendMessage: require('./send-message')
 }

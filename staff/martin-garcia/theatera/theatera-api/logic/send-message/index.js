@@ -14,7 +14,6 @@ module.exports = function(chatId, userId, body) {
     validate.string(body)
     validate.string.notVoid('body', body)
 
-
     return (async() => {
 
         const user = await User.findById(userId)
@@ -28,8 +27,5 @@ module.exports = function(chatId, userId, body) {
         await chat.save()
 
         return message.id
-
-
-
     })()
 }

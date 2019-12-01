@@ -14,9 +14,10 @@ module.exports = function(id) {
         user.lastAccess = new Date
 
         await user.save()
+        let introduction = user.introduction
+        const { name, email, image } = user.toObject();
+        !introduction ? introduction = '' : introduction = introduction.slice(0, 20) + '...'
 
-        const { name, surname, email, username, lastAccess } = user.toObject()
-
-        return { id, name, surname, email, username, lastAccess }
+        return { id, name, email, image }
     })()
 }

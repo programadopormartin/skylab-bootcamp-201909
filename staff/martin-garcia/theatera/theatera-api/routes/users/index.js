@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const { registerUser, authenticateUser, retrieveUser, saveProfileImage, loadProfileImageUrl, loadProfileImage } = require('../../logic')
+const { registerUser, authenticateUser, retrieveUser, retrievePersonalInfo, retrieveCompleteUser, retrieveSummaryUser, saveProfileImage, loadProfileImageUrl, loadProfileImage } = require('../../logic')
 const jwt = require('jsonwebtoken')
 const { env: { SECRET } } = process
 const tokenVerifier = require('../../helpers/token-verifier')(SECRET)
@@ -13,10 +13,10 @@ const jsonBodyParser = bodyParser.json()
 const router = Router()
 
 router.post('/', jsonBodyParser, (req, res) => {
-    const { body: { name, surname, email, username, password } } = req
+    const { body: { name, email, password, isCompany } } = req
 
     try {
-        registerUser(name, surname, email, username, password)
+        registerUser(name, email, password, isCompany)
             .then(() => res.status(201).end())
             .catch(error => {
                 const { message } = error
@@ -32,10 +32,10 @@ router.post('/', jsonBodyParser, (req, res) => {
 })
 
 router.post('/auth', jsonBodyParser, (req, res) => {
-    const { body: { username, password } } = req
+    const { body: { email, password } } = req
 
     try {
-        authenticateUser(username, password)
+        authenticateUser(email, password)
             .then(id => {
                 const token = jwt.sign({ sub: id }, SECRET, { expiresIn: '1d' })
 
@@ -58,7 +58,7 @@ router.get('/', tokenVerifier, (req, res) => {
     try {
         const { id } = req
 
-        retrieveUser(id)
+        retrieveSummaryUser(id)
             .then(user => res.json(user))
             .catch(error => {
                 const { message } = error
@@ -82,6 +82,50 @@ router.get('/', tokenVerifier, (req, res) => {
 
         retrieveUser(id)
             .then(user => res.json(user))
+            .catch(error => {
+                const { message } = error
+
+                if (error instanceof NotFoundError)
+                    return res.status(404).json({ message })
+
+                res.status(500).json({ message })
+            })
+    } catch (error) {
+        const { message } = error
+
+        res.status(400).json({ message })
+    }
+})
+
+
+router.get('/completeuser', tokenVerifier, (req, res) => {
+    try {
+        const { id } = req
+
+        retrieveCompleteUser(id)
+            .then(user => res.json(user))
+            .catch(error => {
+                const { message } = error
+
+                if (error instanceof NotFoundError)
+                    return res.status(404).json({ message })
+
+                res.status(500).json({ message })
+            })
+    } catch (error) {
+        const { message } = error
+
+        res.status(400).json({ message })
+    }
+})
+
+
+router.get('/personalinfo', tokenVerifier, (req, res) => {
+    try {
+        const { id } = req
+
+        retrievePersonalInfo(id)
+            .then(personalInfo => res.json(personalInfo))
             .catch(error => {
                 const { message } = error
 

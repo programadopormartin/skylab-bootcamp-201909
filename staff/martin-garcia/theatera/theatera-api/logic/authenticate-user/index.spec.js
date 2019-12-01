@@ -45,6 +45,22 @@ describe('logic - authenticate user', () => {
                 throw new Error('should not reach this point')
             } catch (error) {
                 expect(error).to.exist
+                expect(error).to.be.an.instanceOf(ContentError)
+                const { message } = error
+
+                expect(message).to.equal(`wrong is not an e-mail`)
+
+            }
+        })
+
+        it('should fail on wrong email', async() => {
+            const email = 'wrongasfd@asdf.com'
+            try {
+                await authenticateUser(email, password)
+
+                throw new Error('should not reach this point')
+            } catch (error) {
+                expect(error).to.exist
                 expect(error).to.be.an.instanceOf(CredentialsError)
                 const { message } = error
 
@@ -52,6 +68,7 @@ describe('logic - authenticate user', () => {
 
             }
         })
+
 
         it('should fail on wrong password', async() => {
             const password = 'wrong'

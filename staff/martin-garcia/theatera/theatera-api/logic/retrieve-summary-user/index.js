@@ -16,10 +16,10 @@ module.exports = function(id) {
 
         await user.save()
 
-        let { name, img, introduction, hola } = user.toObject()
+        let { name, image, introduction, hola } = user.toObject()
 
         !introduction ? introduction = '' : introduction = introduction.slice(0, 20) + '...'
 
-        return { id, name, img, introduction }
+        return { id, name, image, introduction }
     })()
 }

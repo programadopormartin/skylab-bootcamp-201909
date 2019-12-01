@@ -25,6 +25,8 @@ module.exports = new Schema({
     },
     image: {
         type: String,
+        required: true,
+        default: "/home/martingarcia/bootcamp/colab/skylab-bootcamp-201909/staff/martin-garcia/theatera/theatera-api/data/users/defaultImage/profile.jpg"
     },
     lastAccess: {
         type: Date,
@@ -61,6 +63,7 @@ module.exports = new Schema({
     },
     specificInfo: {
         type: Object,
+        default: []
     },
     chats: {
         type: [Chat],

@@ -20,6 +20,6 @@ module.exports = function(userId, postId) {
         const removedPost = await Post.remove({ "_id": ObjectId(postId) })
         if (!removedPost) throw new ConflictError('internal Error')
 
-        return removedPost
+        return postId
     })()
 }

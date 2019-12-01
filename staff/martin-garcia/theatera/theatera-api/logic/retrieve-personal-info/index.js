@@ -15,14 +15,12 @@ module.exports = function(id) {
         await user.save()
 
         if (user.rol === 'PERSON') {
-            const { img, name, email, introduction, specificInfo: { surname, gender, age, languages, height, weight }, rol, description, phone, website, city, } = user.toObject()
-
-            return { id, img, name, email, introduction, surname, description, gender, age, phone, website, city, languages, height, weight, rol }
+            const { image, name, email, introduction, specificInfo: { surname, gender, age, languages, height, weight }, rol, description, phone, website, city, } = user.toObject()
+            return { id, image, name, email, introduction, surname, description, gender, age, phone, website, city, languages, height, weight, rol }
         }
 
-        const { img, name, email, introduction, description, phone, website, city, rol } = user.toObject()
-
-        return { id, img, name, email, introduction, description, phone, website, city, rol }
+        const { image, name, email, introduction, description, phone, website, city, rol } = user.toObject()
+        return { id, image, name, email, introduction, description, phone, website, city, rol }
 
     })()
 }
