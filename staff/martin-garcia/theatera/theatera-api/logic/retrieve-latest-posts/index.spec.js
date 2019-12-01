@@ -31,6 +31,9 @@ describe('logic - retrieve-user-posts', () => {
         friendId = friend.id
         _friendId = friend._id
 
+        user.connections.push(_friendId.toString())
+        await user.save()
+
         post1 = await Post.create({ body, date: new Date(1504095567283), type, user: _friendId, })
         postId1 = post1.id
 
@@ -47,10 +50,10 @@ describe('logic - retrieve-user-posts', () => {
 
 
     it('should succeed on correct posts', async() => {
-        const posts = await retrieveLatestPosts([friendId])
-        expect(posts[0].post.id).to.be.equal(postId3)
-        expect(posts[1].post.id).to.be.equal(postId2)
-        expect(posts[2].post.id).to.be.equal(postId1)
+        const posts = await retrieveLatestPosts(userId)
+        expect(posts[0].post._id.toString()).to.be.equal(postId3)
+        expect(posts[1].post._id.toString()).to.be.equal(postId2)
+        expect(posts[2].post._id.toString()).to.be.equal(postId1)
 
     })
 
@@ -58,7 +61,7 @@ describe('logic - retrieve-user-posts', () => {
         const id = '012345678901234567890123'
 
         try {
-            await retrieveLatestPosts([id])
+            await retrieveLatestPosts(id)
 
             throw Error('should not reach this point')
         } catch (error) {
@@ -70,7 +73,7 @@ describe('logic - retrieve-user-posts', () => {
 
     it('should fail on wrong empty array ', async() => {
 
-        const a = await retrieveLatestPosts([])
+        const a = await retrieveLatestPosts(friendId)
         expect(a.length).to.be.equal(0)
     })
 
@@ -80,7 +83,7 @@ describe('logic - retrieve-user-posts', () => {
         const id = 'afasdfasdf'
 
         try {
-            await retrieveLatestPosts([id])
+            await retrieveLatestPosts(id)
 
             throw Error('should not reach this point')
         } catch (error) {
@@ -98,11 +101,11 @@ describe('logic - retrieve-user-posts', () => {
         expect(() => retrieveLatestPosts([
             []
         ])).to.throw(TypeError, ' is not a string')
-        expect(() => retrieveLatestPosts([{}])).to.throw(TypeError, '[object Object] is not a string')
-        expect(() => retrieveLatestPosts([undefined])).to.throw(TypeError, 'undefined is not a string')
-        expect(() => retrieveLatestPosts([null])).to.throw(TypeError, 'null is not a string')
-        expect(() => retrieveLatestPosts([''])).to.throw(ContentError, 'id is empty or blank')
-        expect(() => retrieveLatestPosts([' \t\r'])).to.throw(ContentError, 'id is empty or blank')
+        expect(() => retrieveLatestPosts({})).to.throw(TypeError, '[object Object] is not a string')
+        expect(() => retrieveLatestPosts(undefined)).to.throw(TypeError, 'undefined is not a string')
+        expect(() => retrieveLatestPosts(null)).to.throw(TypeError, 'null is not a string')
+        expect(() => retrieveLatestPosts('')).to.throw(ContentError, 'id is empty or blank')
+        expect(() => retrieveLatestPosts(' \t\r')).to.throw(ContentError, 'id is empty or blank')
 
     })
 

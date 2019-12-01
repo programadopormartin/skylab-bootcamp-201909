@@ -9,7 +9,7 @@ module.exports = function(emiterId, receiverId) {
     validate.string(receiverId)
     validate.string.notVoid('receiverId', receiverId)
     if (!ObjectId.isValid(receiverId)) throw new ContentError(`${receiverId} is not a valid id`)
-
+    debugger
     return (async() => {
         const emiter = await User.findById(emiterId)
         if (!emiter) throw new NotFoundError(`user with id ${emiterId} not found`)
@@ -17,7 +17,7 @@ module.exports = function(emiterId, receiverId) {
         const receiver = await User.findById(receiverId)
         if (!receiver) throw new NotFoundError(`user with id ${receiverId} not found`)
 
-
+        if (emiter.connections.includes(receiver._id)) return "already friends"
 
         const repeatedFriendRequest = await FriendRequest.findOne({ "creator": ObjectId(emiterId), "receiver": ObjectId(receiverId) })
         if (repeatedFriendRequest) return "Still waiting for confirmation"

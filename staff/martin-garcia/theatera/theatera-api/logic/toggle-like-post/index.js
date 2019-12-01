@@ -22,6 +22,8 @@ module.exports = function(userId, postId) {
             post.likes.push(ObjectId(userId))
         }
 
-        return await post.save()
+        await post.save()
+
+        return postId
     })()
 }

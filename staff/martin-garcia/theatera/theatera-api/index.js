@@ -6,7 +6,7 @@ const { argv: [, , port], env: { PORT = port || 9000, DB_URL } } = process
 const cors = require('./utils/cors')
 const { database } = require('theatera-data')
 
-const { users, chat, post } = require('./routes')
+const { users, chat, post, search } = require('./routes')
 const api = express()
 
 api.use(cors)
@@ -18,6 +18,7 @@ api.options('*', cors, (req, res) => {
 api.use('/users', users)
 api.use('/chat', chat)
 api.use('/post', post)
+api.use('/search', search)
 
 
 database

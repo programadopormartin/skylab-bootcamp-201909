@@ -30,16 +30,12 @@ module.exports = function(query) {
                 if (ok) result.push(friend)
             })
 
-
         results = result.map(user => {
-            const { _id, name, img, introduction } = user.toObject()
+            const { _id, name, image, introduction } = user.toObject()
             const specificInfo = user.toObject().specificInfo
-            specificInfo && (surname = specificInfo.surname)
-            return { id: _id.toString(), name, img, introduction, surname }
-
+            return { id: _id.toString(), name, image, introduction }
         })
 
-        debugger
         return results
     })()
 }

@@ -19,8 +19,8 @@ describe('logic - createExperienceItem', () => {
 
         title = `title-${random()}`
         body = `body-${random()}`
-        dateEnd = new Date()
-        dateStart = new Date()
+        dateEnd = (new Date()).getTime()
+        dateStart = (new Date()).getTime()
         random() > 0.5 ? type = 'JOB' : type = 'EDUCATION'
 
 
@@ -56,13 +56,13 @@ describe('logic - createExperienceItem', () => {
         expect(experience.body).to.have.length.greaterThan(0)
         expect(experience.body).to.be.equal(body)
 
-        expect(experience.endDate).to.be.a('Date')
+        expect(experience.endDate).to.be.a('number')
         expect(experience.endDate).to.exist
-        expect(experience.endDate.getTime()).to.be.equal(dateEnd.getTime())
+        expect(experience.endDate).to.be.equal(dateEnd)
 
         expect(experience.startDate).to.exist
-        expect(experience.startDate).to.be.a('Date')
-        expect(experience.startDate.getTime()).to.be.equal(dateStart.getTime())
+        expect(experience.startDate).to.be.a('number')
+        expect(experience.startDate).to.be.equal(dateStart)
 
     })
 

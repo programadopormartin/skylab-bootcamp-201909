@@ -15,7 +15,6 @@ module.exports = {
     retrieveConnections: require('./retrieve-connections'),
     checkFriendRequest: require('./check-friend-request'),
     retrieveFriendRequests: require('./retrieve-friend-requests'),
-    retrieveConnections: require('./retrieve-connections'),
     sendComment: require('./send-comment'),
     createChat: require('./create-chat'),
     retrieveChat: require('./retrieve-chat'),
@@ -28,5 +27,6 @@ module.exports = {
     loadProfileImage: require('./load-profile-image'),
     loadProfileImageUrl: require('./loadProfileImageUrl'),
     search: require('./search'),
-    sendMessage: require('./send-message')
+    sendMessage: require('./send-message'),
+    updateUser: require('./update-user')
 }

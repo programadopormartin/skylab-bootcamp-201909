@@ -32,7 +32,7 @@ router.post('/create', tokenVerifier, jsonBodyParser, (req, res) => {
 router.delete('/remove/:postId', tokenVerifier, jsonBodyParser, (req, res) => {
     try {
         debugger
-        const { id, /*  body: { postId } */ } = req
+        const { id } = req
         const { params: { postId } } = req
 
         removePost(id, postId)
@@ -49,13 +49,13 @@ router.delete('/remove/:postId', tokenVerifier, jsonBodyParser, (req, res) => {
     }
 })
 
-/* 
 
-router.get('/retrievechat/:chatId', tokenVerifier, (req, res) => {
+router.get('/retrievepost/:postId', tokenVerifier, (req, res) => {
     try {
-        const { params: { chatId } } = req
+        const { id } = req
+        const { params: { postId } } = req
 
-        retrieveChat(chatId)
+        retrievePostById(id, postId)
             .then(messages => res.status(201).json({ messages }))
             .catch(error => {
                 const { message } = error
@@ -69,6 +69,50 @@ router.get('/retrievechat/:chatId', tokenVerifier, (req, res) => {
         res.status(400).json({ message })
     }
 })
+
+
+
+router.get('/retrievelatest', tokenVerifier, (req, res) => {
+    try {
+        const { id } = req
+
+        retrieveLatestPosts(id)
+            .then(posts => res.status(201).json({ posts }))
+            .catch(error => {
+                const { message } = error
+
+                if (error instanceof NotFoundError)
+                    return res.status(404).json({ message })
+
+                res.status(500).json({ message })
+            })
+    } catch ({ message }) {
+        res.status(400).json({ message })
+    }
+})
+
+
+router.get('/retrieveuserposts/:id', tokenVerifier, (req, res) => {
+    try {
+        const { params: { id } } = req
+
+        retrieveUserPosts(id)
+            .then(posts => res.status(201).json({ posts }))
+            .catch(error => {
+                const { message } = error
+
+                if (error instanceof NotFoundError)
+                    return res.status(404).json({ message })
+
+                res.status(500).json({ message })
+            })
+    } catch ({ message }) {
+        res.status(400).json({ message })
+    }
+})
+
+
+
 
 router.get('/retrievechats', tokenVerifier, (req, res) => {
     try {
@@ -90,12 +134,14 @@ router.get('/retrievechats', tokenVerifier, (req, res) => {
 })
 
 
-router.post('/sendmessage', tokenVerifier, jsonBodyParser, (req, res) => {
+router.put('/togglelike/:postId', tokenVerifier, (req, res) => {
+    debugger
     try {
-        const { id, body: { body, chatId } } = req
+        const { id } = req
+        const { params: { postId } } = req
 
-        sendMessage(chatId, id, body)
-            .then(id => res.status(201).json({ id }))
+        toggleLikePost(id, postId)
+            .then(id => res.status(201).json({ message: `update likes into post with id ${id}` }))
             .catch(error => {
                 const { message } = error
                 if (error instanceof NotFoundError)
@@ -107,7 +153,6 @@ router.post('/sendmessage', tokenVerifier, jsonBodyParser, (req, res) => {
         res.status(400).json({ message })
     }
 })
- */
 
 
 module.exports = router
