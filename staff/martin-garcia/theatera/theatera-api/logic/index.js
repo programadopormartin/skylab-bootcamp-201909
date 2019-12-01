@@ -22,5 +22,9 @@ module.exports = {
     retrieveNews: require('./retrieve-news'),
     retrieveUserPosts: require('./retrieve-user-posts'),
     retrieveLatestPosts: require('./retrieve-latest-posts'),
-    toggleLikePost: require('./toggle-like-post')
+    toggleLikePost: require('./toggle-like-post'),
+    saveProfileImage: require('./save-profile-image'),
+    loadProfileImage: require('./load-profile-image'),
+    loadProfileImageUrl: require('./loadProfileImageUrl'),
+    search: require('./search')
 }

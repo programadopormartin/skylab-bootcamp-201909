@@ -44,7 +44,6 @@ describe('logic - toggleLikePost', () => {
 
 
         const post = await Post.findById(post1Id)
-        debugger
         const likeId = post.likes[0]._id.toString()
         expect(likeId).to.be.equal(userId)
 

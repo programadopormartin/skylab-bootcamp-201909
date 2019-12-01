@@ -13,7 +13,6 @@ module.exports = function(userId, postId) {
     return (async() => {
         const user = await User.findById(userId)
         if (!user) throw new NotFoundError(`user with id ${userId} not found`)
-        debugger
         const post = await Post.findById(postId)
         if (!post) throw new NotFoundError(`post with id ${postId} not found`)
 

@@ -15,8 +15,8 @@ api.options('*', cors, (req, res) => {
     res.end()
 })
 
-/* api.use('/users', users)
- */
+api.use('/users', users)
+
 database
     .connect(DB_URL)
     .then(() => api.listen(PORT, () => console.log(`${name} ${version} up running on port ${PORT}`)))
