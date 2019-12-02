@@ -39,10 +39,9 @@ describe('logic - search', () => {
         const users = await search(searchedText)
 
         expect(users).to.exist
-        expect(users.length).to.be.equal(2)
-
+        expect(users.length).to.be.equal(1)
         users.forEach(user => {
-            expect(user.name === searchedText || user.surname === searchedText).to.be.true
+            expect(user.name === searchedText).to.be.true
         })
 
 

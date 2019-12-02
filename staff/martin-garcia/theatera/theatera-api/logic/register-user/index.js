@@ -25,7 +25,8 @@ module.exports = function(name, email, password, isCompany = false) {
         let rol
 
         isCompany ? rol = 'COMPANY' : rol = 'PERSON'
+        const image = "/home/martingarcia/bootcamp/colab/skylab-bootcamp-201909/staff/martin-garcia/theatera/theatera-api/data/users/defaultImage/profile.jpg"
 
-        await User.create({ name, email, password, rol })
+        await User.create({ name, email, password, rol, image })
     })()
 }

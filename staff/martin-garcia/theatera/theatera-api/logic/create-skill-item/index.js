@@ -13,7 +13,6 @@ module.exports = function(userId, skill) {
     return (async() => {
         const user = await User.findById(userId)
         if (!user) throw new NotFoundError(`user with id ${userId} not found`)
-        debugger
         if (user.skills.includes(skill)) throw new ConflictError(`user with skill ${skill} already exists`)
 
         user.skills.push(skill)

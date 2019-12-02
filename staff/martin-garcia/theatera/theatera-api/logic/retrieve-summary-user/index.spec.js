@@ -17,10 +17,11 @@ describe('logic - retrieve-summary-user', () => {
         password = `password-${random()}`
         random() > 0.5 ? rol = 'COMPANY' : rol = 'PERSON'
         introduction = `introduction-${random()}`
+        const image = "/home/martingarcia/bootcamp/colab/skylab-bootcamp-201909/staff/martin-garcia/theatera/theatera-api/data/users/defaultImage/profile.jpg"
 
         await User.deleteMany()
 
-        const user = await User.create({ name, email, password, rol, introduction })
+        const user = await User.create({ name, email, password, rol, introduction, image })
 
         id = user.id
     })
@@ -40,6 +41,8 @@ describe('logic - retrieve-summary-user', () => {
         expect(user.password).to.be.undefined
         expect(user.introduction).to.equal(_introduction)
         expect(user.introduction).to.be.a('string')
+        expect(user.image.includes("/home/martingarcia/bootcamp/colab/skylab-bootcamp-201909/staff/martin-garcia/theatera/theatera-api/data/users/")).to.be.true
+
 
 
         /* img test? */

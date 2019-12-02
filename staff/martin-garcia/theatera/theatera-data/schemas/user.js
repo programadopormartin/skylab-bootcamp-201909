@@ -58,12 +58,12 @@ module.exports = new Schema({
     },
     rol: {
         type: String,
+        enum: ['PERSON', 'COMPANY'],
         required: true,
-        enum: ['PERSON', 'COMPANY']
+        default: "PERSON"
     },
     specificInfo: {
         type: Object,
-        default: []
     },
     chats: {
         type: [Chat],

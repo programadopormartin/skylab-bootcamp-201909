@@ -11,10 +11,6 @@ module.exports = function(query) {
 
         response = await User.find({ "name": query })
         response && responsesArray.push(response)
-        response = await User.find({ specificInfo: { "surname": query } })
-        response && responsesArray.push(response)
-        response = await User.find({ specificInfo: { "surname": query } })
-        response && responsesArray.push(response)
         responsesArray = responsesArray.flat()
 
         result = []

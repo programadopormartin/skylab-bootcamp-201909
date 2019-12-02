@@ -1,10 +1,24 @@
-const { validate, errors: { ConflictError, NotFoundError } } = require('theatera-util')
-const { ObjectId, models: { User, } } = require('theatera-data')
+const { validate, errors: { NotFoundError } } = require('theatera-util')
+const { ObjectId, models: { User } } = require('theatera-data')
 
-module.exports = function(id, name, introduction, description, gender, age, phone, email, website, city, languages, height, weight) {
+module.exports = function(id, data) {
+
     validate.string(id)
     validate.string.notVoid('id', id)
     if (!ObjectId.isValid(id)) throw new ContentError(`${id} is not a valid id`)
+
+
+    const { name, introduction, description, phone, email, website, city, specificInfo } = data
+    let height, weight, languages, gender, age
+
+    if (specificInfo) {
+        height = specificInfo.height
+        weight = specificInfo.weigh
+        languages = specificInfo.languages
+        gender = specificInfo.gender
+        age = specificInfo.age
+
+    }
 
     if (name) {
         validate.string(name)
@@ -37,7 +51,7 @@ module.exports = function(id, name, introduction, description, gender, age, phon
     if (gender) {
         validate.string(gender)
         validate.string.notVoid('gender', gender)
-        validate.matches('city', description, "MAN", "WOMAN")
+        validate.matches('gender', gender, "MAN", "WOMAN")
     }
     if (age) {
         validate.number(age)
@@ -59,22 +73,7 @@ module.exports = function(id, name, introduction, description, gender, age, phon
 
 
 
-        description && (user.description = description)
-            /* name && (user.name = name)
-        introduction && (user.introduction = introduction)
-        description && (user.description = description)
-        phone && (user.phone = phone)
-        city && (user.city = city)
-        website && (user.website = website)
-        email && (user.email = email)
-        if (user.rol === "PERSON") {
-            gender && (user.specificInfo.gender = gender)
-            age && (user.specificInfo.age = age)
-            languages && (user.specificInfo.languages = languages)
-            height && (user.specificInfo.height = height)
-            weight && (user.specificInfo.weight = weight)
-        }
- */
-        await user.save
+        await User.updateOne({ _id: ObjectId(id) }, { $set: data })
+
     })()
 }

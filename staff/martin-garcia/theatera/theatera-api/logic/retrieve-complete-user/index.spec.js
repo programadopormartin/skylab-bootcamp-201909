@@ -20,27 +20,25 @@ describe('logic - retrieve-complete-user', () => {
         description = description.slice(0, 140)
         city = `city-${random()}`
         skills
+        const image = "/home/martingarcia/bootcamp/colab/skylab-bootcamp-201909/staff/martin-garcia/theatera/theatera-api/data/users/defaultImage/profile.jpg"
+
 
         await User.deleteMany()
 
         surname = `surname-${random()}`
         let specificInfo = await Person.create({ surname })
-        const user = await User.create({ name, email, password, rol, introduction, specificInfo, rol: 'PERSON' })
+        const user = await User.create({ name, email, password, rol, introduction, specificInfo, image, rol: 'PERSON' })
         id1 = user.id
 
         specificInfo = await Person.create({})
-        const company = await User.create({ name, email, password, rol, specificInfo, rol: 'COMPANY' })
+        const company = await User.create({ name, email, password, rol, image, specificInfo, rol: 'COMPANY' })
         id2 = company.id
-
-
-
     })
 
     it('should succeed on correct user id, PERSON', async() => {
         const user = await retrieveCompleteUser(id1)
         let _intro
         user.introduction.length > 20 ? _intro = introduction.slice(0, 20) + '...' : _intro = ""
-
 
         expect(user).to.exist
         expect(user.id).to.equal(id1)
@@ -51,6 +49,8 @@ describe('logic - retrieve-complete-user', () => {
         expect(user.password).to.be.undefined
         expect(user.introduction).to.equal(_intro)
         expect(user.introduction).to.be.a('string')
+        expect(user.image.includes("/home/martingarcia/bootcamp/colab/skylab-bootcamp-201909/staff/martin-garcia/theatera/theatera-api/data/users/")).to.be.true
+
 
         if (rol === 'PERSON')
             expect(user.surname).to.be.equal(surname)
@@ -75,6 +75,8 @@ describe('logic - retrieve-complete-user', () => {
         expect(user.password).to.be.undefined
         expect(user.introduction).to.equal(_intro)
         expect(user.introduction).to.be.a('string')
+        expect(user.image.includes("/home/martingarcia/bootcamp/colab/skylab-bootcamp-201909/staff/martin-garcia/theatera/theatera-api/data/users/")).to.be.true
+
 
         if (rol === 'PERSON')
             expect(user.surname).to.be.equal(surname)

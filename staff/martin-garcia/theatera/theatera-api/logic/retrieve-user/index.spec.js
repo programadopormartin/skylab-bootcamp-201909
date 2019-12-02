@@ -16,10 +16,12 @@ describe('logic - retrieve user', () => {
         email = `email-${random()}@mail.com`
         password = `password-${random()}`
         rol = 'PERSON'
+        const image = "/home/martingarcia/bootcamp/colab/skylab-bootcamp-201909/staff/martin-garcia/theatera/theatera-api/data/users/defaultImage/profile.jpg"
+
 
         await User.deleteMany()
 
-        const user = await User.create({ name, email, password, rol })
+        const user = await User.create({ name, email, password, rol, image })
 
         id = user.id
     })
@@ -36,8 +38,10 @@ describe('logic - retrieve user', () => {
         expect(user.email).to.equal(email)
         expect(user.email).to.be.a('string')
         expect(user.password).to.be.undefined
-            /* expect(user.lastAccess).to.exist
-            expect(user.lastAccess).to.be.an.instanceOf(Date) */
+        expect(user.image.includes("/home/martingarcia/bootcamp/colab/skylab-bootcamp-201909/staff/martin-garcia/theatera/theatera-api/data/users/")).to.be.true
+
+        /* expect(user.lastAccess).to.exist
+        expect(user.lastAccess).to.be.an.instanceOf(Date) */
     })
 
     it('should fail on wrong user id', async() => {

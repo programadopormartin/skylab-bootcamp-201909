@@ -17,7 +17,7 @@ const {
     retrieveConnections,
     retrieveFriendRequests,
     retrieveNews,
-    search
+    updateUser,
 
 } = require('../../logic')
 const jwt = require('jsonwebtoken')
@@ -380,15 +380,18 @@ router.get('/retrievenews', tokenVerifier, (req, res) => {
     }
 })
 
-router.patch('/:userId', tokenVerifier, jsonBodyParser, (req, res) => {
-    try {
-        const { id, params: { taskId }, body: { title, description, status } } = req
 
-        modifyTask(id, taskId, title, description, status)
+
+router.patch('/modifyuser', tokenVerifier, jsonBodyParser, (req, res) => {
+    try {
+        const { id, body: { phone, website, specificInfo, description, introduction, name, city } } = req
+        debugger
+        updateUser(id, { phone, website, specificInfo, description, introduction, name, city })
             .then(() =>
                 res.end()
             )
             .catch(error => {
+                debugger
                 const { message } = error
 
                 if (error instanceof NotFoundError)

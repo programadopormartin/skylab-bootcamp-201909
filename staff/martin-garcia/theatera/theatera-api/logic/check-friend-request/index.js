@@ -9,7 +9,6 @@ module.exports = function(emiterId, receiverId) {
     validate.string(receiverId)
     validate.string.notVoid('receiverId', receiverId)
     if (!ObjectId.isValid(receiverId)) throw new ContentError(`${receiverId} is not a valid id`)
-    debugger
     return (async() => {
         const emiter = await User.findById(emiterId)
         if (!emiter) throw new NotFoundError(`user with id ${emiterId} not found`)
