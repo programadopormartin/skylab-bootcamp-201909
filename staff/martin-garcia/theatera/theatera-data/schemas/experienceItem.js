@@ -6,16 +6,19 @@ module.exports = new Schema({
         type: String,
         required: true,
     },
-    startdate: {
-        type: Date,
-        required: false
+    startDate: {
+        type: Number
     },
-    enddate: {
-        type: Date,
-        required: false
+    endDate: {
+        type: Number
     },
     body: {
-        type: Person,
+        type: String,
         required: true
+    },
+    type: {
+        required: true,
+        type: String,
+        enum: ['EDUCATION', 'JOB']
     }
 })

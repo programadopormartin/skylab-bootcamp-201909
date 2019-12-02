@@ -1,9 +1,11 @@
 const { Schema, ObjectId } = require('mongoose')
 const Comment = require('./comment')
+const Post = require('./post')
+
 
 module.exports = new Schema({
     user: {
-        type: Object,
+        type: ObjectId,
         require: true,
         ref: 'User'
     },
@@ -13,16 +15,15 @@ module.exports = new Schema({
     },
     date: {
         type: Date,
-        require: false,
+        require: true,
     },
     likes: {
         type: [ObjectId],
-        require: false,
         ref: 'User'
     },
     comments: {
         type: [Comment],
-        require: false
+        default: []
     },
     type: {
         type: String,

@@ -1,5 +1,5 @@
 const { model } = require('mongoose')
-const { message, chat, person, user, company, post, comment, experienceItem } = require('./schemas')
+const { message, chat, person, user, company, post, comment, notification, experienceItem, friendRequest } = require('./schemas')
 
 module.exports = {
     User: model('User', user),
@@ -10,4 +10,6 @@ module.exports = {
     Comment: model('Comment', comment),
     Message: model('Message', message),
     Chat: model('Chat', chat),
+    FriendRequest: model('FriendRequest', friendRequest),
+    Notification: model('Notification', notification)
 }

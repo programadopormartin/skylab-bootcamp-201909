@@ -1,8 +1,10 @@
 const { Schema, ObjectId } = require('mongoose')
-    /* const { validators: { isEmail } } = require('../utils/is-email')
-     */
+const { validators: { isEmail } } = require('theatera-util')
 const Chat = require('./chat')
 const Post = require('./post')
+const User = require('./user')
+
+const ExperienceItem = require('./experienceItem')
 
 
 module.exports = new Schema({
@@ -14,69 +16,66 @@ module.exports = new Schema({
     email: {
         type: String,
         required: true,
-        /*         validate: isEmail
-         */
+        validate: isEmail
+
     },
     password: {
         type: String,
         required: true
     },
     image: {
-        data: Buffer,
-        contentType: String,
-        required: false
+        type: String,
+        required: true,
+        default: "/home/martingarcia/bootcamp/colab/skylab-bootcamp-201909/staff/martin-garcia/theatera/theatera-api/data/users/defaultImage/profile.jpg"
     },
-    lastaccess: {
+    lastAccess: {
         type: Date,
-        required: false
     },
     phone: {
         type: String,
-        required: false
     },
     address: {
         type: String,
-        required: false
     },
     city: {
         type: String,
-        required: false
     },
     website: {
         type: String,
-        required: false
     },
     introduction: {
         type: String,
-        required: false
     },
     description: {
         type: String,
-        required: false
     },
     skills: {
         type: [String],
-        require: false
     },
-    experiences: {
-        type: String,
-        required: false
+    experience: {
+        type: [ExperienceItem],
+
     },
     rol: {
         type: String,
+        enum: ['PERSON', 'COMPANY'],
         required: true,
-        enum: ['PERSON', 'COMPANY']
+        default: "PERSON"
     },
     specificInfo: {
         type: Object,
-        required: true
     },
     chats: {
         type: [Chat],
-        require: false
     },
-    posts: {
-        type: [Post],
-        required: false
-    }
+    connections: {
+        type: [ObjectId],
+        ref: 'Connection'
+
+    },
+    notifications: {
+        type: [Object],
+        default: [],
+        ref: "Notification"
+    },
 })

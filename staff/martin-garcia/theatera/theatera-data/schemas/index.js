@@ -7,5 +7,8 @@ module.exports = {
     experienceItem: require('./experienceItem'),
     message: require('./message'),
     person: require('./person'),
-    user: require('./user')
+    user: require('./user'),
+    friendRequest: require('./friend-request'),
+    post: require('./post'),
+    notification: require('./notification')
 }

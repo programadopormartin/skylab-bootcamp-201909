@@ -697,6 +697,13 @@ button, input[type=submit], input[type=reset] {
   justify-content: flex-end;
   height: 100vh;
 }
+.register__form__radio {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 65%;
+}
 .register__title {
   color: white;
   font-weight: bold;
