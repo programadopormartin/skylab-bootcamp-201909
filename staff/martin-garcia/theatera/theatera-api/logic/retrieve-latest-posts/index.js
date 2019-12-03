@@ -23,7 +23,8 @@ module.exports = function(id) {
             const _user = { name, image, introduction }
 
             const result = post.map(element => {
-                return { post: element, user: _user }
+                const { likes, _id, date, user, comments, body } = element
+                return { post: { likes, id: _id, date, user, comments, body }, user: _user }
             })
 
             return result

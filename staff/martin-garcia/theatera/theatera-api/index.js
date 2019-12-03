@@ -8,6 +8,8 @@ const { database } = require('theatera-data')
 
 const { users, chat, post, search } = require('./routes')
 const api = express()
+api.use(express.static('public'))
+
 
 api.use(cors)
 

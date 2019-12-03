@@ -24,12 +24,12 @@ module.exports = function(id) {
           if (!user) throw new Error(`user with id ${id} not found`) */
 
 
-        let goTo = path.join(__dirname, `../../data/users/${id}/profile.png`)
+        let goTo = path.join(__dirname, `../../public/data/users/${id}/profile.png`)
         try {
             if (await fs.existsSync(goTo)) {
                 return await fs.createReadStream(goTo)
             } else {
-                const defaultImage = path.join(__dirname, `../../data/users/defaultImage/profile.jpg`)
+                const defaultImage = path.join(__dirname, `../../public/data/users/defaultImage/profile.jpg`)
                 return await fs.createReadStream(defaultImage)
             }
         } catch (error) {

@@ -28,8 +28,8 @@ module.exports = function(id, file, filename) {
 
     return (async() => {
 
-        imgPath = path.join(__dirname, `../../data/users/${id}/` + filename + '.png')
-        route = path.join(__dirname, `../../data/users/${id}/`)
+        imgPath = path.join(__dirname, `../../public/data/users/${id}/` + filename + '.png')
+        route = path.join(__dirname, `../../public/data/users/${id}/`)
 
         try {
             if (await fs.existsSync(route)) {

@@ -23,7 +23,7 @@ module.exports = function(id) {
         /*   const user = await User.findById(id)
           if (!user) throw new Error(`user with id ${id} not found`) */
 
-        let goTo = path.join(__dirname, `../../data/users/${id}/profile.png`)
+        let goTo = path.join(__dirname, `../../public/data/users/${id}/profile.png`)
 
 
 
@@ -31,7 +31,7 @@ module.exports = function(id) {
             if (await fs.existsSync(goTo)) {
                 return goTo
             } else {
-                const defaultImage = path.join(__dirname, `../../data/users/defaultImage/profile.jpg`)
+                const defaultImage = path.join(__dirname, `../../public/data/users/defaultImage/profile.jpg`)
                 return defaultImage
             }
         } catch (error) {

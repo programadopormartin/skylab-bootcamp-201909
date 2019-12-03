@@ -51,9 +51,9 @@ describe('logic - retrieve-user-posts', () => {
 
     it('should succeed on correct posts', async() => {
         const posts = await retrieveLatestPosts(userId)
-        expect(posts[0].post._id.toString()).to.be.equal(postId3)
-        expect(posts[1].post._id.toString()).to.be.equal(postId2)
-        expect(posts[2].post._id.toString()).to.be.equal(postId1)
+        expect(posts[0].post.id.toString()).to.be.equal(postId3)
+        expect(posts[1].post.id.toString()).to.be.equal(postId2)
+        expect(posts[2].post.id.toString()).to.be.equal(postId1)
 
     })
 
