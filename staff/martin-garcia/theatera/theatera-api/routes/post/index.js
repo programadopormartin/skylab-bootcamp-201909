@@ -56,7 +56,7 @@ router.get('/retrievepost/:postId', tokenVerifier, (req, res) => {
         const { params: { postId } } = req
 
         retrievePostById(id, postId)
-            .then(messages => res.status(201).json({ messages }))
+            .then(messages => res.status(200).json({ messages }))
             .catch(error => {
                 const { message } = error
 
@@ -77,7 +77,7 @@ router.get('/retrievelatest', tokenVerifier, (req, res) => {
         const { id } = req
 
         retrieveLatestPosts(id)
-            .then(posts => res.status(201).json({ posts }))
+            .then(posts => res.status(200).json({ posts }))
             .catch(error => {
                 const { message } = error
 
@@ -97,7 +97,7 @@ router.get('/retrieveuserposts/:id', tokenVerifier, (req, res) => {
         const { params: { id } } = req
 
         retrieveUserPosts(id)
-            .then(posts => res.status(201).json({ posts }))
+            .then(posts => res.status(200).json({ posts }))
             .catch(error => {
                 const { message } = error
 
@@ -119,7 +119,7 @@ router.get('/retrievechats', tokenVerifier, (req, res) => {
         const { id } = req
 
         retrieveChats(id)
-            .then(id => res.status(201).json({ id }))
+            .then(id => res.status(200).json({ id }))
             .catch(error => {
                 const { message } = error
 
@@ -141,7 +141,7 @@ router.put('/togglelike/:postId', tokenVerifier, (req, res) => {
         const { params: { postId } } = req
 
         toggleLikePost(id, postId)
-            .then(id => res.status(201).json({ message: `update likes into post with id ${id}` }))
+            .then(id => res.status(200).json({ message: `update likes into post with id ${id}` }))
             .catch(error => {
                 const { message } = error
                 if (error instanceof NotFoundError)
