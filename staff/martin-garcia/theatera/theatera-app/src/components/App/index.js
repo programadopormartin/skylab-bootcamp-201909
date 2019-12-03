@@ -6,14 +6,17 @@ import Register from '../Register'
 import Header from '../Header'
 import Footer from '../Footer'
 import Posts from '../Posts'
+import AccountDetail from '../Account-Detail'
+
+
 import './index.sass'
-import { registerUser, authenticate, retrieveUser, retrieveLatestPosts } from '../../logic'
-import PostItem from '../Post-Item';
+import { registerUser, authenticate, retrieveUser, retrieveLatestPosts, retrieveCompleteUser } from '../../logic'
 
 export default withRouter(function ({ history }) {
 
   const [userId, setUserId] = useState()
   const [view, setView] = useState('login')
+  const [user, setUser]=useState()
 /*   const [name, setName] = useState()
  */ 
 const [latestsPosts, setLatestPosts] = useState()
@@ -70,12 +73,22 @@ const { token } = sessionStorage
     }
   }
 
+  async function handleGoPersonalProfile(){
+    try{
+      const user = await retrieveCompleteUser(userId,token)
+      setUser(user)
+      history.push(`/account/${userId}`)
+    }catch(error){
+      console.error(error)
+    }
+  }
+
 
 
   return <>
     <Route exact path='/' render={() => <Login onGoRegister={handleGoToRegister} onLogin={handleLogin} />} />
     <Route path='/register' render={() => <Register onGoLogin={handleGoToLogin} onRegister={handleRegister} />} />
-    <Route path='/home' render={() => latestsPosts && token ? <> <Header />   {<Posts posts={latestsPosts}  />}    <Footer onGoHome={handleGoToHome} />  </> :<Login onGoRegister={handleGoToRegister} onLogin={handleLogin} />} />
-  </>
+    <Route path='/home' render={() => latestsPosts && token ? <> <Header onGoPersonalProfile={handleGoPersonalProfile}/>   {<Posts posts={latestsPosts}  />}    <Footer onGoHome={handleGoToHome} />  </> :<Login onGoRegister={handleGoToRegister} onLogin={handleLogin} />} />
+    <Route path='/account' render={() => token && user ?  <> <Header onGoPersonalProfile={handleGoPersonalProfile}/>   <AccountDetail user={user}  />  <Footer onGoHome={handleGoToHome} />  </> :<Login onGoRegister={handleGoToRegister} onLogin={handleLogin} />} />  </>
 })
 

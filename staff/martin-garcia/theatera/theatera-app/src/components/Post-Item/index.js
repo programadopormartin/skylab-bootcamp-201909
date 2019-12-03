@@ -4,7 +4,7 @@ import './index.sass'
 export default function({post:{post:{body,comments,date,likes,id}, user:{image, introduction,name}}}){
 return <section className="post" id={id}>
 <div className="post__header">
-    <img className="post-image" src={image} alt="profile  " />
+    <img className="post-image" src={image} alt="profile " />
     <div className="header-info">
         <p className="header-item header__user-username">{name}</p>
         <p className="header-item header__user-introduction">{introduction}</p>
