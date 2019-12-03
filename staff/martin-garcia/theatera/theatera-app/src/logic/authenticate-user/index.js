@@ -20,7 +20,7 @@ module.exports = function(email, password) {
 
         if (res.status === 200) return JSON.parse(res.body)
 
-        if (res.status === 401) throw new CredentialsContainer(JSON.parse(res.body).message)
+        if (res.status === 401) throw new CredentialsError(JSON.parse(res.body).message)
 
         throw new Error(JSON.parse(res.body).message)
     })()

@@ -14,7 +14,7 @@ export default function({onLogin, onGoRegister}) {
         <input className="login__form__input" type="text" name="email" placeholder="mail@mail.com"></input>
         <input className="login__form__input" type="password" name="password" placeholder="*****"></input>
         <button className="login__form__button">Next</button>
-        <a className="login__form__button" onClick={function(e){
+        <a className="login__form__button" href="" onClick={function(e){
             e.preventDefault()
             onGoRegister()
         }}>Register</a>

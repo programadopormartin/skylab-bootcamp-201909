@@ -1,11 +1,16 @@
 import React from 'react'
 import './index.sass'
 
-export default function(){
+export default function({onGoHome}){
     return <footer className="footer">
 
-    <form action="" className="footer__list buttons">
-        <button className="buttons__home button">
+    <form  className="footer__list buttons" onSubmit={function(e){
+        e.preventDefault()
+    }}>
+        <button className="buttons__home button" onClick={function(e){
+            e.preventDefault()
+            onGoHome()
+        }}>
             <i className="button__icon material-icons">home</i>
             <p className="button__text">Home</p>
         </button>
