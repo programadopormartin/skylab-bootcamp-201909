@@ -7,6 +7,7 @@ import Header from '../Header'
 import Footer from '../Footer'
 import Posts from '../Posts'
 import AccountDetail from '../Account-Detail'
+import PostDetail from '../Post-detail'
 
 import Context from '../CreateContext'
 
@@ -15,9 +16,8 @@ import './index.sass'
 export default withRouter(function () {
 
   const [user, setUser] = useState()
-  
-
   const { token } = sessionStorage
+  let postId
 
   return <>
   <Context.Provider value={{user, setUser}}>
@@ -26,6 +26,7 @@ export default withRouter(function () {
     <Route path='/register' render={() => <Register/>} />
     <Route path='/home' render={() => token ? <> <Header/>   <Posts />    <Footer />  </> : <Login  />} />
     <Route path='/account' render={() =>  token ? <> <Header/>   <AccountDetail   />  <Footer />  </> :<Login/>} />  
+    <Route path='/post/' render={() =>  token ? <> <Header/>   <PostDetail  postId={postId}  />  <Footer />  </> :<Login/>} />  
     </Context.Provider>
     </>
 })

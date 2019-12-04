@@ -1,19 +1,20 @@
 import React from 'react'
 import './index.sass'
 import { withRouter } from 'react-router-dom'
-import {  retrieveCompleteUser } from '../../logic'
+import {  toggleLikePost } from '../../logic'
 
 function PostItem({history, post:{post:{body,comments,date,likes,id}, user:{image, introduction,name}}}){
 
+    const {token} = sessionStorage
 
-
-function handleGiveLike(){
-console.log('like')
+async function handleGiveLike(){
+    console.log('preLike')
+    toggleLikePost(id, token)
+    console.log('afterLike')
 }
 
 function handleGoPostDetail(){
-    console.log('goDetail')
-
+    history.push(`/post/${id}`)
 }
 
 

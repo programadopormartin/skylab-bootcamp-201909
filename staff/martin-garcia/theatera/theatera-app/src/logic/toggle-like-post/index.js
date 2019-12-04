@@ -1,29 +1,28 @@
-const { validate, errors: { ContentError, NotFoundError, ConflictError } } = require('theatera-util')
-const { ObjectId, models: { User, Post, Comment } } = require('theatera-data')
+const call = require('../../utils/call')
+const { validate, errors: { ConflictError } } = require('theatera-util')
+const API_URL = process.env.REACT_APP_API_URL
 
-module.exports = function(userId, postId) {
-    validate.string(userId)
-    validate.string.notVoid('userId', userId)
-    if (!ObjectId.isValid(userId)) throw new ContentError(`${userId} is not a valid id`)
+module.exports = function(postId, token) {
+    validate.string(token)
+    validate.string.notVoid('token', token)
 
     validate.string(postId)
     validate.string.notVoid('postId', postId)
-    if (!ObjectId.isValid(postId)) throw new ContentError(`${postId} is not a valid id`)
 
     return (async() => {
-        const user = await User.findById(userId)
-        if (!user) throw new NotFoundError(`user with id ${userId} not found`)
-        const post = await Post.findById(postId)
-        if (!post) throw new NotFoundError(`post with id ${postId} not found`)
+        const res = await call(`${API_URL}/post/togglelike/${postId}`, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
 
-        if (post.likes.includes(ObjectId(userId))) {
-            post.likes.splice(post.likes.indexOf(userId))
-        } else {
-            post.likes.push(ObjectId(userId))
-        }
+        if (res.status === 200) return
 
-        await post.save()
+        if (res.status === 409) throw new ConflictError(JSON.parse(res.body).message)
 
-        return postId
+        throw new Error(JSON.parse(res.body).message)
     })()
 }
+
+//5de35a512e3485570540cf53
