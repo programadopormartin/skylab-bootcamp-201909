@@ -15,7 +15,7 @@ module.exports = function(userId, postId) {
         if (!user) throw new NotFoundError(`user with id ${userId} not found`)
 
 
-        const post = await Post.findById(postId)
+        const post = await Post.findById(postId).populate("comments.user")
         if (!post) throw new NotFoundError(`post with id ${postId} not found`)
 
 
