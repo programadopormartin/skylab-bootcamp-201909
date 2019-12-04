@@ -1,32 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import './index.sass'
 import { withRouter } from 'react-router-dom'
 import {retrievePost} from '../../logic'
 
 
-function PostDetail({hisory,  postId}){
+function PostDetail({history, postId}){
 
-    [post, setPost] = useState()
+    const { token } = sessionStorage
+    let postData
 
     useEffect(()=>{
         (async()=>{
-            const postData = await retrievePost(postId)
-             
-        })
-    }, [])
-    
-
-    useEffect( () => {
-        (async()=>{
             try{
-                const {posts} = await retrieveLatestPosts(token)
-                setPostsList(posts)
-            }catch({ message }){
+                postData = await retrievePost(token, postId)
+                debugger   
+            } catch({message}){
                 console.log(message)
             }
         })()
-        
-    } , [setPostsList] )  
+    }, [postId])
+
 
 
     return <section className=" post-detail ">

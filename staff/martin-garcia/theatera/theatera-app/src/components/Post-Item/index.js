@@ -1,11 +1,15 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import './index.sass'
 import { withRouter } from 'react-router-dom'
 import {  toggleLikePost } from '../../logic'
 
-function PostItem({history, post:{post:{body,comments,date,likes,id}, user:{image, introduction,name}}}){
+
+
+function PostItem({history, post:{post:{body,comments,date,likes,id}, user:{image, introduction,name}}, onGoPostDetail}){
 
     const {token} = sessionStorage
+
+
 
 async function handleGiveLike(){
     console.log('preLike')
@@ -13,9 +17,7 @@ async function handleGiveLike(){
     console.log('afterLike')
 }
 
-function handleGoPostDetail(){
-    history.push(`/post/${id}`)
-}
+
 
 
 return <section className="post" id={id}>
@@ -39,7 +41,10 @@ return <section className="post" id={id}>
     event.preventDefault()
 }}>
     <button className="post-button "><i className="material-icons"  onClick={handleGiveLike}>thumb_up_alt</i></button>
-    <button className="post-button "><i className="material-icons " onClick={handleGoPostDetail}>comment</i></button>
+    <button className="post-button "><i className="material-icons " onClick={function(e){
+        e.preventDefault()
+        onGoPostDetail(id)
+    }}>comment</i></button>
 {/*     <button className="post-button "><i className="material-icons " onClick={}>share</i></button>
  */}</form>
 </section>

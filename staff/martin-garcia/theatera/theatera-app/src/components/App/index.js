@@ -17,16 +17,18 @@ export default withRouter(function () {
 
   const [user, setUser] = useState()
   const { token } = sessionStorage
-  let postId
+  const [postId, setPostId] = useState()
+
+  
 
   return <>
-  <Context.Provider value={{user, setUser}}>
+  <Context.Provider value={{user, setUser, postId, setPostId }}>
     <Route exact path='/' render={() => token ? <Redirect to="/home" /> : <Login />} />
     <Route path='/login' render={() => <Login/>} />
     <Route path='/register' render={() => <Register/>} />
     <Route path='/home' render={() => token ? <> <Header/>   <Posts />    <Footer />  </> : <Login  />} />
     <Route path='/account' render={() =>  token ? <> <Header/>   <AccountDetail   />  <Footer />  </> :<Login/>} />  
-    <Route path='/post/' render={() =>  token ? <> <Header/>   <PostDetail  postId={postId}  />  <Footer />  </> :<Login/>} />  
+    <Route path='/posts/:postId' render={({ match: { params: { postId } } }) =>  token && postId  ? <> <Header/>   <PostDetail postId={postId}  />  <Footer />  </> :<Login/>} />  
     </Context.Provider>
     </>
 })
