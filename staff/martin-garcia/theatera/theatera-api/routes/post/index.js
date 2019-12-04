@@ -56,7 +56,7 @@ router.get('/retrievepost/:postId', tokenVerifier, (req, res) => {
         const { params: { postId } } = req
 
         retrievePostById(id, postId)
-            .then(messages => res.status(200).json({ messages }))
+            .then(post => res.status(200).json( post ))
             .catch(error => {
                 const { message } = error
 
