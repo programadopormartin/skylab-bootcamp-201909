@@ -134,14 +134,14 @@ router.get('/retrievechats', tokenVerifier, (req, res) => {
 })
 
 
-router.put('/togglelike/:postId', tokenVerifier, (req, res) => {
+router.patch('/togglelike/:postId', tokenVerifier, (req, res) => {
     debugger
     try {
         const { id } = req
         const { params: { postId } } = req
 
         toggleLikePost(id, postId)
-            .then(id => res.status(200).json({ message: `update likes into post with id ${id}` }))
+            .then(id => res.status(200))
             .catch(error => {
                 const { message } = error
                 if (error instanceof NotFoundError)
