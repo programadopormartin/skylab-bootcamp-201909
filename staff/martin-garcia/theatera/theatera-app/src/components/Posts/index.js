@@ -1,14 +1,33 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import PostItem from '../Post-Item'
+import { withRouter } from 'react-router-dom'
 import './index.sass'
+import {retrieveLatestPosts} from '../../logic'
 
-export default function({posts}){
+
+function Posts({}){
+
+    const { token } = sessionStorage
+    const [postsList, setPostsList] = useState([])
+
+    useEffect( () => {
+        (async()=>{
+            try{
+                const {posts} = await retrieveLatestPosts(token)
+                setPostsList(posts)
+            }catch({ message }){
+                console.log(message)
+            }
+        })()
+        
+    } , [setPostsList] )    
+    
+
     return  <section className="posts">  
         <ul >
-        {posts.map(post => <li className="post-list__item" key={post.post.id}> <PostItem post={post}  /></li>)}
+        {postsList.map(post => <li className="post-list__item" key={post.post.id}> <PostItem post={post}  /></li>)}
         </ul>
         </section>
 }
            
-/* {posts.map(post => onPostRender(post) )}
- */
+export default withRouter(Posts)

@@ -1,7 +1,22 @@
 import React from 'react'
 import './index.sass'
+import { withRouter } from 'react-router-dom'
+import {  retrieveCompleteUser } from '../../logic'
 
-export default function({post:{post:{body,comments,date,likes,id}, user:{image, introduction,name}}}){
+function PostItem({history, post:{post:{body,comments,date,likes,id}, user:{image, introduction,name}}}){
+
+
+
+function handleGiveLike(){
+console.log('like')
+}
+
+function handleGoPostDetail(){
+    console.log('goDetail')
+
+}
+
+
 return <section className="post" id={id}>
 <div className="post__header">
     <img className="post-image" src={image} alt="profile " />
@@ -19,10 +34,14 @@ return <section className="post" id={id}>
     <p className="post-interactions__comments">{comments.length} comments</p>
 </div>
 
-<form action=" " className="post__nav ">
-    <button className="post-button "><i className="material-icons">thumb_up_alt</i></button>
-    <button className="post-button "><i className="material-icons ">comment</i></button>
-    <button className="post-button "><i className="material-icons ">share</i></button>
-</form>
+<form action=" " className="post__nav " onSubmit={function(event){
+    event.preventDefault()
+}}>
+    <button className="post-button "><i className="material-icons"  onClick={handleGiveLike}>thumb_up_alt</i></button>
+    <button className="post-button "><i className="material-icons " onClick={handleGoPostDetail}>comment</i></button>
+{/*     <button className="post-button "><i className="material-icons " onClick={}>share</i></button>
+ */}</form>
 </section>
 }
+
+export default withRouter(PostItem)

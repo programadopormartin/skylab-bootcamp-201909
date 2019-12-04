@@ -1,7 +1,21 @@
 import React from 'react'
 import './index.sass'
+import { withRouter } from 'react-router-dom'
+import {  retrieveCompleteUser } from '../../logic'
 
-export default function ({user:{image, name,introduction, city} }) {
+
+function AccountDetail({userId , history}) {
+
+
+    
+    async function retrieveUser(userId){
+        const user = await retrieveCompleteUser(userId,sessionStorage.token)
+        return user
+    }
+
+    const {image, name,introduction, city} = retrieveUser(userId)
+
+
     return   <section className="account-details">
     <section className="account-details__header">
         <div className="account-details__principal principal">
@@ -50,49 +64,6 @@ export default function ({user:{image, name,introduction, city} }) {
                 </form>
             </li>
 
-            <li className="skill-item">
-                <p>Thriller</p>
-                <form action="" className="skill__less less">
-                    <button className="less__button">
-                                        <i className="material-icons">remove_circle_outline</i>
-                                </button>
-                </form>
-            </li>
-
-            <li className="skill-item">
-                <p>Film productor</p>
-                <form action="" className="skill__less less">
-                    <button className="less__button">
-                                        <i className="material-icons">remove_circle_outline</i>
-                                </button>
-                </form>
-            </li>
-            <li className="skill-item">
-                <p>Dramatic</p>
-                <form action="" className="skill__less less">
-                    <button className="less__button">
-                                        <i className="material-icons">remove_circle_outline</i>
-                                </button>
-                </form>
-            </li>
-
-            <li className="skill-item">
-                <p>Thriller</p>
-                <form action="" className="skill__less less">
-                    <button className="less__button">
-                                        <i className="material-icons">remove_circle_outline</i>
-                                </button>
-                </form>
-            </li>
-
-            <li className="skill-item">
-                <p> Film productor</p>
-                <form action="" className="skill__less less">
-                    <button className="less__button">
-                                    <i className="material-icons">remove_circle_outline</i>
-                            </button>
-                </form>
-            </li>
         </ul>
         <form action="" className="skill__more more">
             <input className="more__input" type="text" placeholder="new skill" />
@@ -218,4 +189,6 @@ export default function ({user:{image, name,introduction, city} }) {
     </section>
     }
 
+
+export default withRouter(AccountDetail)
     
