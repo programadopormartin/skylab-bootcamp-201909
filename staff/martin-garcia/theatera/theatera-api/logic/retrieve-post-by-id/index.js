@@ -21,7 +21,8 @@ module.exports = function(userId, postId) {
 
         const { image, name } = user
         const { body, date, likes, comments, type } = post
-        let introduction = user.introduction.slice(0, 20) + '...'
+        let introduction
+        !introduction ? introduction = '' : introduction = introduction.slice(0, 20) + '...'
         const result = { user: { id: user.id, image, introduction, name }, post: { id: post.id, body, date, likes, comments, type } }
         return result
 
