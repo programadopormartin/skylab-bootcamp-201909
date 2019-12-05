@@ -141,7 +141,7 @@ router.patch('/togglelike/:postId', tokenVerifier, (req, res) => {
         const { params: { postId } } = req
 
         toggleLikePost(id, postId)
-            .then(id => res.status(200))
+            .then(id => res.status(200).end())
             .catch(error => {
                 const { message } = error
                 if (error instanceof NotFoundError)
