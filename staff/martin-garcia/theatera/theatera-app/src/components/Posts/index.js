@@ -9,7 +9,7 @@ import Context from '../CreateContext'
 
 function Posts({history}){
 
-    const[render, setRender]= useState()
+    const[render, setRender]= useState(true)
 
     const { token } = sessionStorage
     const [postsList, setPostsList] = useState([])
@@ -37,7 +37,7 @@ function Posts({history}){
     const  handleGiveLike =async  (id, token) =>{
         try{
             await toggleLikePost(id, token)
-            setRender(Math.random()) 
+            setRender(!render) 
         } catch(error){
             debugger
             console.log(error)

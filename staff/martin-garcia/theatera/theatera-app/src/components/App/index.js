@@ -30,8 +30,8 @@ export default withRouter(function () {
     <Route path='/home' render={() => token ? <> <Header/>   <Posts />    <Footer />  </> : <Login  />} />
     <Route path='/account' render={() =>  token ? <> <Header/>   <AccountDetail   />  <Footer />  </> :<Login/>} />  
     <Route path='/posts/:postId' render={({ match: { params: { postId } } }) =>  token && postId  ? <> <Header/>   <PostDetail postId={postId}  />  <Footer />  </> :<Login/>} />  
-    <Route path='/connections' render={() => token ? <> <Header/>   <Connections />    <Footer />  </> : <Login  />} />
   </Context.Provider>
+    <Route path='/connections' render={() => token ? <> <Header/>   <Connections />    <Footer />  </> : <Login  />} />
     </>
 })
 

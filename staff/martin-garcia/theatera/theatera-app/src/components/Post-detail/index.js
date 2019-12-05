@@ -7,17 +7,30 @@ import CommentItem from '../Comment-Item'
 
 function PostDetail({history, postId}){
     
-    const[render, setRender]= useState()
+    const[render, setRender]= useState(true)
     const [ user, setUser ] = useState(true)
     const { token } = sessionStorage
     const [post, setPost] = useState()
     let postData
     const {id} = sessionStorage
     let messageText = React.createRef()
+    let refresher
 
     
     
     useEffect(()=>{
+        if (typeof refresher !== 'number' ) refresher = setInterval(()=>{
+            (async()=>{
+                try{
+                    postData = await retrievePost(token, postId) 
+                    setPost(postData.post)
+                } catch(message){
+                    debugger
+                    console.log(message)
+                }
+            })()
+        }, 1000);
+
         (async()=>{
             try{
                 postData = await retrievePost(token, postId) 
@@ -29,7 +42,9 @@ function PostDetail({history, postId}){
                 
             }
         })()
-    },[setPost, render])
+
+        return () => { clearInterval(refresher)}
+    },[setPost,setUser, render])
     
 
     async function handleGiveLike(e){
@@ -37,7 +52,7 @@ function PostDetail({history, postId}){
         try{
             await toggleLikePost(post.id, token)
             setPost(post)
-            setRender(Math.random())
+            //setRender(!render)
         } catch(error){
             console.log("peto")
             console.log(error)
@@ -51,14 +66,18 @@ function PostDetail({history, postId}){
         try{
             const {textarea:{value:text}} = e.target
             await sendComment(token, post.id, text)
-            setRender(Math.random())
+            //setRender(!render)
         }catch(error){
             console.log(error)
         }
     }
+
     function handleFocus(){
         messageText.current.focus()
     }
+
+    
+
 
 
    
