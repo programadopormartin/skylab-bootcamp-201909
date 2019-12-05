@@ -20,10 +20,9 @@ function Posts({history}){
         (async()=>{
             try{
                 const {posts} = await retrieveLatestPosts(token)
-                console.log(posts)
                 setPostsList(posts)
-                debugger
             }catch({ message }){
+                debugger
                 console.log(message)
             }
         })()
@@ -35,15 +34,10 @@ function Posts({history}){
         history.push(`/posts/${id}`)
     }
 
-    const  handleGiveLike =  (id, token) =>{
+    const  handleGiveLike =async  (id, token) =>{
         try{
-            toggleLikePost(id, token)
-            .then(()=>{
-
-                console.log("sdfsaf")
-                setRender(Math.random()) 
-            })
-
+            await toggleLikePost(id, token)
+            setRender(Math.random()) 
         } catch(error){
             debugger
             console.log(error)

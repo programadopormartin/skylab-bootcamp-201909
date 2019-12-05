@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import './index.sass'
 import { withRouter } from 'react-router-dom'
 import {retrievePost, toggleLikePost, sendComment} from '../../logic'
 import CommentItem from '../Comment-Item'
-import Context from '../CreateContext'
 
 
 function PostDetail({history, postId}){
@@ -14,7 +13,8 @@ function PostDetail({history, postId}){
     const [post, setPost] = useState()
     let postData
     const {id} = sessionStorage
-    let emailInput = React.createRef()
+    let messageText = React.createRef()
+
     
     
     useEffect(()=>{
@@ -23,7 +23,6 @@ function PostDetail({history, postId}){
                 postData = await retrievePost(token, postId) 
                 setPost(postData.post)
                 setUser(postData.user)
-                debugger
             } catch(message){
                 debugger
                 console.log(message)
@@ -37,7 +36,7 @@ function PostDetail({history, postId}){
         e.preventDefault()
         try{
             await toggleLikePost(post.id, token)
-            console.log("non chego")
+            setPost(post)
             setRender(Math.random())
         } catch(error){
             console.log("peto")
@@ -58,7 +57,7 @@ function PostDetail({history, postId}){
         }
     }
     function handleFocus(){
-        emailInput.current.focus()
+        messageText.current.focus()
     }
 
 
@@ -104,7 +103,7 @@ function PostDetail({history, postId}){
     <section className="new-comment">
         <img className="new-comment__image" src="https://media.licdn.com/dms/image/C4E03AQHDYmFMm3lIoQ/profile-displayphoto-shrink_200_200/0?e=1580342400&v=beta&t=Eway57teuUv7ff1isfm-jELgO4KR4xqr93sc7qmgwEc" alt="profile image" />
         <form className="new-comment__form form" onSubmit={handleSendComment}>
-            <textarea   ref={emailInput} className="form__textarea" name="textarea"  cols="30" rows="2" placeholder="send a comment here ..."></textarea>
+            <textarea   ref={messageText} className="form__textarea" name="textarea"  cols="30" rows="2" placeholder="send a comment here ..."></textarea>
             <button className="form__button"><i className="material-icons">send</i></button>
         </form>
     </section>
