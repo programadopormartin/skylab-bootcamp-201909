@@ -1,16 +1,21 @@
 import React, { useEffect, useState, useContext } from 'react'
 import './index.sass'
 import { withRouter } from 'react-router-dom'
-import {retrievePost, toggleLikePost} from '../../logic'
-import '../Comment-Item'
+import {retrievePost, toggleLikePost, sendComment} from '../../logic'
+import CommentItem from '../Comment-Item'
+import Context from '../CreateContext'
 
 
 function PostDetail({history, postId}){
-
+    
+    const[render, setRender]= useState()
+    const [ user, setUser ] = useState(true)
     const { token } = sessionStorage
-    const [user, setUser] = useState()
     const [post, setPost] = useState()
     let postData
+    const {id} = sessionStorage
+    let emailInput = React.createRef()
+    
     
     useEffect(()=>{
         (async()=>{
@@ -18,21 +23,48 @@ function PostDetail({history, postId}){
                 postData = await retrievePost(token, postId) 
                 setPost(postData.post)
                 setUser(postData.user)
-                console.log(postData)
-            } catch({message}){
+                debugger
+            } catch(message){
+                debugger
                 console.log(message)
+                
             }
         })()
-    }, [setPost])
+    },[setPost, render])
+    
 
+    async function handleGiveLike(e){
+        e.preventDefault()
+        try{
+            await toggleLikePost(post.id, token)
+            console.log("non chego")
+            setRender(Math.random())
+        } catch(error){
+            console.log("peto")
+            console.log(error)
+        }
 
-    async function handleGiveLike(){
-        toggleLikePost(post.id, token)
-        postData = await retrievePost(token, postId) 
+    }
+
+    async function handleSendComment(e){
+        e.preventDefault()
+        
+        try{
+            const {textarea:{value:text}} = e.target
+            await sendComment(token, post.id, text)
+            setRender(Math.random())
+        }catch(error){
+            console.log(error)
+        }
+    }
+    function handleFocus(){
+        emailInput.current.focus()
     }
 
 
-    return<>{user && <section className=" post-detail ">
+   
+
+    return<>{user &&  post && <section className=" post-detail ">
 
     <section className=" post ">
         <div className=" post__header ">
@@ -57,7 +89,7 @@ function PostDetail({history, postId}){
             e.preventDefault()
         }}>
             <button className=" post-button " onClick={handleGiveLike}><i className=" material-icons ">thumb_up_alt</i></button>
-            <button className=" post-button "><i className=" material-icons ">comment</i></button>
+            <button className=" post-button " onClick={handleFocus}><i className=" material-icons ">comment</i></button>
             <button className=" post-button "><i className=" material-icons ">share</i></button>
         </form>
     </section>
@@ -65,14 +97,14 @@ function PostDetail({history, postId}){
 
     <section className="comments">
         <ul >
-            {post.comments.map(comment => <li key={post.comment.id}> <CommentItem comment={comment} /></li>)}
+            {post.comments && post.comments.map(comment => <li key={comment._id}> <CommentItem comment={comment}  myId={id} /></li>)}
         </ul>
     </section>
 
     <section className="new-comment">
         <img className="new-comment__image" src="https://media.licdn.com/dms/image/C4E03AQHDYmFMm3lIoQ/profile-displayphoto-shrink_200_200/0?e=1580342400&v=beta&t=Eway57teuUv7ff1isfm-jELgO4KR4xqr93sc7qmgwEc" alt="profile image" />
-        <form action="" className="new-comment__form form">
-            <textarea className="form__textarea" name="" id="" cols="30" rows="2" placeholder="send a comment here ..."></textarea>
+        <form className="new-comment__form form" onSubmit={handleSendComment}>
+            <textarea   ref={emailInput} className="form__textarea" name="textarea"  cols="30" rows="2" placeholder="send a comment here ..."></textarea>
             <button className="form__button"><i className="material-icons">send</i></button>
         </form>
     </section>

@@ -17,12 +17,11 @@ module.exports = function(postId, token) {
             }
         })
 
-        if (res.status === 200) return
+        if (res.status === 200) return {}
 
         if (res.status === 409) throw new ConflictError(JSON.parse(res.body).message)
 
-        throw new Error(JSON.parse(res.body).message)
+        else{throw new Error(JSON.parse(res.body).message)}
     })()
 }
 
-//5de35a512e3485570540cf53

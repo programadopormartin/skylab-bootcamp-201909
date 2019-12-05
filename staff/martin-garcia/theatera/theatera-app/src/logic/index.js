@@ -5,5 +5,6 @@ module.exports = {
     retrieveLatestPosts: require('./retrieve-latest-posts'),
     retrieveCompleteUser: require('./retrieve-complete-user'),
     toggleLikePost: require('./toggle-like-post'),
-    retrievePost: require('./retrieve-post')
+    retrievePost: require('./retrieve-post'),
+    sendComment : require('./send-comment')
 }
