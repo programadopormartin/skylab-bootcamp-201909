@@ -8,5 +8,8 @@ module.exports = {
     retrievePost: require('./retrieve-post'),
     sendComment : require('./send-comment'),
     retrieveConnections: require('./retrieve-connections'),
-    removeSkillItem: require('./remove-skill-item')
+    removeSkillItem: require('./remove-skill-item'),
+    createSkillItem: require('./create-skill-item'),
+    createExperienceItem: require('./create-experience-item'),
+    removeExperienceItem: require('./remove-experience-item')
 }

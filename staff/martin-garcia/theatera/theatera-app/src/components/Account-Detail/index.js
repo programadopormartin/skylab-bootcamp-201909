@@ -3,8 +3,8 @@ import './index.sass'
 import { withRouter } from 'react-router-dom'
 import {  retrieveCompleteUser } from '../../logic'
 import SkillItem from '../SkillItem'
-import {removeSkillItem} from '../../logic'
-
+import {removeSkillItem, createSkillItem, removeExperienceItem, createExperienceItem} from '../../logic'
+import ExperienceItem from '../Experience-Item'
 
 
 function AccountDetail({userId , history}) {
@@ -13,6 +13,14 @@ function AccountDetail({userId , history}) {
     const { token } = sessionStorage
     const [render, setRender] = useState(true)
     const { id } = sessionStorage
+    let skillInput = React.createRef()
+
+    let titleInput = React.createRef()
+    let startDateInput = React.createRef()
+    let endDateInput = React.createRef()
+    let descriptionInput = React.createRef()
+
+
     let myAccount
  
     useEffect(()=>{
@@ -31,15 +39,49 @@ function AccountDetail({userId , history}) {
    
     async function handleCreateSkill(e){
         e.preventDefault()
-        console.log(e.target)
-      /*   const { skill:{value:skill} } = e.target
-        console.log(skill) */
+        try{
+            const { newSkill:{value:newSkill} } = e.target
+            await createSkillItem(token, newSkill)
+            skillInput.current.value = ""
+            setRender(!render)
+        } catch(error){
+            console.log(error)
+        }
+
+    }
+
+    async function handleCreateExperienceItem(e){
+        e.preventDefault()
+        try{
+            const { title:{value:title}, dateStart:{value:dateStart}, dateEnd:{value:dateEnd}, description:{value:description}, type:{value:type} } = e.target
+            await createExperienceItem(token, title, description, dateStart, dateEnd, type)
+            titleInput.current.value = ""
+            startDateInput.current.value = ""
+            endDateInput.current.value = ""
+            descriptionInput.current.value = "" 
+            setRender(!render)
+        } catch(error){
+            console.log(error)
+        }
 
     }
 
     async function handleRemoveSkill(skillName){
-        await removeSkillItem(token, skillName)
-        setRender(!render)
+        try{
+            await removeSkillItem(token, skillName)
+            setRender(!render)
+        } catch(error){
+            console.log(error)
+        }
+    }
+
+    async function handleRemoveExperience(expId){
+        try{
+            await removeExperienceItem(token, expId)
+            setRender(!render)
+        } catch(error){
+            console.log(error)
+        }
     }
 
     return  <>{user  &&  <section className="account-details">
@@ -77,13 +119,12 @@ function AccountDetail({userId , history}) {
     <section className="skills">
         <h2 className="skills__title">Personal skills</h2>
         <ul className="skills__list">
-
                 {user.skills.map((skill, index)=>  <li key={index} className="skill-item"> <SkillItem accountId={user.id} onRemoveSkillItem={handleRemoveSkill} skill={skill}/> </li>)} 
 
         </ul>
-       { user.id===id ? <form action="" className="skill__more more">
-            <input className="more__input" name="skill" type="text" placeholder="new skill" />
-            <button className="more__button" onClick={handleCreateSkill}>
+       { user.id===id ? <form action="" className="skill__more more" onSubmit={handleCreateSkill}>
+            <input className="more__input" ref={skillInput} name="newSkill" type="text" placeholder="new skill" />
+            <button className="more__button" >
                         <i className="material-icons">add_circle_outline</i>
                 </button>
         </form> : <></>}
@@ -93,56 +134,34 @@ function AccountDetail({userId , history}) {
     <section className="experience">
         <h2 className="experience__title">Experience</h2>
 
-        <section className="experience-item">
-            <div className="experience-item__title title">
-                <p className="title__text">Project Manager</p>
-                <p className="title__date">20/3/2019 - 15/10/2019</p>
-            </div>
-            <main className="experience-item__body">
-                Comienzo del grado en ingeniería de Obras Públicas en Escuela Técnica Superior de Ingenieros de Caminos, Canales y Puertos (ETSICCP)
-            </main>
-            <form action="" className="skill__less less">
-                <button className="less__button">
-                                        <i className="material-icons">remove_circle_outline</i>
-                                </button>
-            </form>
-        </section>
-
-        <section className="experience-item">
-            <div className="experience-item__title title">
-                <p className="title__text">Full-stack, web developer and backend developer</p>
-                <p className="title__date">1/6/2018 - 3/11/2018</p>
-            </div>
-            <main className="experience-item__body">
-                Comienzo del grado en ingeniería de Obras Públicas en Escuela Técnica Superior de Ingenieros de Caminos, Canales y Puertos (ETSICCP)
-            </main>
-            <form action="" className="skill__less less">
-                <button className="less__button">
-                                        <i className="material-icons">remove_circle_outline</i>
-                                </button>
-            </form>
-        </section>
+        
+    
+        <ul className="experiences">
+        {user.experience.map((experience, index)=>  <li key={index} className="skill-item"> <ExperienceItem accountId={user.id} onRemoveExperienceItem={handleRemoveExperience} experience={experience}/> </li>)} 
+        </ul>
+        
 
 
-        <form action="" className="experience__more more">
+       { userId === id && <form className="experience__more more" onSubmit={handleCreateExperienceItem}>
             <label className="more__label">
-                <input type="text" name="title" placeholder="title here ..." required />
+                <input type="text" name="title" ref={titleInput} placeholder="title here ..." required />
             </label>
             <label className="more__label">
-                    <input type="date" name="date-start" required />
+                    <input type="date" name="dateStart" ref={startDateInput} required />
                 </label>
             <label className="more__label">
-                        <input type="date" name="date-end" required />
+                        <input type="date" name="dateEnd" ref={endDateInput} required />
                     </label>
             <label className="more__label">
-                            <textarea  name="description" id=" " cols="30 " rows="3" placeholder="describe me here ... "></textarea>
+                            <textarea  name="description" id=" " cols="30" ref={descriptionInput} rows="3" placeholder="describe me here ... "></textarea>
                         </label>
-
-            <button className="more__button">
+              <button className="more__button">
                     <i className="material-icons">add_circle_outline</i>
             </button>
+            <input type="text" name="type" value="EDUCATION" hidden/>
+            
         </form>
-
+}
     </section>
 
 

@@ -1,9 +1,8 @@
-import React, {useEffect, useState,useContext} from 'react'
+import React, {useEffect, useState} from 'react'
 import PostItem from '../Post-Item'
 import { withRouter } from 'react-router-dom'
 import './index.sass'
 import {retrieveLatestPosts, toggleLikePost} from '../../logic'
-import Context from '../CreateContext'
 
 
 
@@ -13,7 +12,6 @@ function Posts({history}){
 
     const { token } = sessionStorage
     const [postsList, setPostsList] = useState([])
-    const { setPostId, postId } = useContext(Context)
 
 
     useEffect( () => {
@@ -30,7 +28,6 @@ function Posts({history}){
     } , [setPostsList, render] )    
 
     const handleGoPostDetail = (id) => {
-        setPostId(id)
         history.push(`/posts/${id}`)
     }
 

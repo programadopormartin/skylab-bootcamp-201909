@@ -3,12 +3,10 @@ import './index.sass'
 import { withRouter } from 'react-router-dom'
 import {retrievePost, toggleLikePost, sendComment} from '../../logic'
 import CommentItem from '../Comment-Item'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 
 function PostDetail({history, postId}){
     
-    const[render, setRender]= useState(true)
     const [ user, setUser ] = useState(true)
     const { token } = sessionStorage
     const [post, setPost] = useState()
@@ -47,7 +45,7 @@ function PostDetail({history, postId}){
         })()
 
         return () => { clearInterval(refresher)}
-    },[setPost,setUser, render])
+    },[setPost,setUser])
     
 
     async function handleGiveLike(e){
@@ -55,7 +53,6 @@ function PostDetail({history, postId}){
         try{
             await toggleLikePost(post.id, token)
             setPost(post)
-            //setRender(!render)
         } catch(error){
             console.log("peto")
             console.log(error)
@@ -70,7 +67,6 @@ function PostDetail({history, postId}){
             const {textarea:{value:text}} = e.target
             await sendComment(token, post.id, text)
             messageText.current.value = ""
-            //setRender(!render)
         }catch(error){
             console.log(error)
         }

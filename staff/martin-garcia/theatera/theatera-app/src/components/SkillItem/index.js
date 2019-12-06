@@ -3,9 +3,7 @@ import {withRouter} from 'react-router-dom'
 
 function SkillItem({skill, accountId, onRemoveSkillItem}) {
 
-    const { token, id }= sessionStorage
- 
-    console.log(id, accountId)
+    const { id }= sessionStorage
     let myAccount
     id === accountId ? myAccount = true: myAccount=false
 
