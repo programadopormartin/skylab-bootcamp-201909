@@ -19,6 +19,9 @@ module.exports = function(userId, title, body, startDate, endDate, type) {
         const user = await User.findById(userId)
         if (!user) throw new NotFoundError(`user with id ${userId} not found`)
 
+        endDate= new Date(endDate)
+        startDate = new Date(startDate)
+
         const experienceItem = new ExperienceItem({ title, body, endDate, startDate, type })
         if (!experienceItem) throw new ConflictError('internal error')
 
