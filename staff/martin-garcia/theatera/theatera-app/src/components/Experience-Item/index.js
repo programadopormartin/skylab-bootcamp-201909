@@ -3,16 +3,13 @@ import './index.sass'
 import {withRouter} from 'react-router-dom'
 
 
-function ExperienceItem({accountId, experience, onRemoveExperienceItem}){
-
+function ExperienceItem({accountId, experience, onRemoveExperienceItem, type}){
+ 
     const { id } = sessionStorage
     let myAccount
     id === accountId ? myAccount = true: myAccount=false
-    console.log( experience, accountId, id)
 
-    
-
-    return <section className="experience-item">
+    return<>{ experience.type===type && <section className="experience-item">
                 <div className="experience-item__title title">
                     <p className="title__text">{experience.title}</p>
                     <p className="title__date">{experience.startDate} - {experience.endDate}</p>
@@ -29,7 +26,7 @@ function ExperienceItem({accountId, experience, onRemoveExperienceItem}){
                         <i className="material-icons">remove_circle_outline</i>
                     </button>
                 </form>}
-            </section>
+            </section>}</>
 }
 
 export default withRouter(ExperienceItem)
