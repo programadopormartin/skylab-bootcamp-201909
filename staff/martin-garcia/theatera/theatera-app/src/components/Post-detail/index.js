@@ -3,6 +3,7 @@ import './index.sass'
 import { withRouter } from 'react-router-dom'
 import {retrievePost, toggleLikePost, sendComment} from '../../logic'
 import CommentItem from '../Comment-Item'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 
 function PostDetail({history, postId}){
@@ -15,6 +16,7 @@ function PostDetail({history, postId}){
     const {id} = sessionStorage
     let messageText = React.createRef()
     let refresher
+    let url
 
     
     
@@ -24,6 +26,7 @@ function PostDetail({history, postId}){
                 try{
                     postData = await retrievePost(token, postId) 
                     setPost(postData.post)
+                    setUser(postData.user)
                 } catch(message){
                     debugger
                     console.log(message)
@@ -66,6 +69,7 @@ function PostDetail({history, postId}){
         try{
             const {textarea:{value:text}} = e.target
             await sendComment(token, post.id, text)
+            messageText.current.value = ""
             //setRender(!render)
         }catch(error){
             console.log(error)
@@ -76,10 +80,10 @@ function PostDetail({history, postId}){
         messageText.current.focus()
     }
 
-    
-
-
-
+    function handleCopyUrl(){
+        url =window.location.href
+        let a=3
+    }
    
 
     return<>{user &&  post && <section className=" post-detail ">
@@ -108,7 +112,6 @@ function PostDetail({history, postId}){
         }}>
             <button className=" post-button " onClick={handleGiveLike}><i className=" material-icons ">thumb_up_alt</i></button>
             <button className=" post-button " onClick={handleFocus}><i className=" material-icons ">comment</i></button>
-            <button className=" post-button "><i className=" material-icons ">share</i></button>
         </form>
     </section>
 

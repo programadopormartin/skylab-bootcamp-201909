@@ -10,25 +10,35 @@ function Connections({history}){
 
     const {token} = sessionStorage
     const [connections, setConnections] = useState()
-    let con
-
+    let connectionsRefresher
+   
 
     useEffect(()=>{
+        if (typeof connectionsRefresher !== 'number' ) connectionsRefresher = setInterval(()=>{
+            (async()=>{
+                try{
+                    setConnections(await retrieveConnections(token))
+                } catch(message){
+                    debugger
+                    console.log(message)
+                }
+            })()
+        }, 30000);
         (async()=>{
-            con = await retrieveConnections(token)
-            setConnections(con)
-            console.log(con)
+            try{
+                setConnections(await retrieveConnections(token))
+            } catch(message){
+                debugger
+                console.log(message)
+            }
         })()
-    },[con])
+        return ()=>{clearInterval(connectionsRefresher)}
+    },[setConnections])
 
-    function clicame(){
-        con =2
-    }
-
+   
     return <div className="connections__container">   
        { connections &&  <ul >
-            {connections.map(account => <li  > <AccountResume  account={account}/></li>)}
-            <div onClick={clicame}>sadfasdfasdf</div>
+            {connections.map(account => <li  key={account.id} > <AccountResume  account={account}/></li>)}
         </ul>
          }
     </div>

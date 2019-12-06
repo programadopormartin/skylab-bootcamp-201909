@@ -7,5 +7,6 @@ module.exports = {
     toggleLikePost: require('./toggle-like-post'),
     retrievePost: require('./retrieve-post'),
     sendComment : require('./send-comment'),
-    retrieveConnections: require('./retrieve-connections')
+    retrieveConnections: require('./retrieve-connections'),
+    removeSkillItem: require('./remove-skill-item')
 }

@@ -3,16 +3,20 @@ import './index.sass'
 import { withRouter } from 'react-router-dom'
 
 
-function PostItem({history, post:{post:{body,comments,date,likes,id}, user:{image, introduction,name}}, onGoPostDetail, onGiveLike}){
+function PostItem({history, post:{post:{body,comments,date,likes,id}, user:{image, introduction,name, id:userId}}, onGoPostDetail, onGiveLike}){
 
     const {token} = sessionStorage
  
-
+    function onGoAccount(e){
+        e.stopPropagation()
+        e.preventDefault()
+        history.push(`/users/${userId}`)
+    }
 
 
 
 return <section className="post" id={id}>
-<div className="post__header">
+<div className="post__header" onClick={onGoAccount}>
     <img className="post-image" src={image} alt="profile " />
     <div className="header-info">
         <p className="header-item header__user-username">{name}</p>

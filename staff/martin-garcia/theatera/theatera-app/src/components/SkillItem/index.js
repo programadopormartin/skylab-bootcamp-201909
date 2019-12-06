@@ -1,16 +1,26 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import {withRouter} from 'react-router-dom'
 
-export default function () {
+function SkillItem({skill, accountId, onRemoveSkillItem}) {
 
-    return <li className="skill-item">
-        <p>Dramatic</p>
-        <form action="" className="skill__less less">
-            <button className="less__button">
-                <i className="material-icons">remove_circle_outline</i>
-            </button>
-        </form>
-    </li>
+    const { token, id }= sessionStorage
+ 
+    console.log(id, accountId)
+    let myAccount
+    id === accountId ? myAccount = true: myAccount=false
 
 
 
+    return <> <p>{skill}</p>
+                <form action="" className="skill__less less">
+                    <button className="less__button">
+                        { myAccount && <i className="material-icons" onClick={function(e){
+                            e.preventDefault()
+                            onRemoveSkillItem(skill)
+                        }}>remove_circle_outline</i>}
+                    </button>
+                </form>
+            </>
 }
+
+export default withRouter(SkillItem)

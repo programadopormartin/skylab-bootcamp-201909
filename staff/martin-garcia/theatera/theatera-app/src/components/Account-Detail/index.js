@@ -1,32 +1,55 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './index.sass'
 import { withRouter } from 'react-router-dom'
 import {  retrieveCompleteUser } from '../../logic'
+import SkillItem from '../SkillItem'
+import {removeSkillItem} from '../../logic'
+
 
 
 function AccountDetail({userId , history}) {
 
+    const [user, setUser] = useState()
+    const { token } = sessionStorage
+    const [render, setRender] = useState(true)
+    const { id } = sessionStorage
+    let myAccount
+ 
+    useEffect(()=>{
+        (async()=>{
+            setUser(await retrieveCompleteUser(userId,token))
+        })()
 
-    
-    async function retrieveUser(userId){
-        const user = await retrieveCompleteUser(userId,sessionStorage.token)
-        return user
+        if(user){
+        console.log(id)
+        console.log(userId)
+        id === user.id ? myAccount=true: myAccount=false
+        }
+        
+    }, [setUser, render])
+
+   
+    async function handleCreateSkill(e){
+        e.preventDefault()
+        console.log(e.target)
+      /*   const { skill:{value:skill} } = e.target
+        console.log(skill) */
+
     }
 
-    const {image, name,introduction, city} = retrieveUser(userId)
+    async function handleRemoveSkill(skillName){
+        await removeSkillItem(token, skillName)
+        setRender(!render)
+    }
 
-
-    return   <section className="account-details">
+    return  <>{user  &&  <section className="account-details">
     <section className="account-details__header">
         <div className="account-details__principal principal">
             <img className="principal__image principal-item" src="https://media.licdn.com/dms/image/C4D03AQG-djQa-ZwbJw/profile-displayphoto-shrink_200_200/0?e=1580342400&v=beta&t=Ss_1jT6NUJUD_NrXubCCyvBHx3124-kSTlX4lXdqEy8" alt="profile" />
-            <p className="principal__name principal-item">{name}</p>
-            <p className="principal__introduction principal-item">{introduction}</p>
-            <p className="principal__address principal-item">{city}</p>
-            <p className="principal__description principal-item">
-                Welcome to my LinkedIn profile! I am a highly motivated Aerospace Engineer (MEng) with experience in the Aerospace and Automotive industries, focusing on delivering satisfaction and tangible added value to all stakeholders of the projects I am involved
-                in, while at the same time gaining quality experience to keep growing professionally.
-            </p>
+            <p className="principal__name principal-item">{user.name}</p>
+            <p className="principal__introduction principal-item">{user.introduction}</p>
+            <p className="principal__address principal-item">{user.city}</p>
+            <p className="principal__description principal-item">{user.description}</p>
 
 
         </div>
@@ -55,22 +78,15 @@ function AccountDetail({userId , history}) {
         <h2 className="skills__title">Personal skills</h2>
         <ul className="skills__list">
 
-            <li className="skill-item">
-                <p>Dramatic</p>
-                <form action="" className="skill__less less">
-                    <button className="less__button">
-                                        <i className="material-icons">remove_circle_outline</i>
-                                </button>
-                </form>
-            </li>
+                {user.skills.map((skill, index)=>  <li key={index} className="skill-item"> <SkillItem accountId={user.id} onRemoveSkillItem={handleRemoveSkill} skill={skill}/> </li>)} 
 
         </ul>
-        <form action="" className="skill__more more">
-            <input className="more__input" type="text" placeholder="new skill" />
-            <button className="more__button">
+       { user.id===id ? <form action="" className="skill__more more">
+            <input className="more__input" name="skill" type="text" placeholder="new skill" />
+            <button className="more__button" onClick={handleCreateSkill}>
                         <i className="material-icons">add_circle_outline</i>
                 </button>
-        </form>
+        </form> : <></>}
     </section>
 
 
@@ -187,7 +203,7 @@ function AccountDetail({userId , history}) {
 
     </section>
     </section>
-    }
+}</> }
 
 
 export default withRouter(AccountDetail)
