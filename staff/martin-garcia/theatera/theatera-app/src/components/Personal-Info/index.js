@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import './index.sass'
 import { withRouter } from 'react-router-dom'
-import {retrievePersonalInfo, updateUser} from '../../logic'
+import {retrievePersonalInfo, updateUser, updateProfileImage} from '../../logic'
 
 function PersonalInfo({history, userId}){
 
@@ -67,6 +67,13 @@ function PersonalInfo({history, userId}){
         setDisabled(false)
     }
 
+    async function handleSaveImage(e){
+        e.preventDefault()
+        const {file: { files : [image]}} = e.target
+        await updateProfileImage(token, image)
+        setUser(await retrievePersonalInfo(token,userId))
+    }
+
     async function handleUpdateUser(e){
         e.preventDefault()
         try{
@@ -82,16 +89,13 @@ function PersonalInfo({history, userId}){
     return <> {user && <section className="personal-info">
     <div className="personal-info-post__header post__header ">
         <div>
-        <img className=" post-image " src=" https://media.licdn.com/dms/image/C4D03AQGJs_fj9WmNsQ/profile-displayphoto-shrink_200_200/0?e=1579737600&v=beta&t=aXY597WUWHurjEtV8y9ORSngTUm7RYWjjGdoHvpUXCg " alt=" profile
+        <img className=" post-image " src={user.image} alt=" profile
             image " />
-        <form onSubmit={(e)=>{
-            e.preventDefault()
-            console.log("save")
-        }}>
+        <form onSubmit={handleSaveImage}>
 
 
             <label className="info-form__label avatar">
-                <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg"/>
+            <input type="file" name="file" accept="image/*" />
             </label>  
             <button  className="buttons button" >
             <p className="button__text">Save</p>

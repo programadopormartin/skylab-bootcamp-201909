@@ -23,6 +23,7 @@ function PostDetail({history, postId}){
                     postData = await retrievePost(token, postId) 
                     setPost(postData.post)
                     setUser(postData.user)
+                    console.log(postData)
                 } catch(message){
                     debugger
                     console.log(message)
@@ -78,7 +79,7 @@ function PostDetail({history, postId}){
 
     <section className=" post ">
         <div className=" post__header ">
-            <img className=" post-image " src=" https://media.licdn.com/dms/image/C4D03AQGJs_fj9WmNsQ/profile-displayphoto-shrink_200_200/0?e=1579737600&v=beta&t=aXY597WUWHurjEtV8y9ORSngTUm7RYWjjGdoHvpUXCg " alt=" profile
+            <img className=" post-image " src={user.image} alt=" profile
             image " />
             <div className=" header-info ">
                 <p className=" header-item header__user-username ">{user.name}</p>

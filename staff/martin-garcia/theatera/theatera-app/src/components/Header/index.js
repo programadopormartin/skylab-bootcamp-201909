@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './index.sass'
 import {withRouter} from 'react-router-dom'
+import {retrieveUser} from '../../logic'
 
 function Header({history}){
 
-    const { id } = sessionStorage
+    const { id,token } = sessionStorage
+    const [user, setUser] = useState()
 
+    useEffect(()=>{
+        (async()=>{
+            setUser(await retrieveUser(token))
+        })()
+    },[setUser])
+    
     function onGoPersonalProfile(e){
         e.preventDefault()
         console.log("debo de cambiar", id)
@@ -13,7 +21,7 @@ function Header({history}){
     }
 
     return <header className="header">
-    <img className="header__image" src="https://media.licdn.com/dms/image/C4D03AQGJs_fj9WmNsQ/profile-displayphoto-shrink_200_200/0?e=1579737600&v=beta&t=aXY597WUWHurjEtV8y9ORSngTUm7RYWjjGdoHvpUXCg" alt="profile" onClick={onGoPersonalProfile}/>
+     {user &&  <img className="header__image" src={user.image} alt="profile" onClick={onGoPersonalProfile}/>}
                 <form className=" header__search search " action=" ">
                     <input className=" search__bar " type=" search "  placeholder="&#x1F50D; Search "/>
                 </form>

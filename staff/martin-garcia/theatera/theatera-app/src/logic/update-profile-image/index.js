@@ -28,8 +28,8 @@ module.exports = function (token, image) {
             body: fData
         })
 
-        if (res.status === 202) return 
-
+        if (res.status === 200) return 
+        debugger
         throw new Error(JSON.parse(res.body).message)
     })()
 }

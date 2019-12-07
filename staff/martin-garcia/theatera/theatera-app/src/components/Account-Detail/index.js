@@ -91,7 +91,7 @@ function AccountDetail({userId , history}) {
     return  <>{user  &&  <section className="account-details">
     <section className="account-details__header">
         <div className="account-details__principal principal">
-            <img className="principal__image principal-item" src="https://media.licdn.com/dms/image/C4D03AQG-djQa-ZwbJw/profile-displayphoto-shrink_200_200/0?e=1580342400&v=beta&t=Ss_1jT6NUJUD_NrXubCCyvBHx3124-kSTlX4lXdqEy8" alt="profile" />
+            <img className="principal__image principal-item" src={user.image} alt="profile" />
             <p className="principal__name principal-item">{user.name}</p>
             <p className="principal__introduction principal-item">{user.introduction}</p>
             <p className="principal__address principal-item">{user.city}</p>
