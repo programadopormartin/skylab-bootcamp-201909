@@ -162,9 +162,9 @@ router.get('/personalinfo/:id', tokenVerifier, (req, res) => {
 })
 
 
-router.post('/upload/:id', tokenVerifier, (req, res) => {
+r.post('/uploadimage', tokenVerifier, (req, res) => {
 
-    const { params: { id } } = req
+    const {  id  } = req
     const busboy = new Busboy({ headers: req.headers })
 
     busboy.on('file', async(fieldname, file, filename, encoding, mimetype) => {
@@ -178,6 +178,7 @@ router.post('/upload/:id', tokenVerifier, (req, res) => {
 
     return req.pipe(busboy)
 })
+
 
 
 router.get('/profileimage/:id', tokenVerifier, async(req, res) => {
