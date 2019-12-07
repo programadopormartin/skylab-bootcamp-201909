@@ -73,21 +73,21 @@ describe('logic - retrieve-personal-info', () => {
         expect(user.website).to.be.a('string')
         expect(user.city).to.equal(city)
         expect(user.city).to.be.a('string')
+        expect(user.email).to.equal(email)
+        expect(user.email).to.be.a('string')
 
 
         if (user.rol === 'PERSON') {
-            expect(user.surname).to.be.a('string')
-            expect(user.surname).to.be.equal(surname)
-            expect(user.email).to.equal(email)
-            expect(user.email).to.be.a('string')
-            expect(user.gender).to.equal(gender)
-            expect(user.gender).to.be.a('string')
-            expect(user.age).to.equal(age)
-            expect(user.age).to.be.a('number')
-            expect(user.height).to.equal(height)
-            expect(user.height).to.be.a('number')
-            expect(user.weight).to.equal(weight)
-            expect(user.weight).to.be.a('number')
+            expect(user.specificInfo.surname).to.be.a('string')
+            expect(user.specificInfo.surname).to.be.equal(surname)
+            expect(user.specificInfo.gender).to.equal(gender)
+            expect(user.specificInfo.gender).to.be.a('string')
+            expect(user.specificInfo.age).to.equal(age)
+            expect(user.specificInfo.age).to.be.a('number')
+            expect(user.specificInfo.height).to.equal(height)
+            expect(user.specificInfo.height).to.be.a('number')
+            expect(user.specificInfo.weight).to.equal(weight)
+            expect(user.specificInfo.weight).to.be.a('number')
         }
         /* img test? */
 
