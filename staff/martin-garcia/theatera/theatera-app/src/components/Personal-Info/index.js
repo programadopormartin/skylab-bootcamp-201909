@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import './index.sass'
 import { withRouter } from 'react-router-dom'
-import {retrievePersonalInfo} from '../../logic'
+import {retrievePersonalInfo, updateUser} from '../../logic'
 
 function PersonalInfo({history, userId}){
 
@@ -22,6 +22,9 @@ function PersonalInfo({history, userId}){
     const [_city, setCity]= useState(undefined) 
     const [_gender, setGender]= useState('MAN')
     const [_disabled, setDisabled] = useState(true)
+    const [_button, setButton] = useState(undefined)
+    const [_weight, setWeight] = useState(undefined)
+    const [_height, setHeight] = useState(undefined)
 
 
 
@@ -29,20 +32,20 @@ function PersonalInfo({history, userId}){
        (async()=>{
            try{
             const response = await retrievePersonalInfo(token, userId)
-            console.log(response)
             setUser(response)
             setName(response.name)
-            setSurname(response.surname)
+            setSurname(response.specificInfo.surname)
             setIntroduction(response.introduction)
             setDescription(response.description)
-            setAge(response.age)
-            setGender(response.gender)
-            setLanguages(response.languages)
+            setAge(response.specificInfo.age)
+            setGender(response.specificInfo.gender)
+            setLanguages(response.specificInfo.languages)
             setPhone(response.phone)
             setEmail(response.email)
             setWebsite(response.website)
             setCity(response.city)
-            console.log(user)
+            setButton(true)
+            console.log(response)
 
             } catch(error){
                console.log(error)
@@ -51,7 +54,7 @@ function PersonalInfo({history, userId}){
         })()
     },[setName,setUser,setSurname,setIntroduction, 
         setDescription,setAge,setGender,setLanguages,
-        setPhone,setEmail,setWebsite, setCity])
+        setPhone,setEmail,setWebsite, setCity,setButton])
 
 
     function handleGoInfo(e){
@@ -63,12 +66,38 @@ function PersonalInfo({history, userId}){
         e.preventDefault()
         setDisabled(false)
     }
+
+    async function handleUpdateUser(e){
+        e.preventDefault()
+        try{
+            console.log(_name, _surname, _introduction, _description, _age, _weight, _height, _gender,  _languages, _phone, _email, _website, _city)
+            debugger
+            await updateUser(token, {_name, _surname, _introduction, _description, _age, _weight,   _height, _gender, _languages, _phone, _email, _website, _city})
+        } catch(error){
+            console.log(error)
+        }
+    }
     
 
     return <> {user && <section className="personal-info">
     <div className="personal-info-post__header post__header ">
+        <div>
         <img className=" post-image " src=" https://media.licdn.com/dms/image/C4D03AQGJs_fj9WmNsQ/profile-displayphoto-shrink_200_200/0?e=1579737600&v=beta&t=aXY597WUWHurjEtV8y9ORSngTUm7RYWjjGdoHvpUXCg " alt=" profile
             image " />
+        <form onSubmit={(e)=>{
+            e.preventDefault()
+            console.log("save")
+        }}>
+
+
+            <label className="info-form__label avatar">
+                <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg"/>
+            </label>  
+            <button  className="buttons button" >
+            <p className="button__text">Save</p>
+        </button>
+        </form>    
+        </div>
         <div className=" header-info ">
             <p className=" header-item header__user-username ">{user.name}</p>
             <p className=" header-item header__user-introduction ">{user.introduction}</p>
@@ -102,6 +131,10 @@ function PersonalInfo({history, userId}){
         console.log(_gender)
     }}>
 
+
+       
+
+
         <label className="info-form__label">
             <span>Name: </span>
             <input disabled={_disabled ? 'disabled':''} type="text" name="name" value={_name || ""} onChange={event=>setName(event.target.value)} />
@@ -126,7 +159,17 @@ function PersonalInfo({history, userId}){
             <span>Age: </span>
             <input disabled={_disabled ? 'disabled':''} type="number" min='16' max='100' name="age"  value={_age || ""} onChange={event=>setAge(event.target.value)} />
         </label>
+
+        <label className="info-form__label">
+            <span>Height: </span>
+            <input disabled={_disabled ? 'disabled':''} type="number" min='16' max='200' name="height"  value={_height || ""} onChange={event=>setHeight(event.target.value)} />
+        </label>
         
+        <label className="info-form__label">
+            <span>Weight: </span>
+            <input disabled={_disabled ? 'disabled':''} type="number" min='16' max='200' name="weight"  value={_weight || ""} onChange={event=>setWeight(event.target.value)} />
+        </label>
+
         <label className="info-form__label">
             <span>Mr: </span>
             <input disabled={_disabled ? 'disabled':''} type="radio" name="genre"  value='MAN' checked={_gender === 'MAN'}  onClick={()=>{setGender('MAN')}} onChange={()=>{}}/>
@@ -159,15 +202,17 @@ function PersonalInfo({history, userId}){
             <input disabled={_disabled ? 'disabled':''} type="text" name="city"  value={_city || ""} onChange={event=>setCity(event.target.value)} />
         </label>
         
+        {userId === id && <>
         <div className="info-form__buttons buttons">
-        <button className="buttons__jobs button" onClick={toggleDisabled}>
+        <button className="buttons__jobs button" onClick={toggleDisabled} onChange={()=>setButton(true)}>
             <p className="button__text">Modify</p>
         </button>
 
-        <button disabled={_disabled ? 'disabled':''} className="buttons__jobs button">
+        <button disabled={_disabled ? 'disabled':''} className="buttons__jobs button" onChange={()=>setButton(true)} onClick={handleUpdateUser}>
             <p className="button__text">Save</p>
         </button>
         </div>
+        </>}
     </form>
 
 

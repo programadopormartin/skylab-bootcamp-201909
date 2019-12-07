@@ -12,5 +12,7 @@ module.exports = {
     createSkillItem: require('./create-skill-item'),
     createExperienceItem: require('./create-experience-item'),
     removeExperienceItem: require('./remove-experience-item'),
-    retrievePersonalInfo: require('./retrieve-personal-info')
+    retrievePersonalInfo: require('./retrieve-personal-info'),
+    updateUser: require('./update-user'),
+    updateProfileImage: require('./update-profile-image')
 }

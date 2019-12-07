@@ -20,8 +20,7 @@ module.exports = function(token, skill) {
             body: JSON.stringify({ skill })
         })
 
-            
-
+        
         if (res.status === 201) return 
 
         if (res.status === 404) throw new NotFoundError(JSON.parse(res.body).message)

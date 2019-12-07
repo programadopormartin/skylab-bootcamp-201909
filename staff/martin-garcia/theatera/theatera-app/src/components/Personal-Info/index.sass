@@ -46,21 +46,14 @@
 
     /* nav  */
 .personal-info 
+    margin-bottom: 4rem
     & .account-details__header__nav 
         padding: .8rem 0
         display: flex
         justify-content: space-around
 
 
-    & .buttons .button 
-        display: flex
-        align-items: center
-        padding: .3rem
-        border: solid thin white
-        border-radius: .5rem
-        background-color: #ffad87
-        font-weight: 700
-        color: white
+    
 
 
     & .info-form 
@@ -81,8 +74,8 @@
             text-align: center
         
             
-        &__label input,
-        &__label textarea 
+        .info-form__label input,
+        .info-form__label textarea 
             background-color: #ffad8763
             padding: .4rem
             border-radius: 1rem
@@ -90,11 +83,19 @@
             width: 80%
             color: grey
 
-        &__buttons 
+        .info-form__buttons 
             display: flex
             justify-content: flex-end
             margin: 1rem
-            margin-bottom: 5rem
 
-        &__buttons .button 
+        .info-form__buttons .button 
             margin: 0 .3rem
+.button 
+        display: flex
+        align-items: center
+        padding: .3rem
+        border: solid thin white
+        border-radius: .5rem
+        background-color: #ffad87
+        font-weight: 700
+        color: white

@@ -84,7 +84,7 @@ function AccountDetail({userId , history}) {
 
     function handleGoInfo(e){
         e.preventDefault()
-        console.log('userID', user.id)
+        console.log(id, user.id)
         history.push(`/info/${user.id}`)
     }
 
