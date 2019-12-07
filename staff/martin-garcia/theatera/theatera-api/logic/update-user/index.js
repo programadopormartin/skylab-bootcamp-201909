@@ -63,7 +63,7 @@ module.exports = function(id, data) {
         validate.number(weight)
     }
     if (languages) {
-        validate.instanceOf(Array, languages)
+        validate.string(languages)
     }
 
 

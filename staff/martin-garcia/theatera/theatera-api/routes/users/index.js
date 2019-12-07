@@ -384,9 +384,9 @@ router.get('/retrievenews', tokenVerifier, (req, res) => {
 
 router.patch('/modifyuser', tokenVerifier, jsonBodyParser, (req, res) => {
     try {
-        const { id, body: { phone, website, specificInfo, description, introduction, name, city } } = req
+        const { id, body: {data} } = req
         debugger
-        updateUser(id, { phone, website, specificInfo, description, introduction, name, city })
+        updateUser(id, data)
             .then(() =>
                 res.end()
             )
@@ -399,7 +399,7 @@ router.patch('/modifyuser', tokenVerifier, jsonBodyParser, (req, res) => {
                 if (error instanceof ConflictError)
                     return res.status(409).json({ message })
 
-                res.status(500).json({ message })
+                res.status(500).json({ message }) 
             })
     } catch ({ message }) {
         res.status(400).json({ message })
