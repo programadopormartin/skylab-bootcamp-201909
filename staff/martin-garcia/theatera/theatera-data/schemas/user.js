@@ -49,6 +49,10 @@ module.exports = new Schema({
     description: {
         type: String,
     },
+    gender: {
+        type: String,
+        enum:['WOMAN','MAN']
+    },
     skills: {
         type: [String],
     },

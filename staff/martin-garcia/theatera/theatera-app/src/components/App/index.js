@@ -9,6 +9,7 @@ import Posts from '../Posts'
 import AccountDetail from '../Account-Detail'
 import PostDetail from '../Post-detail'
 import Connections from '../Connections'
+import PersonalInfo from '../Personal-Info'
 
 import Context from '../CreateContext'
 
@@ -29,12 +30,12 @@ export default withRouter(function () {
     <Route path='/login' render={() => <Login/>} />
     <Route path='/register' render={() => <Register/>} />
     <Route path='/home' render={() => token ? <> <Header/>   <Posts />    <Footer />  </> : <Login  />} />
-    
-    <Route path='/users/:userId' render={({ match: { params: { userId } } }) =>  token && userId ? <> <Header/>   <AccountDetail userId={userId} />  <Footer />  </> :<Redirect to="/home" />} />  
-    
+    <Route path='/users/:userId' render={({ match: { params: { userId } } }) =>  token && userId ? <> <Header/>   <AccountDetail userId={userId} />  <Footer />  </> :<Redirect to="/home" />} />    
     <Route path='/posts/:postId' render={({ match: { params: { postId } } }) =>  token && postId  ? <> <Header/>   <PostDetail postId={postId}  />  <Footer />  </> :<Login/>} />  
   </Context.Provider>
     <Route path='/connections' render={() => token ? <> <Header/>   <Connections />    <Footer />  </> : <Login  />} />
+    <Route path='/info/:userId' render={({ match: { params: { userId } } }) =>  token && userId  ? <> <Header/>   <PersonalInfo userId={userId}  />  <Footer />  </> :<Login/>} />  
+
     </>
 })
 

@@ -14,8 +14,6 @@ function PostDetail({history, postId}){
     const {id} = sessionStorage
     let messageText = React.createRef()
     let refresher
-    let url
-
     
     
     useEffect(()=>{
@@ -75,12 +73,6 @@ function PostDetail({history, postId}){
     function handleFocus(){
         messageText.current.focus()
     }
-
-    function handleCopyUrl(){
-        url =window.location.href
-        let a=3
-    }
-   
 
     return<>{user &&  post && <section className=" post-detail ">
 

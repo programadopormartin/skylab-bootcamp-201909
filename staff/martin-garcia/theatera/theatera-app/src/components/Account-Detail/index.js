@@ -82,6 +82,12 @@ function AccountDetail({userId , history}) {
         }
     }
 
+    function handleGoInfo(e){
+        e.preventDefault()
+        console.log('userID', user.id)
+        history.push(`/info/${user.id}`)
+    }
+
     return  <>{user  &&  <section className="account-details">
     <section className="account-details__header">
         <div className="account-details__principal principal">
@@ -95,15 +101,18 @@ function AccountDetail({userId , history}) {
         </div>
 
         <nav className="account-details__header__nav  buttons">
-            <button className="buttons__home button">
+        {userId !== id && <button className="buttons__home button">
                         <p className="button__text">Connect</p>
                     </button>
-            <button className="buttons__contacs button">
+
+}
+            <button className="buttons__contacs button" onClick={handleGoInfo}>
                         <p className="button__text">Info</p>
                     </button>
-            <button className="buttons__post button">
+                    {userId !== id &&  <button className="buttons__post button">
                         <p className="button__text">message</p>
                     </button>
+                    }
             <button className="buttons__notifications button">
                         <p className="button__text">Posts</p>
                     </button>

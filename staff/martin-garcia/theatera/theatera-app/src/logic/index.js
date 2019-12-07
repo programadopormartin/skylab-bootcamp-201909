@@ -11,5 +11,6 @@ module.exports = {
     removeSkillItem: require('./remove-skill-item'),
     createSkillItem: require('./create-skill-item'),
     createExperienceItem: require('./create-experience-item'),
-    removeExperienceItem: require('./remove-experience-item')
+    removeExperienceItem: require('./remove-experience-item'),
+    retrievePersonalInfo: require('./retrieve-personal-info')
 }
