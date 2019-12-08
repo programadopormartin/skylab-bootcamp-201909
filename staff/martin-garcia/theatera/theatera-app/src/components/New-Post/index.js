@@ -5,7 +5,7 @@ import {createPost, retrieveUser} from '../../logic'
 
 function NewPost({history}){
 
-    const { token } = sessionStorage
+    const { token, id } = sessionStorage
     const [user, setUser] = useState()
 
     useEffect(()=>{
@@ -19,10 +19,10 @@ function NewPost({history}){
         e.preventDefault()
         try{
             const { jobCheckbox:{checked:jobCheckbox}, body:{value:body} } = e.target
-            debugger
             let job
             jobCheckbox === true ? job = 'JOB': job='ARTICLE'
             await createPost(token, body, job) 
+            history.push(`/usersPosts/${id}`)
         } catch(error){
             console.log(error)
         }
