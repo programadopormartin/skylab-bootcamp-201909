@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import AccountResume from '../Account-Resume'
 import { withRouter } from 'react-router-dom'
 import './index.sass'
-import { retrieveChat } from '../../logic'
+import { retrieveChat, sendMessage } from '../../logic'
 import Message from '../Message'
 
 
@@ -10,7 +10,7 @@ import Message from '../Message'
 function Chat({history, chatId}){
 
     const { token } = sessionStorage
-    const [chat, setChat] = useState()
+    const [messages, setMessages] = useState()
     const [user, setUser] = useState()
     let refresher
 
@@ -20,27 +20,40 @@ function Chat({history, chatId}){
         if (typeof refresher !== 'number' ) refresher = setInterval(()=>{
             (async()=>{
                 try{
-                    setChat(await retrieveChat(token, chatId)) 
+                    setMessages(await retrieveChat(token, chatId))
+                    console.log(messages)
                 } catch(message){
                     debugger
                     console.log(message)
                 }
             })()
         }, 1000);
-
+ 
         (async()=>{
             try{
-                setChat(await retrieveChat(token, chatId)) 
+                setMessages(await retrieveChat(token, chatId)) 
+                
             } catch(message){
                 debugger
                 console.log(message)
                 
             }
-        })()
+        })() 
 
         return () => { clearInterval(refresher)}
-    },[setChat,setUser])
+    },[setMessages])
 
+    async function handleSendMessage(e){
+        e.preventDefault()
+        console.log("hola")
+        const {message:{value:message}} = e.target
+        try{
+            await sendMessage(chatId,token, message)
+
+        } catch(error){
+            console.log(error)
+        }
+    }
 
     
 
@@ -53,16 +66,16 @@ function Chat({history, chatId}){
             <p className=" header-item header__user-introduction ">Dramatic actor</p>
         </div>
     </div>
+  
     <ul>
-        {chat && chat.messages && chat.messages.map(message=> <li key={message._id}> <Message message={message}/></li>)}
+        {messages && messages.map(message=> <li key={message._id}> <Message message={message} /></li>)}
     </ul>
 
-
     <section className="new-comment ">
-        <img className="new-comment__image " src="https://media.licdn.com/dms/image/C4E03AQHDYmFMm3lIoQ/profile-displayphoto-shrink_200_200/0?e=1580342400&amp;v=beta&amp;t=Eway57teuUv7ff1isfm-jELgO4KR4xqr93sc7qmgwEc " alt="profile" />
-        <form action=" " className="new-comment__form form ">
-            <textarea className="form__textarea " name=" " id=" " cols="30 " rows="2 " placeholder="send a comment here ... "></textarea>
-            <button className="form__button "><i className="material-icons ">send</i></button>
+        
+        <form action=" " className="new-comment__form form" onSubmit={handleSendMessage}>
+            <textarea className="form__textarea " name="message" cols="30 " rows="2 " placeholder="send a comment here ... "></textarea>
+            <button className="form__button"><i className="material-icons ">send</i></button>
         </form>
     </section>
 

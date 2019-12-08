@@ -17,7 +17,6 @@ module.exports = function(token, chatId) {
                 'Authorization': `Bearer ${token}`
             }
         })
-
         debugger
         if (res.status === 200) return JSON.parse(res.body)
 
