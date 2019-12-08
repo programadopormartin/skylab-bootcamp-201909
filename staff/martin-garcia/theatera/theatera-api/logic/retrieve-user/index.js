@@ -18,6 +18,6 @@ module.exports = function(id) {
         const { name, email, image } = user.toObject();
         !introduction ? introduction = '' : introduction = introduction.slice(0, 20) + '...'
 
-        return { id, name, email, image }
+        return { id, name, email, image, introduction }
     })()
 }
