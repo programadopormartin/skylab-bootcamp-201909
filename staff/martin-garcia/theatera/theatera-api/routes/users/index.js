@@ -162,7 +162,7 @@ router.get('/personalinfo/:id', tokenVerifier, (req, res) => {
 })
 
 
-r.post('/uploadimage', tokenVerifier, (req, res) => {
+router.post('/uploadimage', tokenVerifier, (req, res) => {
 
     const {  id  } = req
     const busboy = new Busboy({ headers: req.headers })
@@ -178,7 +178,6 @@ r.post('/uploadimage', tokenVerifier, (req, res) => {
 
     return req.pipe(busboy)
 })
-
 
 
 router.get('/profileimage/:id', tokenVerifier, async(req, res) => {
@@ -262,7 +261,7 @@ router.post('/createskillitem', tokenVerifier, jsonBodyParser, (req, res) => {
         const { id, body: { skill } } = req
 
         createSkillItem(id, skill)
-            .then(skill => res.status(201).json({ skill }))
+            .then(skill => res.status(201).end())
             .catch(error => {
                 const { message } = error
                 if (error instanceof NotFoundError)
