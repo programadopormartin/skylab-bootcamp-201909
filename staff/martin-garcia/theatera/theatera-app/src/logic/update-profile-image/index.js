@@ -29,7 +29,6 @@ module.exports = function (token, image) {
         })
 
         if (res.status === 200) return 
-        debugger
         throw new Error(JSON.parse(res.body).message)
     })()
 }

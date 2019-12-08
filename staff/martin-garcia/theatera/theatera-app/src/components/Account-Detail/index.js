@@ -88,6 +88,11 @@ function AccountDetail({userId , history}) {
         history.push(`/info/${user.id}`)
     }
 
+    function handleGoUserPosts(e){
+        e.preventDefault()
+        history.push(`/usersPosts/${user.id}`)
+    }
+
     return  <>{user  &&  <section className="account-details">
     <section className="account-details__header">
         <div className="account-details__principal principal">
@@ -113,7 +118,7 @@ function AccountDetail({userId , history}) {
                         <p className="button__text">message</p>
                     </button>
                     }
-            <button className="buttons__notifications button">
+            <button className="buttons__notifications button" onClick={handleGoUserPosts}>
                         <p className="button__text">Posts</p>
                     </button>
             <button className="buttons__jobs button">

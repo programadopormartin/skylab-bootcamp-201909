@@ -2,11 +2,11 @@ import React, {useEffect, useState} from 'react'
 import PostItem from '../Post-Item'
 import { withRouter } from 'react-router-dom'
 import './index.sass'
-import {retrieveLatestPosts} from '../../logic'
+import {retrieveUserPosts} from '../../logic'
 
 
 
-function Posts({history}){
+function Posts({history, userId}){
 
     const[render, setRender]= useState(true)
 
@@ -17,10 +17,9 @@ function Posts({history}){
     useEffect( () => {
         (async()=>{
             try{
-                const {posts} = await retrieveLatestPosts(token)
+                const {posts} = await retrieveUserPosts(token, userId)
                 setPostsList(posts)
             }catch({ message }){
-                debugger
                 console.log(message)
             }
         })()

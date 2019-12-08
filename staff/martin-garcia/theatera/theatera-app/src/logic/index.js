@@ -14,5 +14,6 @@ module.exports = {
     removeExperienceItem: require('./remove-experience-item'),
     retrievePersonalInfo: require('./retrieve-personal-info'),
     updateUser: require('./update-user'),
-    updateProfileImage: require('./update-profile-image')
+    updateProfileImage: require('./update-profile-image'),
+    retrieveUserPosts: require('./retrieve-user-posts')    
 }

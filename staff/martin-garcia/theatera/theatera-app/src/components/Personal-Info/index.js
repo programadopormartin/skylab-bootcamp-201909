@@ -88,20 +88,17 @@ function PersonalInfo({history, userId}){
 
     return <> {user && <section className="personal-info">
     <div className="personal-info-post__header post__header ">
-        <div>
+        
         <img className=" post-image " src={user.image} alt=" profile
             image " />
-        <form onSubmit={handleSaveImage}>
-
-
+         {userId === id && <> <form onSubmit={handleSaveImage}>
             <label className="info-form__label avatar">
             <input type="file" name="file" accept="image/*" />
             </label>  
             <button  className="buttons button" >
             <p className="button__text">Save</p>
         </button>
-        </form>    
-        </div>
+</form>  </>}  
         <div className=" header-info ">
             <p className=" header-item header__user-username ">{user.name}</p>
             <p className=" header-item header__user-introduction ">{user.introduction}</p>

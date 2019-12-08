@@ -23,7 +23,7 @@ module.exports = function(name, email, password, isCompany = false) {
             body: JSON.stringify({ name, email, password, isCompany })
         })
 
-        if (res.status === 201) return JSON.parse(res.body)
+        if (res.status === 201) return 
 
         if (res.status === 409) throw new ConflictError(JSON.parse(res.body).message)
 

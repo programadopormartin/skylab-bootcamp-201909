@@ -88,8 +88,7 @@ function PostDetail({history, postId}){
             </div>
         </div>
 
-        <p className=" post__main ">In the improv troupe I work with, we take turns as the facilitator or director of each performance. Each performer has their own flair or
-        </p>
+        <p className=" post__main ">{post.body}</p>
 
         <div className=" post__interactions ">
             <p className=" post-interactions__likes ">{post.likes.length}  &nbsp;likes</p>
