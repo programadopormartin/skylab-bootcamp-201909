@@ -12,6 +12,12 @@ module.exports = function(userId) {
 
         let posts = await Post.find({ "user": ObjectId(userId) })
 
+        posts.sort(function(a, b) {
+            a = new Date(a.date);
+            b = new Date(b.date);
+            return a > b ? -1 : a < b ? 1 : 0;
+        })
+
         let result = []
 
         result = await Promise.all(posts.map(async post => {
