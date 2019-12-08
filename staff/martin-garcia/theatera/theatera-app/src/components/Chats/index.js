@@ -19,6 +19,7 @@ function Chats({history}){
                 try{
                     setChats(await retrieveChats(token))
                     console.log(chats)
+                    debugger
                 } catch(message){
                     debugger
                     console.log(message)
@@ -38,10 +39,10 @@ function Chats({history}){
 
    
     return <div className="connections__container">   
-       { chats &&  <ul >
+       { chats && chats.length>0 ? <ul >
             {chats.map(chat => <li  key={chat.id} > <AccountResume  chat={chat}/></li>)}
         </ul>
-         }
+         : <h2>Go to connections and begin some conversation</h2>}
     </div>
 }
            
