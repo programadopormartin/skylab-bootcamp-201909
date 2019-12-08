@@ -3,16 +3,15 @@ import './index.sass'
 import { withRouter } from 'react-router-dom'
 import {  retrieveCompleteUser } from '../../logic'
 import SkillItem from '../SkillItem'
-import {removeSkillItem, createSkillItem, removeExperienceItem, createExperienceItem} from '../../logic'
+import {removeSkillItem,createChat, createSkillItem, removeExperienceItem, createExperienceItem} from '../../logic'
 import ExperienceItem from '../Experience-Item'
 
 
 function AccountDetail({userId , history}) {
 
     const [user, setUser] = useState()
-    const { token } = sessionStorage
+    const { token, id } = sessionStorage
     const [render, setRender] = useState(true)
-    const { id } = sessionStorage
     let skillInput = React.createRef()
 
     let titleInput = React.createRef()
@@ -99,6 +98,15 @@ function AccountDetail({userId , history}) {
         history.push('/')
     }
 
+    async function handleChat(e){
+                e.preventDefault()
+                debugger
+                const chatId = await createChat(token, userId)
+                debugger
+                history.push(`/chat/${chatId}`)
+            }
+        
+
     return  <>{user  &&  <section className="account-details">
     <section className="account-details__header">
         <div className="account-details__principal principal">
@@ -120,7 +128,7 @@ function AccountDetail({userId , history}) {
             <button className="buttons__contacs button" onClick={handleGoInfo}>
                         <p className="button__text">Info</p>
                     </button>
-                    {userId !== id &&  <button className="buttons__post button">
+                    {userId !== id &&  <button className="buttons__post button" onClick={handleChat}>
                         <p className="button__text">message</p>
                     </button>
                     }
