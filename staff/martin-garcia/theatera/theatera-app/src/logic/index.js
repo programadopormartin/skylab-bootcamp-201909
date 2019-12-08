@@ -15,5 +15,7 @@ module.exports = {
     retrievePersonalInfo: require('./retrieve-personal-info'),
     updateUser: require('./update-user'),
     updateProfileImage: require('./update-profile-image'),
-    retrieveUserPosts: require('./retrieve-user-posts')    
+    retrieveUserPosts: require('./retrieve-user-posts'),
+    createPost: require('./create-post')
+
 }

@@ -93,6 +93,12 @@ function AccountDetail({userId , history}) {
         history.push(`/usersPosts/${user.id}`)
     }
 
+    function handleLogOut(e){
+        e.preventDefault()
+        sessionStorage.clear()
+        history.push('/')
+    }
+
     return  <>{user  &&  <section className="account-details">
     <section className="account-details__header">
         <div className="account-details__principal principal">
@@ -124,6 +130,11 @@ function AccountDetail({userId , history}) {
             <button className="buttons__jobs button">
                         <p className="button__text">Friends</p>
                     </button>
+                    {userId === id && <button className="buttons__home button" onClick={handleLogOut}>
+                        <p className="button__text">LogOut</p>
+                    </button>
+
+}
         </nav>
     </section>
 
