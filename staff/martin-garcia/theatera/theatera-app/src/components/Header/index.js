@@ -14,20 +14,25 @@ function Header({history}){
         })()
     },[setUser])
     
-    function onGoPersonalProfile(e){
+    function handleGoPersonalProfile(e){
         e.preventDefault()
         console.log("debo de cambiar", id)
         history.push(`/users/${id}`)
     }
 
+    function handleGoChats(e){
+        e.preventDefault()
+        history.push('/chats')
+    }
+
     return <header className="header">
-     {user &&  <img className="header__image" src={user.image} alt="profile" onClick={onGoPersonalProfile}/>}
+     {user &&  <img className="header__image" src={user.image} alt="profile" onClick={handleGoPersonalProfile}/>}
                 <form className=" header__search search " action=" ">
                     <input className=" search__bar " type=" search "  placeholder="&#x1F50D; Search "/>
                 </form>
         
                 <form action=" " className="header__messages messages ">
-                    <button className="messages__buton ">
+                    <button className="messages__buton" onClick={handleGoChats}>
                             <i className="material-icons ">
                                     mail_outline
                                     </i>

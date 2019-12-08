@@ -2,22 +2,23 @@ import React, {useEffect, useState} from 'react'
 import AccountResume from '../Account-Resume'
 import { withRouter } from 'react-router-dom'
 import './index.sass'
-import { retrieveConnections } from '../../logic'
+import { retrieveChats } from '../../logic'
 
 
 
-function Connections({history}){
+function Chats({history}){
 
     const {token} = sessionStorage
-    const [connections, setConnections] = useState()
-    let connectionsRefresher
+    const [chats, setChats] = useState()
+    let chatsRefresher
    
 
     useEffect(()=>{
-        if (typeof connectionsRefresher !== 'number' ) connectionsRefresher = setInterval(()=>{
+        if (typeof chatsRefresher !== 'number' ) chatsRefresher = setInterval(()=>{
             (async()=>{
                 try{
-                    setConnections(await retrieveConnections(token))
+                    setChats(await retrieveChats(token))
+                    console.log(chats)
                 } catch(message){
                     debugger
                     console.log(message)
@@ -26,22 +27,22 @@ function Connections({history}){
         }, 30000);
         (async()=>{
             try{
-                setConnections(await retrieveConnections(token))
+                setChats(await retrieveChats(token))
             } catch(message){
                 debugger
                 console.log(message)
             }
         })()
-        return ()=>{clearInterval(connectionsRefresher)}
-    },[setConnections])
+        return ()=>{clearInterval(chatsRefresher)}
+    },[setChats])
 
    
     return <div className="connections__container">   
-       { connections &&  <ul >
-            {connections.map(account => <li  key={account.id} > <AccountResume  account={account}/></li>)}
+       { chats &&  <ul >
+            {chats.map(chat => <li  key={chat.id} > <AccountResume  chat={chat}/></li>)}
         </ul>
          }
     </div>
 }
            
-export default withRouter(Connections)
+export default withRouter(Chats)
