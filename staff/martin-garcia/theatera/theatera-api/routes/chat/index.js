@@ -12,10 +12,10 @@ const router = Router()
 
 router.post('/create', tokenVerifier, jsonBodyParser, (req, res) => {
     try {
-        const { id, body: { receiverId } } = req
+        const { id, body: { userId } } = req
 
-        createChat(id, receiverId)
-            .then(id => res.status(201).json({ id }))
+        createChat(id, userId)
+            .then(id => res.status(201).json( id ))
             .catch(error => {
                 const { message } = error
                 if (error instanceof NotFoundError)
