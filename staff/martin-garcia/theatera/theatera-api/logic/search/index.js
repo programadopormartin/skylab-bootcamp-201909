@@ -9,7 +9,7 @@ module.exports = function(query) {
         let response
         let responsesArray = []
 
-        response = await User.find({ "name": query })
+        response = await User.find( { "name" : {$regex : `.*${query}*`, $options: 'i'}},)
         response && responsesArray.push(response)
         responsesArray = responsesArray.flat()
 

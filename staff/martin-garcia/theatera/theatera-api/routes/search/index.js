@@ -6,16 +6,14 @@ const tokenVerifier = require('../../helpers/token-verifier')(SECRET)
 const bodyParser = require('body-parser')
 const { errors: { NotFoundError, ConflictError, CredentialsError } } = require('theatera-util')
 
-
 const jsonBodyParser = bodyParser.json()
 const router = Router()
 
-
-
-router.get('/', tokenVerifier, jsonBodyParser, (req, res) => {
+router.get('/:text', tokenVerifier, jsonBodyParser, (req, res) => {
     try {
-        const { id, body: { query } } = req
-        search(query)
+        const {  params: { text } } = req
+        debugger
+        search(text)
             .then(result => res.json(result))
             .catch(error => {
                 const { message } = error
@@ -29,6 +27,5 @@ router.get('/', tokenVerifier, jsonBodyParser, (req, res) => {
         res.status(400).json({ message })
     }
 })
-
 
 module.exports = router
