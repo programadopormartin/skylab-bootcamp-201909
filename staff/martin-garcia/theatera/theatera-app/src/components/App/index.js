@@ -14,6 +14,7 @@ import UserPosts from '../UserPosts'
 import NewPost from '../New-Post'
 import Chats from '../Chats'
 import Chat from '../Chat'
+import Search from '../Search-Result'
 
 import Context from '../CreateContext'
 
@@ -43,6 +44,8 @@ export default withRouter(function () {
     <Route path='/newPost' render={() =>  token ? <> <Header/>   <NewPost/>  <Footer />  </> :<Login/>} />  
     <Route path='/chats' render={() =>  token ? <> <Header/>   <Chats/>  <Footer />  </> :<Login/>} />  
     <Route path='/chat/:chatId' render={({ match: { params: { chatId } } }) =>  token ? <> <Header/>   <Chat chatId={chatId}/>  <Footer />  </> :<Login/>} />  
+    <Route path='/search/:query' render={({ match: { params: { query } } }) =>  token ? <> <Header/>   <Search query={query}/>  <Footer />  </> :<Login/>} />  
+
     </>
 })
 

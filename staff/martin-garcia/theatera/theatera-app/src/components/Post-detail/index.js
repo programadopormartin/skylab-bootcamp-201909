@@ -74,13 +74,17 @@ function PostDetail({history, postId}){
     function handleFocus(){
         messageText.current.focus()
     }
+    
+    function handleGoAccount(e){
+        e.stopPropagation()
+        history.push(`/users/${user.id}`)
+    }
 
     return<>{user &&  post && <section className=" post-detail ">
 
     <section className=" post ">
         <div className=" post__header ">
-            <img className=" post-image " src={user.image} alt=" profile
-            image " />
+            <img className=" post-image " src={user.image} alt="profile" onClick={handleGoAccount} />
             <div className=" header-info ">
                 <p className=" header-item header__user-username ">{user.name}</p>
                 <p className=" header-item header__user-introduction ">{user.introduction}</p>

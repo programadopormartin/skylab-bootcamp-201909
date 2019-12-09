@@ -6,30 +6,30 @@ import { retrieveConnections } from '../../logic'
 
 
 
-function Connections({history}){
+function SearchResult({history, query}){
 
     const {token} = sessionStorage
-    const [connections, setConnections] = useState()
+    const [accounts, setAccounts] = useState()
    
 
     useEffect(()=>{
         (async()=>{
             try{
-                setConnections(await retrieveConnections(token))
+                setAccounts(await retrieveConnections(token))
             } catch(message){
                 debugger
                 console.log(message)
             }
         })()
-    },[setConnections])
+    },[setAccounts])
 
    
     return <div className="connections__container">   
-       { connections &&  <ul >
-            {connections.map(account => <li  key={account.id} > <AccountResume  account={account}/></li>)}
+       { accounts &&  <ul >
+            {accounts.map(account => <li  key={account.id} > <AccountResume  account={account}/></li>)}
         </ul>
          }
     </div>
 }
            
-export default withRouter(Connections)
+export default withRouter(SearchResult)

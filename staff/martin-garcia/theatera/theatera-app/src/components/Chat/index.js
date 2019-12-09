@@ -59,13 +59,13 @@ function Chat({history, chatId}){
 
 
     return <section className=" post ">
-    <div className=" post__header ">
+    {/* <div className=" post__header ">
         <img className=" post-image " src=" https://media.licdn.com/dms/image/C4D03AQGJs_fj9WmNsQ/profile-displayphoto-shrink_200_200/0?e=1579737600&amp;v=beta&amp;t=aXY597WUWHurjEtV8y9ORSngTUm7RYWjjGdoHvpUXCg " alt=" profile "/>
         <div className=" header-info ">
             <p className=" header-item header__user-username ">Julian Assange</p>
             <p className=" header-item header__user-introduction ">Dramatic actor</p>
         </div>
-    </div>
+    </div> */}
   
     <ul>
         {messages && messages.map(message=> <li key={message._id}> <Message message={message} /></li>)}

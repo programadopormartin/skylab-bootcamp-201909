@@ -25,10 +25,16 @@ function Header({history}){
         history.push('/chats')
     }
 
+    function handleSearch(e){
+        e.preventDefault()
+        const {searchBar:{value:query}} = e.target
+        history.push(`/search/${query}`)
+    }
+
     return <header className="header">
      {user &&  <img className="header__image" src={user.image} alt="profile" onClick={handleGoPersonalProfile}/>}
-                <form className=" header__search search " action=" ">
-                    <input className=" search__bar " type=" search "  placeholder="&#x1F50D; Search "/>
+                <form className=" header__search search " onSubmit={handleSearch}>
+                    <input className=" search__bar " name ="searchBar" type="search"  placeholder="&#x1F50D; Search "/>
                 </form>
         
                 <form action=" " className="header__messages messages ">

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import AccountResume from '../Account-Resume'
+import ChatItem from '../Chat-Item'
 import { withRouter } from 'react-router-dom'
 import './index.sass'
 import { retrieveChats } from '../../logic'
@@ -19,9 +19,7 @@ function Chats({history}){
                 try{
                     setChats(await retrieveChats(token))
                     console.log(chats)
-                    debugger
                 } catch(message){
-                    debugger
                     console.log(message)
                 }
             })()
@@ -30,7 +28,6 @@ function Chats({history}){
             try{
                 setChats(await retrieveChats(token))
             } catch(message){
-                debugger
                 console.log(message)
             }
         })()
@@ -40,7 +37,7 @@ function Chats({history}){
    
     return <div className="connections__container">   
        { chats && chats.length>0 ? <ul >
-            {chats.map(chat => <li  key={chat.id} > <AccountResume  chat={chat}/></li>)}
+            {chats.map(chat => <li  key={chat._id} > <ChatItem chatId={chat._id} account={chat.users[0]}/></li>)}
         </ul>
          : <h2>Go to connections and begin some conversation</h2>}
     </div>
