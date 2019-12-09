@@ -26,6 +26,9 @@ module.exports = function(name, email, password, isCompany = false) {
 
         isCompany ? rol = 'COMPANY' : rol = 'PERSON'
         const image = "http://localhost:9000/data/users/defaultimage/profile.png"
-        await User.create({ name, email, password, rol, image })
+        const specificInfo = {
+            create:true
+        }
+        await User.create({ name, email, password, rol, image, specificInfo})
     })()
 }
