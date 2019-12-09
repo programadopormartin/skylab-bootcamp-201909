@@ -14,7 +14,7 @@ function AccountDetail({userId , history}) {
     const { token, id } = sessionStorage
     const [render, setRender] = useState(true)
     let skillInput = React.createRef()
-    const {error, setError} = useState()
+    const [error, setError]= useState()
     let titleInput = React.createRef()
     let startDateInput = React.createRef()
     let endDateInput = React.createRef()
@@ -25,12 +25,14 @@ function AccountDetail({userId , history}) {
  
     useEffect(()=>{
         (async()=>{
-            setUser(await retrieveCompleteUser(userId,token))
+            try{
+                setUser(await retrieveCompleteUser(userId,token))
+            } catch(error){
+                setError(error.message)
+            }
         })()
 
-        if(user){
-        id === user.id ? myAccount=true: myAccount=false
-        }
+        if(user) id === user.id ? myAccount=true: myAccount=false
         
     }, [setUser, render])
 
@@ -43,7 +45,7 @@ function AccountDetail({userId , history}) {
             skillInput.current.value = ""
             setRender(!render)
         } catch(error){
-            console.log(error)
+            setError(error.message)
         }
 
     }
@@ -59,7 +61,7 @@ function AccountDetail({userId , history}) {
             descriptionInput.current.value = "" 
             setRender(!render)
         } catch(error){
-            console.log(error)
+            setError(error.message)
         }
 
     }
@@ -69,7 +71,7 @@ function AccountDetail({userId , history}) {
             await removeSkillItem(token, skillName)
             setRender(!render)
         } catch(error){
-            console.log(error)
+            setError(error.message)
         }
     }
 
@@ -78,13 +80,12 @@ function AccountDetail({userId , history}) {
             await removeExperienceItem(token, expId)
             setRender(!render)
         } catch(error){
-            console.log(error)
+            setError(error.message)
         }
     }
 
     function handleGoInfo(e){
         e.preventDefault()
-        console.log(id, user.id)
         history.push(`/info/${user.id}`)
     }
 
@@ -100,12 +101,14 @@ function AccountDetail({userId , history}) {
     }
 
     async function handleChat(e){
-                e.preventDefault()
-                debugger
-                const chatId = await createChat(token, userId)
-                debugger
-                history.push(`/chat/${chatId}`)
-            }
+        e.preventDefault()
+        try{
+            const chatId = await createChat(token, userId)
+            history.push(`/chat/${chatId}`)
+        } catch(error){
+            setError(error.message)
+        }
+    }
         
 
     return  <>{user  &&  <section className="account-details">
@@ -142,7 +145,6 @@ function AccountDetail({userId , history}) {
                     {userId === id && <button className="buttons__home button" onClick={handleLogOut}>
                         <p className="button__text">LogOut</p>
                     </button>
-
 }
         </nav>
     </section>

@@ -3,12 +3,14 @@ import './index.sass'
 import { withRouter } from 'react-router-dom'
 import {retrievePost, toggleLikePost, sendComment} from '../../logic'
 import CommentItem from '../Comment-Item'
+import Feedback from '../Feedback'
 
 
 function PostDetail({history, postId}){
     
     const [ user, setUser ] = useState(true)
     const { token } = sessionStorage
+    const [error,setError] = useState()
     const [post, setPost] = useState()
     let postData
     const {id} = sessionStorage
@@ -24,9 +26,8 @@ function PostDetail({history, postId}){
                     setPost(postData.post)
                     setUser(postData.user)
                     console.log(postData)
-                } catch(message){
-                    debugger
-                    console.log(message)
+                } catch(error){
+                    setError(error.message)
                 }
             })()
         }, 1000);
@@ -37,9 +38,7 @@ function PostDetail({history, postId}){
                 setPost(postData.post)
                 setUser(postData.user)
             } catch(message){
-                debugger
-                console.log(message)
-                
+                setError(error.message)
             }
         })()
 
@@ -53,8 +52,7 @@ function PostDetail({history, postId}){
             await toggleLikePost(post.id, token)
             setPost(post)
         } catch(error){
-            console.log("peto")
-            console.log(error)
+            setError(error.message)
         }
 
     }
@@ -67,7 +65,7 @@ function PostDetail({history, postId}){
             await sendComment(token, post.id, text)
             messageText.current.value = ""
         }catch(error){
-            console.log(error)
+            setError(error.message)
         }
     }
 
@@ -121,6 +119,7 @@ function PostDetail({history, postId}){
             <button className="form__button"><i className="material-icons">send</i></button>
         </form>
     </section>
+    {error && <Feedback text={error} />}               
 </section>}</>
 }
 

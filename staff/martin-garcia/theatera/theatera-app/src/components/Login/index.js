@@ -1,4 +1,4 @@
-import React,{useContext, useState} from 'react'
+import React,{useState} from 'react'
 import { withRouter } from 'react-router-dom'
 import './index.sass'
 import {  authenticate, retrieveUser} from '../../logic'
@@ -6,9 +6,7 @@ import Context from '../CreateContext'
 import Feedback from '../Feedback'
 
 function Login({history}) {
-    const { setUser } = useContext(Context)
     const [error, setError] = useState()
-
 
     async function onLogin(event) {
         event.preventDefault()
@@ -18,7 +16,6 @@ function Login({history}) {
           sessionStorage.token = token
           const user = await retrieveUser(token)
           sessionStorage.id = user.id
-          setUser(user)
           history.push('/home')
         } catch (error) {
           setError(error.message)

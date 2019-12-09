@@ -1,30 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import './index.sass'
+import Feedback from '../Feedback'
 import {createChat} from '../../logic'
-import { create } from 'domain'
 
 function AccountResume({history, account:{id:accountId, name, image, introduction}}){
 
     const {token, id} = sessionStorage
+    const [error, setError]= useState()
 
     function onGoToUser(e){
         e.preventDefault()
         history.push(`/users/${accountId}`)  
-        
     }
 
-    async function handleChat(e){
-/*         e.preventDefault()
- */     
+    async function handleChat(e){     
         try{
-            debugger
             e.stopPropagation()
             const chatId = await createChat(token, accountId)
-            debugger
             history.push(`/chat/${chatId}`)
         }catch(error){
-            console.log(error)
+            setError(error.message)
         }
     }
 
@@ -43,10 +39,8 @@ function AccountResume({history, account:{id:accountId, name, image, introductio
                             <i className="material-icons">comment</i>
                     </button>
                 </form>
-
+                {error && <Feedback text={error} />}
             </div>
-        
-
 }
 
 

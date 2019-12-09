@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 import './index.sass'
 import { retrieveChat, sendMessage } from '../../logic'
 import Message from '../Message'
+import Feedback from '../Feedback'
 
 
 
@@ -11,7 +12,7 @@ function Chat({history, chatId}){
 
     const { token } = sessionStorage
     const [messages, setMessages] = useState()
-    const [user, setUser] = useState()
+    const [error, setError] = useState()
     let refresher
 
 
@@ -22,9 +23,8 @@ function Chat({history, chatId}){
                 try{
                     setMessages(await retrieveChat(token, chatId))
                     console.log(messages)
-                } catch(message){
-                    debugger
-                    console.log(message)
+                } catch(error){
+                    setError(error.message)
                 }
             })()
         }, 1000);
@@ -33,10 +33,8 @@ function Chat({history, chatId}){
             try{
                 setMessages(await retrieveChat(token, chatId)) 
                 
-            } catch(message){
-                debugger
-                console.log(message)
-                
+            } catch(error){
+                setError(error.message)                
             }
         })() 
 
@@ -49,9 +47,8 @@ function Chat({history, chatId}){
         const {message:{value:message}} = e.target
         try{
             await sendMessage(chatId,token, message)
-
         } catch(error){
-            console.log(error)
+            setError(error.message)
         }
     }
 
@@ -79,7 +76,8 @@ function Chat({history, chatId}){
         </form>
     </section>
 
-   
+    {error && <Feedback text={error} />}
+
 </section>
 
 }

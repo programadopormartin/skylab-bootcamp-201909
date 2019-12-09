@@ -2,12 +2,14 @@ import React, {useEffect, useState} from 'react'
 import './index.sass'
 import { withRouter } from 'react-router-dom'
 import {retrievePersonalInfo, updateUser, updateProfileImage} from '../../logic'
+import Feedback from '../Feedback'
 
 function PersonalInfo({history, userId}){
 
 
     const [user,setUser] = useState()
     const { token, id } = sessionStorage
+    const [error, setError] = useState()
     
     //imput tracking
     const [_name, setName]= useState(undefined)
@@ -45,11 +47,9 @@ function PersonalInfo({history, userId}){
             setWebsite(response.website)
             setCity(response.city)
             setButton(true)
-            console.log(response)
-
             } catch(error){
-               console.log(error)
-           }
+                setError(error.message)
+            }
 
         })()
     },[setName,setUser,setSurname,setIntroduction, 
@@ -69,19 +69,21 @@ function PersonalInfo({history, userId}){
 
     async function handleSaveImage(e){
         e.preventDefault()
-        const {file: { files : [image]}} = e.target
-        await updateProfileImage(token, image)
-        setUser(await retrievePersonalInfo(token,userId))
+        try{
+            const {file: { files : [image]}} = e.target
+            await updateProfileImage(token, image)
+            setUser(await retrievePersonalInfo(token,userId))
+        } catch(error){
+            setError(error.message)
+        }
     }
 
     async function handleUpdateUser(e){
         e.preventDefault()
         try{
-            console.log(_name, _surname, _introduction, _description, _age, _weight, _height, _gender,  _languages, _phone, _email, _website, _city)
-            debugger
             await updateUser(token, {_name, _surname, _introduction, _description, _age, _weight,   _height, _gender, _languages, _phone, _email, _website, _city})
         } catch(error){
-            console.log(error)
+            setError(error.message)
         }
     }
     
@@ -129,7 +131,6 @@ function PersonalInfo({history, userId}){
 
     <form className="personal-info__form info-form" onSubmit={(e)=>{
         e.preventDefault()
-        console.log(_gender)
     }}>
 
 
@@ -216,6 +217,7 @@ function PersonalInfo({history, userId}){
         </>}
     </form>
 
+    {error && <Feedback text={error} />}               
 
 </section>}</>
 }

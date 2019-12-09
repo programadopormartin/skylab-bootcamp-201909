@@ -3,6 +3,7 @@ import AccountResume from '../Account-Resume'
 import { withRouter } from 'react-router-dom'
 import './index.sass'
 import { retrieveConnections } from '../../logic'
+import Feedback from '../Feedback'
 
 
 
@@ -10,15 +11,14 @@ function Connections({history}){
 
     const {token} = sessionStorage
     const [connections, setConnections] = useState()
-   
+    const [error, setError] = useState() 
 
     useEffect(()=>{
         (async()=>{
             try{
                 setConnections(await retrieveConnections(token))
-            } catch(message){
-                debugger
-                console.log(message)
+            } catch(error){
+                setError(error.message)
             }
         })()
     },[setConnections])
@@ -29,6 +29,7 @@ function Connections({history}){
             {connections.map(account => <li  key={account.id} > <AccountResume  account={account}/></li>)}
         </ul>
          }
+            {error && <Feedback text={error} />}               
     </div>
 }
            

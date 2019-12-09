@@ -2,11 +2,13 @@ import React, {useState} from 'react'
 import './index.sass'
 import { withRouter } from 'react-router-dom'
 import { toggleLikePost } from '../../logic'
+import Feedback from '../Feedback'
 
 
 function PostItem({history, post:{post:{body,comments,date,likes,id:postId}, user:{image, introduction,name, id:userId}}, onRender}){
 
     const {token} = sessionStorage
+    const [error, setError] = useState()
  
     function onGoAccount(e){
         e.stopPropagation()
@@ -21,13 +23,12 @@ function PostItem({history, post:{post:{body,comments,date,likes,id:postId}, use
 
     async function  handleGiveLike(e){
         e.preventDefault()
-        console.log(body)
         try{
             await toggleLikePost(postId, token)
             onRender()
          } catch(error){
             debugger
-            console.log(error)
+            setError(error.message)
         }
     }
     
@@ -56,6 +57,7 @@ return <section className="post" id={postId}>
     <button className="post-button "><i className="material-icons " onClick={handleGoPostDetail}>comment</i></button>
 {/*     <button className="post-button "><i className="material-icons " onClick={}>share</i></button>
  */}</form>
+     {error && <Feedback text={error} />}               
 </section>
 }
 

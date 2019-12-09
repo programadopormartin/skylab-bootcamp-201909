@@ -2,16 +2,18 @@ import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import './index.sass'
 import {retrieveSummaryUser} from '../../logic'
+import Feedback from '../Feedback'
 
 
 function Message({history, message:{user:userId, body, date}}){
     const {token, id} = sessionStorage
     const [userData, setUserData] = useState()
+    const [error, setError] = useState()
 
     useEffect(()=>{
         (async()=>{
-            debugger
-            setUserData(await retrieveSummaryUser(userId,token))
+            try{ setUserData(await retrieveSummaryUser(userId,token)) }
+            catch(error){ setError(error.message) }
         })()
     },[setUserData])
  
@@ -40,6 +42,8 @@ function Message({history, message:{user:userId, body, date}}){
             <img className="comment__image " src={userData.image} alt="profile" onClick={handleGoProfile} />
             </section>
     }
+        {error && <Feedback text={error} />}               
+
     </>
 }
 export default withRouter(Message)

@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import './index.sass'
 import {createChat} from '../../logic'
+import Feedback from '../Feedback'
 
 function ChatItem({history, account:{_id:accountId, name, image, introduction}, chatId}){
 
-    const {token, id} = sessionStorage
+    const {token} = sessionStorage
+    const [error, setError] = useState()
 
     function onGoToUser(e){
         e.preventDefault()
@@ -15,13 +17,12 @@ function ChatItem({history, account:{_id:accountId, name, image, introduction}, 
 
     async function handleChat(e){
          e.preventDefault()
-     
         try{
             e.stopPropagation()
             const chatId = await createChat(token, accountId)
             history.push(`/chat/${chatId}`)
         }catch(error){
-            console.log(error)
+            setError(error.message)
         }
     }
 
@@ -45,10 +46,8 @@ function ChatItem({history, account:{_id:accountId, name, image, introduction}, 
                             <i className="material-icons">comment</i>
                     </button>
                 </form>
-
+                {error && <Feedback text={error} />}
             </div>
-        
-
 }
 
 

@@ -2,15 +2,18 @@ import React, { useState, useEffect } from 'react'
 import './index.sass'
 import {withRouter} from 'react-router-dom'
 import {retrieveUser} from '../../logic'
+import Feedback from '../Feedback'
 
 function Header({history}){
 
     const { id,token } = sessionStorage
     const [user, setUser] = useState()
+    const [error, setError] = useState()
 
     useEffect(()=>{
         (async()=>{
-            setUser(await retrieveUser(token))
+            try{setUser(await retrieveUser(token)) }
+            catch(error){ setError(error.message)  }
         })()
     },[setUser])
     
@@ -44,6 +47,7 @@ function Header({history}){
                                     </i>
                     </button>
                 </form>
+                {error && <Feedback text={error} />}               
             </header>
 }
 

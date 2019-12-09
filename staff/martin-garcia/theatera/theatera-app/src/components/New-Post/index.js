@@ -2,16 +2,18 @@ import React, { useState, useEffect } from 'react'
 import './index.sass'
 import {withRouter} from 'react-router-dom'
 import {createPost, retrieveUser} from '../../logic'
+import Feedback from '../Feedback'
 
 function NewPost({history}){
 
     const { token, id } = sessionStorage
     const [user, setUser] = useState()
+    const [error, setError] = useState()
 
     useEffect(()=>{
         (async()=>{
-            setUser(await retrieveUser(token))
-            console.log(user)
+            try{ setUser(await retrieveUser(token)) 
+            } catch(error){ setError(error.message) }
         })()
     },[setUser])
 
@@ -23,9 +25,9 @@ function NewPost({history}){
             jobCheckbox === true ? job = 'JOB': job='ARTICLE'
             await createPost(token, body, job) 
             history.push(`/usersPosts/${id}`)
-        } catch(error){
-            console.log(error)
-        }
+        } catch(error){ 
+            setError(error.message)
+         }
     }
     return<>{user && <section className=" post ">
     <div className=" post__header ">
@@ -46,6 +48,7 @@ function NewPost({history}){
             </label>
         </div>
     </form>
+    {error && <Feedback text={error} />}               
 </section>}</>
 }
 

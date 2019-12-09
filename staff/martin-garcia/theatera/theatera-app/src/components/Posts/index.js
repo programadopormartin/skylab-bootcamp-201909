@@ -3,7 +3,7 @@ import PostItem from '../Post-Item'
 import { withRouter } from 'react-router-dom'
 import './index.sass'
 import {retrieveLatestPosts} from '../../logic'
-
+import Feedback from '../Feedback'
 
 
 function Posts({history}){
@@ -11,6 +11,7 @@ function Posts({history}){
     const[render, setRender]= useState(true)
 
     const { token } = sessionStorage
+    const [error, setError] = useState()
     const [postsList, setPostsList] = useState([])
 
 
@@ -19,9 +20,8 @@ function Posts({history}){
             try{
                 const {posts} = await retrieveLatestPosts(token)
                 setPostsList(posts)
-            }catch({ message }){
-                debugger
-                console.log(message)
+            }catch(error){
+                setError(error.message)
             }
         })()
         
@@ -36,6 +36,7 @@ function Posts({history}){
         <ul >
         {postsList.map(post => <li className="post-list__item" key={post.post.id}> <PostItem post={post} onRender={handleRender} /></li>)}
         </ul>
+        {error && <Feedback text={error} />}  
         </section>
 }
            

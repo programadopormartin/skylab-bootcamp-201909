@@ -1,20 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './index.sass'
 import { withRouter } from 'react-router-dom'
 import {  registerUser } from '../../logic'
+import Feedback from '../Feedback'
 
 
 function Register({history}){
 
+        const [error, setError] = useState()
+
+
     async function onRegister(event){
         event.preventDefault()
-        const {name:{value:name},email:{value:email}, password:{value:password},  account:{checked:account}} = event.target
-
         try {
+            const {name:{value:name},email:{value:email}, password:{value:password},  account:{checked:account}} = event.target
             await registerUser(name, email, password, account)
             history.push('/login')
           } catch (error) {
-            console.error(error)
+            setError(error.message)
           }
     }
 
@@ -39,8 +42,8 @@ return <section className="register">
             <button className="register__form__button">Register</button>
             <a className="register__form__button" href="" onClick={onGoLogin}>Login</a>
         </form>
+        {error && <Feedback text={error} />}  
     </section>
-
 }
 
 export default withRouter(Register)
