@@ -1,37 +1,27 @@
-const { validate, errors: { NotFoundError, ContentError } } = require('theatera-util')
-const { ObjectId, models: { User } } = require('theatera-data')
+const call = require('../../utils/call')
+const { validate, errors: { ConflictError } } = require('theatera-util')
+const API_URL = process.env.REACT_APP_API_URL
 
-module.exports = function(query) {
-    validate.string(query)
-    validate.string.notVoid('query', query)
-
+module.exports = function(token,text) {
+    validate.string(text)
+    validate.string.notVoid('text', text)
+    debugger
     return (async() => {
-        let response
-        let responsesArray = []
-
-        response = await User.find({ "name": query })
-        response && responsesArray.push(response)
-        responsesArray = responsesArray.flat()
-
-        result = []
-
-        responsesArray.forEach(
-            (friend) => {
-                let ok = true
-                for (let i = 0; i < result.length && ok; i++) {
-                    let following = result[i];
-                    if (following['id'] == friend['id'])
-                        ok = false;
-                }
-                if (ok) result.push(friend)
-            })
-
-        results = result.map(user => {
-            const { _id, name, image, introduction } = user.toObject()
-            const specificInfo = user.toObject().specificInfo
-            return { id: _id.toString(), name, image, introduction }
+        const res = await call(`${API_URL}/search/`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify({ text })
         })
 
-        return results
+            
+
+        if (res.status === 200) return JSON.parse(res.body)
+
+        if (res.status === 409) throw new ConflictError(JSON.parse(res.body).message)
+
+        throw new Error(JSON.parse(res.body).message)
     })()
 }

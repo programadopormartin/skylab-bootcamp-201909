@@ -1,11 +1,14 @@
-import React,{useContext} from 'react'
+import React,{useContext, useState} from 'react'
 import { withRouter } from 'react-router-dom'
 import './index.sass'
 import {  authenticate, retrieveUser} from '../../logic'
 import Context from '../CreateContext'
+import Feedback from '../Feedback'
 
 function Login({history}) {
     const { setUser } = useContext(Context)
+    const [error, setError] = useState()
+
 
     async function onLogin(event) {
         event.preventDefault()
@@ -18,7 +21,7 @@ function Login({history}) {
           setUser(user)
           history.push('/home')
         } catch (error) {
-          console.error(error)
+          setError(error.message)
         }
       }
 
@@ -37,6 +40,8 @@ function Login({history}) {
         <a className="login__form__button" href="" onClick={onGoRegister}>Register</a>
 
     </form>
+    {error && <Feedback text={error} />}
+
 </section>
 }
 

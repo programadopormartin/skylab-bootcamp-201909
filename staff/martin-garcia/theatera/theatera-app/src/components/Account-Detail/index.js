@@ -5,6 +5,7 @@ import {  retrieveCompleteUser } from '../../logic'
 import SkillItem from '../SkillItem'
 import {removeSkillItem,createChat, createSkillItem, removeExperienceItem, createExperienceItem} from '../../logic'
 import ExperienceItem from '../Experience-Item'
+import Feedback from '../Feedback'
 
 
 function AccountDetail({userId , history}) {
@@ -13,7 +14,7 @@ function AccountDetail({userId , history}) {
     const { token, id } = sessionStorage
     const [render, setRender] = useState(true)
     let skillInput = React.createRef()
-
+    const {error, setError} = useState()
     let titleInput = React.createRef()
     let startDateInput = React.createRef()
     let endDateInput = React.createRef()
@@ -224,8 +225,10 @@ function AccountDetail({userId , history}) {
 }
 
 
+    </section>     
+        {error && <Feedback text={error} />}
     </section>
-    </section>
+
 }</> }
 
 
