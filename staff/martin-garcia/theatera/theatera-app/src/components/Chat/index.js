@@ -8,7 +8,7 @@ import Feedback from '../Feedback'
 
 
 
-function Chat({history, chatId}){
+function Chat({ chatId}){
 
     const { token } = sessionStorage
     const [messages, setMessages] = useState()

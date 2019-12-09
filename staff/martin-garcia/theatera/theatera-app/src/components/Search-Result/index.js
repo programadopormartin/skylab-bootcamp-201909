@@ -17,14 +17,11 @@ function SearchResult({history, query}){
         (async()=>{
             try{
                 setAccounts(await search(token, query))
-            } catch(err){
-                debugger
-                setError(err.message)
-                debugger
-                console.log(err)
+            } catch(error){
+                setError(error.message)
             }
         })()
-    },[setAccounts])
+    },[setAccounts, setError])
 
    
     return <div className="connections__container">   

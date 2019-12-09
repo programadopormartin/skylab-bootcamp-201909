@@ -35,7 +35,7 @@ function Header({history}){
     }
 
     return <header className="header">
-     {user &&  <img className="header__image" src={user.image} alt="profile" onClick={handleGoPersonalProfile}/>}
+     {user &&  <img className="header__image" src={user.image+`?timestamp=${Date.now()}`} alt="profile" onClick={handleGoPersonalProfile}/>}
                 <form className=" header__search search " onSubmit={handleSearch}>
                     <input className=" search__bar " name ="searchBar" type="search"  placeholder="&#x1F50D; Search "/>
                 </form>

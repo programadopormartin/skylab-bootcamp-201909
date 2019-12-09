@@ -36,11 +36,10 @@ function Chats({history}){
 
    
     return <div className="connections__container">   
-       { chats && chats.length>0 ? <ul >
+       { chats && chats.length>0 && <ul >
             {chats.map(chat => <li  key={chat._id} > <ChatItem chatId={chat._id} account={chat.users[0]}/></li>)}
-        </ul>
-         : <h2>Go to connections and begin some conversation</h2>}
-    </div>
+        </ul>}
+        </div>
 }
            
 export default withRouter(Chats)

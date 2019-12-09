@@ -87,11 +87,12 @@ function PersonalInfo({history, userId}){
         }
     }
     
+    
 
     return <> {user && <section className="personal-info">
     <div className="personal-info-post__header post__header ">
         
-        <img className=" post-image " src={user.image} alt=" profile
+        <img className=" post-image " src={user.image+`?timestamp=${Date.now()}`} alt=" profile
             image " />
          {userId === id && <> <form onSubmit={handleSaveImage}>
             <label className="info-form__label avatar">

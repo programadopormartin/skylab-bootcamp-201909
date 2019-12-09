@@ -3,6 +3,7 @@ import './index.sass'
 import { withRouter } from 'react-router-dom'
 import { toggleLikePost } from '../../logic'
 import Feedback from '../Feedback'
+import moment from 'moment'
 
 
 function PostItem({history, post:{post:{body,comments,date,likes,id:postId}, user:{image, introduction,name, id:userId}}, onRender}){
@@ -39,7 +40,7 @@ return <section className="post" id={postId}>
     <div className="header-info">
         <p className="header-item header__user-username">{name}</p>
         <p className="header-item header__user-introduction">{introduction}</p>
-        <p className="header-item header__date">{date}</p>
+        <p className="header-item header__date">{moment(date).format("D/MM/YYYY")}</p>
     </div>
 </div>
 
