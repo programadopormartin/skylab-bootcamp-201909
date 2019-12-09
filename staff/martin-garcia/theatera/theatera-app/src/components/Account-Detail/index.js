@@ -63,7 +63,6 @@ function AccountDetail({userId , history}) {
         } catch(error){
             setError(error.message)
         }
-
     }
 
     async function handleRemoveSkill(skillName){

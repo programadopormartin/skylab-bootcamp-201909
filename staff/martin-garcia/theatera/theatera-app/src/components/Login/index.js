@@ -2,7 +2,6 @@ import React,{useState} from 'react'
 import { withRouter } from 'react-router-dom'
 import './index.sass'
 import {  authenticate, retrieveUser} from '../../logic'
-import Context from '../CreateContext'
 import Feedback from '../Feedback'
 
 function Login({history}) {

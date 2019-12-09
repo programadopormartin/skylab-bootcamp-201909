@@ -68,6 +68,7 @@ module.exports = new Schema({
     },
     specificInfo: {
         type: Object,
+        default:{}
     },
     chats: {
         type: [Chat],

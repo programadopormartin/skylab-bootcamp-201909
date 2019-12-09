@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext} from 'react'
 import './index.sass'
 import {withRouter} from 'react-router-dom'
 import {retrieveUser} from '../../logic'
 import Feedback from '../Feedback'
+import Context from '../CreateContext'
+
 
 function Header({history}){
-
+    const { render } = useContext(Context)
     const { id,token } = sessionStorage
     const [user, setUser] = useState()
     const [error, setError] = useState()
@@ -15,11 +17,10 @@ function Header({history}){
             try{setUser(await retrieveUser(token)) }
             catch(error){ setError(error.message)  }
         })()
-    },[setUser])
+    },[setUser, render])
     
     function handleGoPersonalProfile(e){
         e.preventDefault()
-        console.log("debo de cambiar", id)
         history.push(`/users/${id}`)
     }
 
@@ -31,7 +32,7 @@ function Header({history}){
     function handleSearch(e){
         e.preventDefault()
         const {searchBar:{value:query}} = e.target
-        history.push(`/search/${query}`)
+        query.length===0 ? setError("Sin busqueda") : history.push(`/search/${query}`)
     }
 
     return <header className="header">

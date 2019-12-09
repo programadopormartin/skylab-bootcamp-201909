@@ -1,8 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import './index.sass'
 import { withRouter } from 'react-router-dom'
 import {retrievePersonalInfo, updateUser, updateProfileImage} from '../../logic'
 import Feedback from '../Feedback'
+import Context from '../CreateContext'
+
+
 
 function PersonalInfo({history, userId}){
 
@@ -27,12 +30,15 @@ function PersonalInfo({history, userId}){
     const [_button, setButton] = useState(undefined)
     const [_weight, setWeight] = useState(undefined)
     const [_height, setHeight] = useState(undefined)
+    const { render, setRender } = useContext(Context)
+
 
 
 
     useEffect(()=>{
        (async()=>{
            try{
+               debugger
             const response = await retrievePersonalInfo(token, userId)
             setUser(response)
             setName(response.name)
@@ -47,6 +53,7 @@ function PersonalInfo({history, userId}){
             setWebsite(response.website)
             setCity(response.city)
             setButton(true)
+            console.log()
             } catch(error){
                 setError(error.message)
             }
@@ -73,6 +80,7 @@ function PersonalInfo({history, userId}){
             const {file: { files : [image]}} = e.target
             await updateProfileImage(token, image)
             setUser(await retrievePersonalInfo(token,userId))
+            setRender(!render)
         } catch(error){
             setError(error.message)
         }
