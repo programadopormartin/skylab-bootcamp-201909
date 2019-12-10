@@ -16,7 +16,6 @@ function PersonalInfo({history, userId}){
     
     //imput tracking
     const [_name, setName]= useState(undefined)
-    const [_surname, setSurname]= useState(undefined)
     const [_introduction, setIntroduction]= useState(undefined)
     const [_description, setDescription]= useState(undefined)
     const [_age, setAge]= useState(undefined)
@@ -42,7 +41,6 @@ function PersonalInfo({history, userId}){
             const response = await retrievePersonalInfo(token, userId)
             setUser(response)
             setName(response.name)
-            setSurname(response.specificInfo.surname)
             setIntroduction(response.introduction)
             setDescription(response.description)
             setAge(response.specificInfo.age)
@@ -59,7 +57,7 @@ function PersonalInfo({history, userId}){
             }
 
         })()
-    },[setName,setUser,setSurname,setIntroduction, 
+    },[setName,setUser,setIntroduction, 
         setDescription,setAge,setGender,setLanguages,
         setPhone,setEmail,setWebsite, setCity,setButton])
 
@@ -89,7 +87,7 @@ function PersonalInfo({history, userId}){
     async function handleUpdateUser(e){
         e.preventDefault()
         try{
-            await updateUser(token, {_name, _surname, _introduction, _description, _age, _weight,   _height, _gender, _languages, _phone, _email, _website, _city})
+            await updateUser(token, {_name, _introduction, _description, _age, _weight,   _height, _gender, _languages, _phone, _email, _website, _city})
         } catch(error){
             setError(error.message)
         }
@@ -151,11 +149,6 @@ function PersonalInfo({history, userId}){
         <label className="info-form__label">
             <span>Name: </span>
             <input disabled={_disabled ? 'disabled':''} type="text" name="name" value={_name || ""} onChange={event=>setName(event.target.value)} />
-        </label>
-
-        <label className="info-form__label">
-            <span>Surname: </span>
-            <input disabled={_disabled ? 'disabled':''} type="text" name="surname"  value={_surname || ""} onChange={event=>setSurname(event.target.value)} />
         </label>
 
         <label className="info-form__label">

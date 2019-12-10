@@ -113,7 +113,7 @@ function PostDetail({history, postId}){
     </section>
 
     <section className="new-comment">
-        <img className="new-comment__image" src="https://media.licdn.com/dms/image/C4E03AQHDYmFMm3lIoQ/profile-displayphoto-shrink_200_200/0?e=1580342400&v=beta&t=Eway57teuUv7ff1isfm-jELgO4KR4xqr93sc7qmgwEc" alt="profile image" />
+        <img className="new-comment__image" src={user.image} />
         <form className="new-comment__form form" onSubmit={handleSendComment}>
             <textarea   ref={messageText} className="form__textarea" name="textarea"  cols="30" rows="2" placeholder="send a comment here ..."></textarea>
             <button className="form__button"><i className="material-icons">send</i></button>

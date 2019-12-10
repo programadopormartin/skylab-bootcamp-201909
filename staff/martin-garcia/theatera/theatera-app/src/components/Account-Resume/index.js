@@ -19,7 +19,7 @@ function AccountResume({history, account:{id:accountId, name, image, introductio
         debugger
     })
 
-    function onGoToUser(e){
+    function handleGoToUser(e){
         e.preventDefault()
         history.push(`/users/${accountId}`)  
     }
@@ -53,8 +53,8 @@ function AccountResume({history, account:{id:accountId, name, image, introductio
     }
 
     return  <div className="acc-resume">
-                <img className=" acc-resume__image" src={image} alt="profile"  onClick={onGoToUser}/>
-                <div className=" acc-resume__info info" onClick={onGoToUser}>
+                <img className=" acc-resume__image" src={image} alt="profile"  onClick={handleGoToUser}/>
+                <div className=" acc-resume__info info" onClick={handleGoToUser}>
                     <p className=" info__username ">{name}</p>
                     <p className=" info__description ">{introduction}</p>
                 </div>

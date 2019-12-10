@@ -24,5 +24,7 @@ module.exports = {
     retrieveSummaryUser: require('./retrieve-summary-user'),
     search: require('./search'),
     checkFriendRequest: require('./check-friend-requests'),
-    retrieveFriendRequests: require('./retrieve-friends-requests')
+    retrieveFriendRequests: require('./retrieve-friends-requests'),
+    retrieveNews: require('./retrieve-news'),
+    removeNews: require('./remove-news')
 }

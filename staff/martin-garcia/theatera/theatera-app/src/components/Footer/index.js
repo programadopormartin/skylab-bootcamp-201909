@@ -1,18 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import './index.sass'
 import retrieveFriendRequests from '../../logic'
+import Feedback from '../Feedback'
 
 
 function Footer({history}){
 
     const { token } = sessionStorage
-
-    /* useEffect(()=>{
-        (async()=>{
-
-        })
-    },[]) */
+    const [error, setError] = useState()
 
 
     useEffect(()=>{
@@ -86,6 +82,7 @@ function Footer({history}){
             <p className="button__text">Jobs</p>
         </button>
     </form>
+    {error && <Feedback text={error} />}               
 </footer>
 }
 
