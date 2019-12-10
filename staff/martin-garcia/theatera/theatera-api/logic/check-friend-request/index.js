@@ -18,6 +18,7 @@ module.exports = function(emiterId, receiverId) {
 
         if (emiter.connections.includes(receiver._id)) return "already friends"
 
+        debugger
         const repeatedFriendRequest = await FriendRequest.findOne({ "creator": ObjectId(emiterId), "receiver": ObjectId(receiverId) })
         if (repeatedFriendRequest) return "Still waiting for confirmation"
 
@@ -36,7 +37,7 @@ module.exports = function(emiterId, receiverId) {
             emiter.notifications.push(noti1)
 
             const noti2 = new Notification({ body: { message: "new friend", name: emiter.name, image: emiter.image, id: emiter.id, type: 'CONNECTION', date } })
-
+            receiver.notifications.push(noti2)
 
             await emiter.save()
             await receiver.save()
@@ -46,6 +47,11 @@ module.exports = function(emiterId, receiverId) {
 
         if (!repeatedFriendRequest && !reciprocalFriendRequest) {
             await FriendRequest.create({ "creator": ObjectId(emiterId), "receiver": ObjectId(receiverId) })
+
+            const noti = new Notification({ body: { message: "friendRequest", name: receiver.name, image: receiver.image, id: receiver.id, type: 'CONNECTION', date: new Date } })
+            receiver.notifications.push(noti)
+            await receiver.save()
+
             return "new request"
         }
 

@@ -168,7 +168,7 @@ router.post('/uploadimage', tokenVerifier, (req, res) => {
     const busboy = new Busboy({ headers: req.headers })
 
     busboy.on('file', async(fieldname, file, filename, encoding, mimetype) => {
-        filename = 'profile'
+        filename = 'profile.png'
         await saveProfileImage(id, file, filename)
     })
 

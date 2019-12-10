@@ -28,15 +28,15 @@ module.exports = function(id, file, filename) {
 
     return (async() => {
 
-        imgPath = path.join(__dirname, `../../public/data/users/${id}/` + filename + '.png')
+        imgPath = path.join(__dirname, `../../public/data/users/${id}/${filename}` )
         route = path.join(__dirname, `../../public/data/users/${id}/`)
 
         try {
             const user = await User.findById(id)
-            user.image = `http://localhost:9000/data/users/${id}/` + filename + '.png'
-            user.save()
+            user.image = `http://192.168.0.56:9000/data/users/${id}/${filename}`
+            await user.save()
 
-            if (await fs.existsSync(route)) {
+            if (fs.existsSync(route)) {
                 return file.pipe(fs.createWriteStream(imgPath))
             } else {
                 fs.mkdirSync(route)
