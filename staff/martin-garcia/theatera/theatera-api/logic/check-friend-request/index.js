@@ -48,7 +48,7 @@ module.exports = function(emiterId, receiverId) {
         if (!repeatedFriendRequest && !reciprocalFriendRequest) {
             await FriendRequest.create({ "creator": ObjectId(emiterId), "receiver": ObjectId(receiverId) })
 
-            const noti = new Notification({ body: { message: "friendRequest", name: receiver.name, image: receiver.image, id: receiver.id, type: 'CONNECTION', date: new Date } })
+            const noti = new Notification({ body: { message: "friendRequest", name: emiter.name, image: emiter.image, id: emiter.id, type: 'CONNECTION', date: new Date } })
             receiver.notifications.push(noti)
             await receiver.save()
 
