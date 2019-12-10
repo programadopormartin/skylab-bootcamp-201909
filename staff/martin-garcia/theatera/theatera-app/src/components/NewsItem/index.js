@@ -5,7 +5,7 @@ import Feedback from '../Feedback'
 import {createChat, checkFriendRequest} from '../../logic'
 import moment from 'moment'
 
-function NewsItem({history, news:{_id:newsId, body:{message, name,image, id:userID, date}}}){
+function NewsItem({history, news:{_id:newsId, body:{message,introduction, name,image, id:userID, date}}}){
 
     const {token, id} = sessionStorage
     const [error, setError]= useState()
