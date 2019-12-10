@@ -22,5 +22,7 @@ module.exports = {
     createChat: require('./create-chat'),
     sendMessage: require('./send-message'),
     retrieveSummaryUser: require('./retrieve-summary-user'),
-    search: require('./search')
+    search: require('./search'),
+    checkFriendRequest: require('./check-friend-requests'),
+    retrieveFriendRequests: require('./retrieve-friends-requests')
 }

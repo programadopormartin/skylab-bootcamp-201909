@@ -104,7 +104,9 @@ function PersonalInfo({history, userId}){
             image " />
          {userId === id && <> <form onSubmit={handleSaveImage}>
             <label className="info-form__label avatar">
+
             <input type="file" name="file" accept="image/*" />
+            
             </label>  
             <button  className="buttons button" >
             <p className="button__text">Save</p>

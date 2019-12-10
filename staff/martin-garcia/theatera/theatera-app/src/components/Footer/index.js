@@ -1,10 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import './index.sass'
+import retrieveFriendRequests from '../../logic'
 
 
 function Footer({history}){
 
+    const { token } = sessionStorage
+
+    /* useEffect(()=>{
+        (async()=>{
+
+        })
+    },[]) */
+
+
+    useEffect(()=>{
+        (async()=>{
+            try{
+                await retrieveFriendRequests(token)
+            } catch(error){
+                console.log(error.message)
+            }
+        })()
+    },[])
 
     function onGoHome(e){
         e.preventDefault()
@@ -33,6 +52,7 @@ function Footer({history}){
         e.preventDefault()
         history.push('/newpost')
     }
+
 
 
 

@@ -1,13 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import './index.sass'
 import Feedback from '../Feedback'
-import {createChat} from '../../logic'
+import {createChat, checkFriendRequest} from '../../logic'
 
 function AccountResume({history, account:{id:accountId, name, image, introduction}, connections}){
 
     const {token, id} = sessionStorage
     const [error, setError]= useState()
+    let connected= false
+    let friendRequest
+
+
+    useEffect(()=>{
+        connections && connections.forEach(con=>{
+            if(con.id===accountId) connected = true
+        })
+        debugger
+    })
 
     function onGoToUser(e){
         e.preventDefault()
@@ -26,6 +36,14 @@ function AccountResume({history, account:{id:accountId, name, image, introductio
 
     async function handleSendFriendRequest(e){
         e.preventDefault()
+        try{
+            console.log(connections, accountId)
+
+            debugger
+            friendRequest = await checkFriendRequest(token, accountId)
+        } catch(error){
+            setError(error.message)
+        }
         console.log("engadir amigo")
     }
 
@@ -42,7 +60,7 @@ function AccountResume({history, account:{id:accountId, name, image, introductio
                 </div>
 
                 {connections && <form className="acc-resume__form " action="">
-                    {connections.includes(accountId) ?
+                    {connected ?
                     <button className="button" onClick={handleRemoveFriend}>
                     <i className="material-icons">remove_circle_outline</i>
                 </button>:

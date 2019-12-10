@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import './index.sass'
 import {retrieveSummaryUser} from '../../logic'
 import Feedback from '../Feedback'
+import moment from 'moment'
 
 
 function Message({history, message:{user:userId, body, date}}){
@@ -36,7 +37,8 @@ function Message({history, message:{user:userId, body, date}}){
     {userData && id === userId &&  <section  className={userId===id ?"comment comment--mine" : "comment"}>
                 <div className="comment__text text ">
                     <p className="text__user-name ">{userData.name}</p>
-                    <p className="text__date ">{date}</p>
+                    <p className="text__date ">{    moment(date).format("D/MM/YYYY   HH:MM")
+}</p>
                     <p className="text__comment ">{body}</p>
                 </div>
             <img className="comment__image " src={userData.image} alt="profile" onClick={handleGoProfile} />

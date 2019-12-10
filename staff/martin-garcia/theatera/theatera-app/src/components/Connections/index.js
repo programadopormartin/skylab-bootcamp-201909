@@ -26,7 +26,7 @@ function Connections({history}){
    
     return <div className="connections__container">   
        { connections &&  <ul >
-            {connections.map(account => <li  key={account.id} > <AccountResume  account={account}/></li>)}
+            {connections.map(account => <li  key={account.id} > <AccountResume connections={connections}  account={account}/></li>)}
         </ul>
          }
             {error && <Feedback text={error} />}               
