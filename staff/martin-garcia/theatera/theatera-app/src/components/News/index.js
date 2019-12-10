@@ -22,12 +22,12 @@ function News({history}){
                 setError(error.message)
             }
         })()
-    },[setConnections])
+    },[setNews])
 
    
     return <div className="connections__container">   
        { news &&  <ul >
-            {news.map(element => <li  key={account.id} > <NewsItem news={element} /></li>)}
+            {news.map(element => <li  key={element._id} > <NewsItem news={element} /></li>)}
         </ul>
          }
             {error && <Feedback text={error} />}               
