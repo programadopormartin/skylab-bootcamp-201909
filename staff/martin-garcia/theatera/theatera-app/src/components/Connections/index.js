@@ -17,6 +17,7 @@ function Connections({history}){
         (async()=>{
             try{
                 setConnections(await retrieveConnections(token))
+                debugger
             } catch(error){
                 setError(error.message)
             }

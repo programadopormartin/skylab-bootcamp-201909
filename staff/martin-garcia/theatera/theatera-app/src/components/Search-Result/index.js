@@ -2,8 +2,9 @@ import React, {useEffect, useState} from 'react'
 import AccountResume from '../Account-Resume'
 import { withRouter } from 'react-router-dom'
 import './index.sass'
-import { search, retrieveUser} from '../../logic'
+import { search, retrieveConnections} from '../../logic'
 import Feedback from '../Feedback'
+import Connections from '../Connections'
 
 
 
@@ -18,8 +19,8 @@ function SearchResult({history, query}){
         (async()=>{
             try{
                 setAccounts(await search(token, query))
-                const userData = await retrieveUser(token)
-                setConnections(userData.connections)
+                setConnections(await retrieveConnections(token))
+                debugger
                 console.log(accounts)
             } catch(error){
                 setError(error.message)
@@ -27,9 +28,11 @@ function SearchResult({history, query}){
         })()
     },[setAccounts, setError,query])
 
+
+
    
     return <div className="connections__container">   
-       { accounts &&  <ul >
+       { accounts && connections && <ul >
             {accounts.map(account => <li  key={account.id} > <AccountResume connections={connections}  account={account}/></li>)}
         </ul>
          }

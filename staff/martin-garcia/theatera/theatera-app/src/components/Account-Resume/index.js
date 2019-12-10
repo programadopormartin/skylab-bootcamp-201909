@@ -8,13 +8,14 @@ function AccountResume({history, account:{id:accountId, name, image, introductio
 
     const {token, id} = sessionStorage
     const [error, setError]= useState()
-    let connected= false
+    const [connected, setConnected] = useState(false)
     let friendRequest
 
 
     useEffect(()=>{
         connections && connections.forEach(con=>{
-            if(con.id===accountId) connected = true
+            debugger
+            if(con.id===accountId) setConnected(true)
         })
         debugger
     })
@@ -59,19 +60,19 @@ function AccountResume({history, account:{id:accountId, name, image, introductio
                     <p className=" info__description ">{introduction}</p>
                 </div>
 
-                {connections && <form className="acc-resume__form " action="">
+                 <form className="acc-resume__form " action="">
                     {connected ?
                     <button className="button" onClick={handleRemoveFriend}>
                     <i className="material-icons">remove_circle_outline</i>
                 </button>:
-                    <button className="button" onClick={handleSendFriendRequest}>
-                        <i className="material-icons">add_circle_outline</i>
-                    </button>
+                   <button className="button" onClick={handleRemoveFriend}>
+                   <i className="material-icons">add_circle_outline</i>
+               </button>
                     }
                     <button className="button" onClick={handleChat}>
                             <i className="material-icons">comment</i>
                     </button>
-                </form>}
+                </form>
                 {error && <Feedback text={error} />}
             </div>
 }

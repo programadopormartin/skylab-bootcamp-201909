@@ -31,6 +31,7 @@ function Header({history}){
 
     function handleSearch(e){
         e.preventDefault()
+        setError(undefined)
         const {searchBar:{value:query}} = e.target
         query.length===0 ? setError("Sin busqueda") : history.push(`/search/${query}`)
     }
