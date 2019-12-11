@@ -28,5 +28,6 @@ module.exports = {
     retrieveNews: require('./retrieve-news'),
     removeNews: require('./remove-news'),
     removeConnection: require('./remove-connection'),
-    retrieveFriendConnections: require('./retrieve-friend-connections')
+    retrieveFriendConnections: require('./retrieve-friend-connections'),
+    areThereNews: require('./are-there-news')
 }

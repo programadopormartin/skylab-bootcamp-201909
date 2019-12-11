@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import './index.sass'
-import retrieveFriendRequests from '../../logic'
+import {retrieveFriendRequests,areThereNews} from '../../logic'
 import Feedback from '../Feedback'
 
 
@@ -9,17 +9,34 @@ function Footer({history}){
 
     const { token } = sessionStorage
     const [error, setError] = useState()
-
+    const [news, setNews] = useState()
+    let newsRefresher
 
     useEffect(()=>{
+
+
+        if (typeof newsRefresher !== 'number' ) newsRefresher = setInterval(()=>{
+            (async()=>{
+                try{
+                    setNews(await areThereNews(token))
+                    console.log(news)
+                } catch(message){
+                    console.log(message)
+                }
+            })()
+        }, 1000);
+
+
         (async()=>{
             try{
+                setNews(await areThereNews(token))
                 await retrieveFriendRequests(token)
             } catch(error){
                 console.log(error.message)
             }
         })()
-    },[])
+        return () => { clearInterval(newsRefresher)}
+    },[setNews])
 
     function onGoHome(e){
         e.preventDefault()
@@ -49,8 +66,8 @@ function Footer({history}){
         history.push('/newpost')
     }
 
-    return <footer className="footer">
-
+    return <>{news && <footer className="footer">
+        <h1>{console.log(news)}</h1>
     <form  className="footer__list buttons" onSubmit={function(e){
         e.preventDefault()
     }}>
@@ -69,7 +86,7 @@ function Footer({history}){
             <p className="button__text">Post</p>
         </button>
 
-        <button className="buttons__notifications button" onClick={onGoNews}>
+        <button className={news.notifications ? "buttons__notifications button notifications-true" :"buttons__notifications button "} onClick={onGoNews}>
             <i className="material-icons">notifications_active</i>
             <p className="button__text">News</p>
         </button>
@@ -80,7 +97,7 @@ function Footer({history}){
         </button>
     </form>
     {error && <Feedback text={error} />}               
-</footer>
+</footer>}</>
 }
 
 export default withRouter(Footer)
