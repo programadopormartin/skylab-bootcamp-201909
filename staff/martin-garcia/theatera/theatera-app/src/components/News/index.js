@@ -16,7 +16,36 @@ function News({history}){
     const [news, setNews] = useState()
     const [error, setError] = useState() 
     const [render, setRender] = useState(true)
+    let connectionsRefresher
+   
 
+    useEffect(()=>{
+        if (typeof connectionsRefresher !== 'number' ) connectionsRefresher = setInterval(()=>{
+            (async()=>{
+                try{
+                    setNews(await retrieveNews(token))
+                    console.log(news)
+                } catch(error){
+                    debugger
+                    setError(error.message)
+                }
+            })()
+        }, 1000);
+        (async()=>{
+            try{
+                setNews(await retrieveNews(token))
+                console.log(news)
+            } catch(error){
+                debugger
+                setError(error.message)
+            }
+        })()
+        return ()=>{clearInterval(connectionsRefresher)}
+    },[setNews,setError])
+
+
+
+/* 
     useEffect(()=>{
         (async()=>{
             try{
@@ -27,8 +56,8 @@ function News({history}){
                 setError(error.message)
             }
         })()
-    },[setNews, setError, render])
-
+    },[setNews,  render])
+ */
 
     async function handleAddContact(userId, newsId){
         try{

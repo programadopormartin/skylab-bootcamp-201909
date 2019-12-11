@@ -2,12 +2,12 @@ import React, {useEffect, useState} from 'react'
 import AccountResume from '../Account-Resume'
 import { withRouter } from 'react-router-dom'
 import './index.sass'
-import { retrieveConnections, removeConnection } from '../../logic'
+import { retrieveFriendConnections, removeConnection } from '../../logic'
 import Feedback from '../Feedback'
 
 
 
-function Connections({history}){
+function FriendConnections({history, userId}){
 
     const {token} = sessionStorage
     const [connections, setConnections] = useState()
@@ -17,7 +17,7 @@ function Connections({history}){
     useEffect(()=>{
         (async()=>{
             try{
-                setConnections(await retrieveConnections(token))
+                setConnections(await retrieveFriendConnections(token, userId))
                 debugger
             } catch(error){
                 setError(error.message)
@@ -38,11 +38,11 @@ function Connections({history}){
    
     return <div className="connections__container">   
        { connections &&  <ul >
-            {connections.map(account => <li  key={account.id} > <AccountResume connections={connections}  account={account} onRemoveConection={handleRemoveConection}/></li>)}
+            {connections.map(account => <li  key={account.id} > <AccountResume connections={connections}  account={account} onRemoveConection={handleRemoveConection} fromFriends={true}/></li>)}
         </ul>
          }
             {error && <Feedback text={error} />}               
     </div>
 }
            
-export default withRouter(Connections)
+export default withRouter(FriendConnections)

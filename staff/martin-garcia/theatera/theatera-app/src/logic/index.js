@@ -26,5 +26,7 @@ module.exports = {
     checkFriendRequest: require('./check-friend-requests'),
     retrieveFriendRequests: require('./retrieve-friends-requests'),
     retrieveNews: require('./retrieve-news'),
-    removeNews: require('./remove-news')
+    removeNews: require('./remove-news'),
+    removeConnection: require('./remove-connection'),
+    retrieveFriendConnections: require('./retrieve-friend-connections')
 }

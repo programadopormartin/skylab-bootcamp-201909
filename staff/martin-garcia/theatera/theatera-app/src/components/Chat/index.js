@@ -13,6 +13,8 @@ function Chat({ chatId}){
     const { token } = sessionStorage
     const [messages, setMessages] = useState()
     const [error, setError] = useState()
+    let textMessage = React.createRef()
+
     let refresher
 
 
@@ -22,7 +24,6 @@ function Chat({ chatId}){
             (async()=>{
                 try{
                     setMessages(await retrieveChat(token, chatId))
-                    console.log(messages)
                 } catch(error){
                     setError(error.message)
                 }
@@ -32,7 +33,6 @@ function Chat({ chatId}){
         (async()=>{
             try{
                 setMessages(await retrieveChat(token, chatId)) 
-                
             } catch(error){
                 setError(error.message)                
             }
@@ -52,7 +52,6 @@ function Chat({ chatId}){
         }
     }
 
-    
 
 
     return <section className=" post ">
@@ -70,8 +69,8 @@ function Chat({ chatId}){
 
     <section className="new-comment ">
         
-        <form action=" " className="new-comment__form form" onSubmit={handleSendMessage}>
-            <textarea className="form__textarea " name="message" cols="30 " rows="2 " placeholder="send a comment here ... "></textarea>
+        <form action=" " className="new-comment__form form"  onSubmit={handleSendMessage}>
+            <textarea className="form__textarea"  name="message" cols="30 " rows="2 " placeholder="send a comment here ... "></textarea>
             <button className="form__button"><i className="material-icons ">send</i></button>
         </form>
     </section>

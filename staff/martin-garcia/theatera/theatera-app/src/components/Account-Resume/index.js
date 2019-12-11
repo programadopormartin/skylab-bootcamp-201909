@@ -4,9 +4,9 @@ import './index.sass'
 import Feedback from '../Feedback'
 import {createChat, checkFriendRequest} from '../../logic'
 
-function AccountResume({history, account:{id:accountId, name, image, introduction}, connections}){
+function AccountResume({history, account:{id:accountId, name, image, introduction}, connections,fromFriends, onRemoveConection}){
 
-    const {token, id} = sessionStorage
+    const {token} = sessionStorage
     const [error, setError]= useState()
     const [connected, setConnected] = useState(false)
     let friendRequest
@@ -50,7 +50,7 @@ function AccountResume({history, account:{id:accountId, name, image, introductio
 
     async function handleRemoveFriend(e){
         e.preventDefault()
-        console.log("eliminar amigo")
+        onRemoveConection(accountId)
     }
 
     return  <div className="acc-resume">
@@ -59,20 +59,20 @@ function AccountResume({history, account:{id:accountId, name, image, introductio
                     <p className=" info__username ">{name}</p>
                     <p className=" info__description ">{introduction}</p>
                 </div>
-
+                {!fromFriends &&
                  <form className="acc-resume__form " action="">
                     {connected ?
                     <button className="button" onClick={handleRemoveFriend}>
                     <i className="material-icons">remove_circle_outline</i>
                 </button>:
-                   <button className="button" onClick={handleRemoveFriend}>
+                   <button className="button" onClick={handleSendFriendRequest}>
                    <i className="material-icons">add_circle_outline</i>
                </button>
                     }
                     <button className="button" onClick={handleChat}>
                             <i className="material-icons">comment</i>
                     </button>
-                </form>
+                </form>}
                 {error && <Feedback text={error} />}
             </div>
 }

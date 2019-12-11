@@ -17,7 +17,11 @@ function Posts({history, userId}){
     useEffect( () => {
         (async()=>{
             try{
-                 setPostsList(await retrieveUserPosts(token, userId))
+                debugger
+                const {posts}= await retrieveUserPosts(token, userId)
+                debugger
+                setPostsList(posts)
+                debugger
             }catch( error ){
                 setError(error.message)
             }
@@ -31,9 +35,9 @@ function Posts({history, userId}){
 
 
     return  <section className="posts">  
-        <ul >
-        {postsList.map(post => <li className="post-list__item" key={post.post.id}> <PostItem post={post} onRender={handleRender} /></li>)}
-        </ul>
+         <ul >
+        {postsList && postsList.map(post => <li className="post-list__item" key={post.post.id}> <PostItem post={post} onRender={handleRender} /></li>)}
+        </ul> 
         {error && <Feedback text={error} />}  
         </section>
 }

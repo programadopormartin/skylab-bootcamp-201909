@@ -3,12 +3,13 @@ const { validate, errors: { NotFoundError } } = require('theatera-util')
 const API_URL = process.env.REACT_APP_API_URL
 
 module.exports = function(token, userId) {
+    debugger
     validate.string(token)
     validate.string.notVoid('token', token)
 
     validate.string(userId)
     validate.string.notVoid('userId', userId)
-
+    
     return (async() => {
         const res = await call(`${API_URL}/users/remove-connection/${userId}`, {
             method: 'DELETE',

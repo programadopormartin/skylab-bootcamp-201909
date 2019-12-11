@@ -27,6 +27,7 @@ function AccountDetail({userId , history}) {
         (async()=>{
             try{
                 setUser(await retrieveCompleteUser(userId,token))
+                debugger
             } catch(error){
                 setError(error.message)
             }
@@ -108,6 +109,11 @@ function AccountDetail({userId , history}) {
             setError(error.message)
         }
     }
+
+    function handleGoFriends(e){
+        e.preventDefault()
+        history.push(`/friend-connections/${userId}`)
+    }
         
 
     return  <>{user  &&  <section className="account-details">
@@ -115,6 +121,7 @@ function AccountDetail({userId , history}) {
         <div className="account-details__principal principal">
             <img className="principal__image principal-item" src={user.image} alt="profile" />
             <p className="principal__name principal-item">{user.name}</p>
+
             <p className="principal__introduction principal-item">{user.introduction}</p>
             <p className="principal__address principal-item">{user.city}</p>
             <p className="principal__description principal-item">{user.description}</p>
@@ -138,7 +145,7 @@ function AccountDetail({userId , history}) {
             <button className="buttons__notifications button" onClick={handleGoUserPosts}>
                         <p className="button__text">Posts</p>
                     </button>
-            <button className="buttons__jobs button">
+            <button className="buttons__jobs button"  onClick={handleGoFriends}>
                         <p className="button__text">Friends</p>
                     </button>
                     {userId === id && <button className="buttons__home button" onClick={handleLogOut}>
@@ -148,6 +155,9 @@ function AccountDetail({userId , history}) {
         </nav>
     </section>
 
+    {user.rol==='COMPANY' && <section className="skills">
+        <h2 className="skills__title">{user.rol}</h2>
+    </section>}
 
     <section className="skills">
         <h2 className="skills__title">Personal skills</h2>

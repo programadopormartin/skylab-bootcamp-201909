@@ -160,7 +160,7 @@ function PersonalInfo({history, userId}){
             <span>Description: </span>
             <textarea disabled={_disabled ? 'disabled':''} name="description" id="" cols="30" rows="8"  value={_description || ""} onChange={event=>setDescription(event.target.value)}></textarea>
         </label>
-        
+        {user.rol !== 'COMPANY' &&<>
         <label className="info-form__label">
             <span>Age: </span>
             <input disabled={_disabled ? 'disabled':''} type="number" min='16' max='100' name="age"  value={_age || ""} onChange={event=>setAge(event.target.value)} />
@@ -187,6 +187,7 @@ function PersonalInfo({history, userId}){
             <span>Languages: </span>
             <input disabled={_disabled ? 'disabled':''} type="text" name="languages"  value={_languages || ""} onChange={event=>setLanguages(event.target.value)} />
         </label>
+        </>}
         
         <label className="info-form__label">
             <span>Phone: </span>

@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 import {retrievePost, toggleLikePost, sendComment} from '../../logic'
 import CommentItem from '../Comment-Item'
 import Feedback from '../Feedback'
+import moment from 'moment'
 
 
 function PostDetail({history, postId}){
@@ -25,7 +26,6 @@ function PostDetail({history, postId}){
                     postData = await retrievePost(token, postId) 
                     setPost(postData.post)
                     setUser(postData.user)
-                    console.log(postData)
                 } catch(error){
                     setError(error.message)
                 }
@@ -86,7 +86,7 @@ function PostDetail({history, postId}){
             <div className=" header-info ">
                 <p className=" header-item header__user-username ">{user.name}</p>
                 <p className=" header-item header__user-introduction ">{user.introduction}</p>
-                <p className=" header-item header__date ">{post.date}</p>
+                <p className=" header-item header__date ">{moment(post.date).format("D/MM/YYYY HH:MM")}</p>
             </div>
         </div>
 

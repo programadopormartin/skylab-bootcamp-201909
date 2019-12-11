@@ -7,7 +7,7 @@ import moment from 'moment'
 function NewsItem({history, news:{id:newsId, body:{message,type, introduction, name,image, id:userId, date}},onRender, onAddContact,onDeniedFriendRequest}){
 
    
-
+    console.log(date, introduction)
     function handleGoToUser(e){
         e.preventDefault()
         console.log("introduction", introduction)
@@ -45,6 +45,8 @@ function NewsItem({history, news:{id:newsId, body:{message,type, introduction, n
             <div className=" acc-resume__info info" >
                 <p className=" info__username ">{name}</p>
                 <p className=" info__description ">{introduction}</p>
+                <p className=" info__description ">{moment(date).format("D/MM/YYYY HH:MM")}</p>
+
             </div>
             <div className=" acc-resume__info info" >   
                      <p className=" info__username">New Contact</p>

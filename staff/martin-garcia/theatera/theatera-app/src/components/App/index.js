@@ -16,6 +16,7 @@ import Chats from '../Chats'
 import Chat from '../Chat'
 import News from '../News'
 import Search from '../Search-Result'
+import FriendConnections from '../Friend-connections'
 
 import Context from '../CreateContext'
 
@@ -46,10 +47,12 @@ export default withRouter(function () {
     <Route path='/chats' render={() =>  token ? <> <Header/>   <Chats/>  <Footer />  </> :<Login/>} />  
     <Route path='/chat/:chatId' render={({ match: { params: { chatId } } }) =>  token ? <> <Header/>   <Chat chatId={chatId}/>  <Footer />  </> :<Login/>} />  
     <Route path='/search/:query' render={({ match: { params: { query } } }) =>  token ? <> <Header/>   <Search query={query}/>  <Footer />  </> :<Login/>} />  
-
+    <Route path='/friend-connections/:userId' render={({ match: { params: { userId } } }) =>  token ? <> <Header/>   <FriendConnections userId={userId}/>  <Footer />  </> :<Login/>} />  
     <Route path='/news' render={() =>  token ? <> <Header/>   <News/>  <Footer />  </> :<Login/>} />  
 
 
     </>
+
+
 })
 
