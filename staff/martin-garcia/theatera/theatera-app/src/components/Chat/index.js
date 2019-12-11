@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import AccountResume from '../Account-Resume'
 import { withRouter } from 'react-router-dom'
 import './index.sass'
@@ -13,7 +13,7 @@ function Chat({ chatId}){
     const { token } = sessionStorage
     const [messages, setMessages] = useState()
     const [error, setError] = useState()
-    let textMessage = React.createRef()
+    let messageText = useRef()
 
     let refresher
 
@@ -24,11 +24,12 @@ function Chat({ chatId}){
             (async()=>{
                 try{
                     setMessages(await retrieveChat(token, chatId))
+                    messageText.current.focus()
                 } catch(error){
                     setError(error.message)
                 }
             })()
-        }, 1000);
+        }, 100);
  
         (async()=>{
             try{
@@ -46,6 +47,8 @@ function Chat({ chatId}){
         try{
             const {message:{value:message}} = e.target
             await sendMessage(chatId,token, message)
+            messageText.current.value = ""
+            messageText.current.focus()
         } catch(error){
             setError(error.message)
         }
@@ -69,7 +72,7 @@ function Chat({ chatId}){
     <section className="new-comment ">
         
         <form action=" " className="new-comment__form form"  onSubmit={handleSendMessage}>
-            <textarea className="form__textarea"  name="message" cols="30 " rows="2 " placeholder="send a comment here ... "></textarea>
+            <textarea className="form__textarea"  ref={messageText} name="message" cols="30 " rows="2 " placeholder="send a comment here ... "></textarea>
             <button className="form__button"><i className="material-icons ">send</i></button>
         </form>
     </section>
