@@ -44,21 +44,6 @@ function News({history}){
     },[setNews,setError])
 
 
-
-/* 
-    useEffect(()=>{
-        (async()=>{
-            try{
-                setNews(await retrieveNews(token))
-                console.log(news)
-            } catch(error){
-                debugger
-                setError(error.message)
-            }
-        })()
-    },[setNews,  render])
- */
-
     async function handleAddContact(userId, newsId){
         try{
             await checkFriendRequest(token, userId)

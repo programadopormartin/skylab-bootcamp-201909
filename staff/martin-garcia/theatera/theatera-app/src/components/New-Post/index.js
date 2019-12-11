@@ -29,7 +29,7 @@ function NewPost({history}){
             setError(error.message)
          }
     }
-    return<>{user && <section className=" post ">
+    return<>{user && <section className="post new-post">
     <div className=" post__header ">
         <img className=" post-image " src={user.image} alt=" profile image "/>
         <div className=" header-info ">
@@ -38,7 +38,7 @@ function NewPost({history}){
         </div>
     </div>
     <form className="post__nav" id='post__nav' onSubmit={handleNewPost}>
-        <textarea className="post-textarea " name="body" cols="30 " rows="18 " placeholder="write here     ..."></textarea>
+        <textarea className="post-textarea " name="body" cols="30 " rows="15" placeholder="write here     ..."></textarea>
 
         <div className="post__nav__buttons">
             <button className="post-button"><i className=" material-icons ">add_circle_outline</i>Post</button>

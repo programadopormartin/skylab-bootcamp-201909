@@ -1,6 +1,8 @@
 import React from 'react'
 import './index.sass'
 import {withRouter} from 'react-router-dom'
+import moment from 'moment'
+
 
 
 function ExperienceItem({accountId, experience, onRemoveExperienceItem, type}){
@@ -12,7 +14,7 @@ function ExperienceItem({accountId, experience, onRemoveExperienceItem, type}){
     return<>{ experience.type===type && <section className="experience-item">
                 <div className="experience-item__title title">
                     <p className="title__text">{experience.title}</p>
-                    <p className="title__date">{experience.startDate} - {experience.endDate}</p>
+                    <p className="title__date">{moment(experience.startDate).format("MM/YYYY")} - {moment(experience.endDate).format("MM/YYYY")}</p>
                 </div>
                 <main className="experience-item__body">
                    {experience.body}

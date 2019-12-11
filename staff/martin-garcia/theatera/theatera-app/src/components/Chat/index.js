@@ -43,9 +43,8 @@ function Chat({ chatId}){
 
     async function handleSendMessage(e){
         e.preventDefault()
-        console.log("hola")
-        const {message:{value:message}} = e.target
         try{
+            const {message:{value:message}} = e.target
             await sendMessage(chatId,token, message)
         } catch(error){
             setError(error.message)

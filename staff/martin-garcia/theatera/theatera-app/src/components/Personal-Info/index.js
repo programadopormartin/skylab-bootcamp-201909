@@ -100,10 +100,10 @@ function PersonalInfo({history, userId}){
         
         <img className=" post-image " src={user.image+`?timestamp=${Date.now()}`} alt=" profile
             image " />
-         {userId === id && <> <form onSubmit={handleSaveImage}>
+         {userId === id && <> <form className='post__header-form' onSubmit={handleSaveImage}>
             <label className="info-form__label avatar">
 
-            <input type="file" name="file" accept="image/*" />
+            <input type="file" name="file" className='file' accept="image/*" />
             
             </label>  
             <button  className="buttons button" >

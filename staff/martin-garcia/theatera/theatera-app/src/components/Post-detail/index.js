@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './index.sass'
 import { withRouter } from 'react-router-dom'
-import {retrievePost, toggleLikePost, sendComment} from '../../logic'
+import {retrievePost, toggleLikePost, sendComment, retrieveUser} from '../../logic'
 import CommentItem from '../Comment-Item'
 import Feedback from '../Feedback'
 import moment from 'moment'
@@ -9,6 +9,7 @@ import moment from 'moment'
 
 function PostDetail({history, postId}){
     
+    const [ owner, setOwner ] = useState()
     const [ user, setUser ] = useState(true)
     const { token } = sessionStorage
     const [error,setError] = useState()
@@ -37,6 +38,8 @@ function PostDetail({history, postId}){
                 postData = await retrievePost(token, postId) 
                 setPost(postData.post)
                 setUser(postData.user)
+                debugger
+                setOwner(await retrieveUser(token))
             } catch(message){
                 setError(error.message)
             }
@@ -78,7 +81,7 @@ function PostDetail({history, postId}){
         history.push(`/users/${user.id}`)
     }
 
-    return<>{user &&  post && <section className=" post-detail ">
+    return<>{user && owner && post && <section className=" post-detail ">
 
     <section className=" post ">
         <div className=" post__header ">
@@ -113,7 +116,7 @@ function PostDetail({history, postId}){
     </section>
 
     <section className="new-comment">
-        <img className="new-comment__image" src={user.image} />
+        <img className="new-comment__image" src={owner.image} />
         <form className="new-comment__form form" onSubmit={handleSendComment}>
             <textarea   ref={messageText} className="form__textarea" name="textarea"  cols="30" rows="2" placeholder="send a comment here ..."></textarea>
             <button className="form__button"><i className="material-icons">send</i></button>

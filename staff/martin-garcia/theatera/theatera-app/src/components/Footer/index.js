@@ -49,9 +49,6 @@ function Footer({history}){
         history.push('/newpost')
     }
 
-
-
-
     return <footer className="footer">
 
     <form  className="footer__list buttons" onSubmit={function(e){

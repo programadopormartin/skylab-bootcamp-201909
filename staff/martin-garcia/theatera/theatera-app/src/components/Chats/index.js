@@ -24,6 +24,7 @@ function Chats({history}){
                 }
             })()
         }, 30000);
+        
         (async()=>{
             try{
                 setChats(await retrieveChats(token))

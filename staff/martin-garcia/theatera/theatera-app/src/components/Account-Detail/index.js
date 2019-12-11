@@ -112,11 +112,12 @@ function AccountDetail({userId , history}) {
 
     function handleGoFriends(e){
         e.preventDefault()
-        history.push(`/friend-connections/${userId}`)
+        history.push(`/friend-connections/${userId  }`)
     }
         
 
     return  <>{user  &&  <section className="account-details">
+        <h1>{console.log(user)}</h1>
     <section className="account-details__header">
         <div className="account-details__principal principal">
             <img className="principal__image principal-item" src={user.image} alt="profile" />
@@ -130,18 +131,24 @@ function AccountDetail({userId , history}) {
         </div>
 
         <nav className="account-details__header__nav  buttons">
-        {userId !== id && <button className="buttons__home button">
+        {!user.connected && userId!==id ? <button className="buttons__home button">
                         <p className="button__text">Connect</p>
-                    </button>
+                    </button> 
+                    :userId!==id && user.connected&&
+                    <button className="buttons__home button">
+                        <p className="button__text">Disconnect</p>
+                    </button> 
+        }
 
-}
-            <button className="buttons__contacs button" onClick={handleGoInfo}>
+        {(user.connected || userId===id) && <button className="buttons__contacs button" onClick={handleGoInfo}>
                         <p className="button__text">Info</p>
                     </button>
-                    {userId !== id &&  <button className="buttons__post button" onClick={handleChat}>
+        }
+                    {user.connected &&  <button className="buttons__post button" onClick={handleChat}>
                         <p className="button__text">message</p>
                     </button>
                     }
+            
             <button className="buttons__notifications button" onClick={handleGoUserPosts}>
                         <p className="button__text">Posts</p>
                     </button>

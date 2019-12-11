@@ -14,7 +14,6 @@ function AccountResume({history, account:{id:accountId, name, image, introductio
 
     useEffect(()=>{
         connections && connections.forEach(con=>{
-            debugger
             if(con.id===accountId) setConnected(true)
         })
         debugger
@@ -49,8 +48,12 @@ function AccountResume({history, account:{id:accountId, name, image, introductio
     }
 
     async function handleRemoveFriend(e){
-        e.preventDefault()
-        onRemoveConection(accountId)
+        try{
+            e.preventDefault()
+            onRemoveConection(accountId)
+        } catch(error){
+            setError(error.message)
+        }
     }
 
     return  <div className="acc-resume">

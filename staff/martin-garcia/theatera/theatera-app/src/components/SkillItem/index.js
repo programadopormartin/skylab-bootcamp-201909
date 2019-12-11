@@ -8,7 +8,6 @@ function SkillItem({skill, accountId, onRemoveSkillItem}) {
     id === accountId ? myAccount = true: myAccount=false
 
 
-
     return <> <p>{skill}</p>
                 <form action="" className="skill__less less">
                     <button className="less__button">
