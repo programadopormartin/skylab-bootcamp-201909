@@ -45,7 +45,7 @@ function Header({history}){
                 <form action=" " className="header__messages messages ">
                     <button className="messages__buton" onClick={handleGoChats}>
                             <i className="material-icons ">
-                                    mail_outline
+                            local_post_office
                                     </i>
                     </button>
                 </form>

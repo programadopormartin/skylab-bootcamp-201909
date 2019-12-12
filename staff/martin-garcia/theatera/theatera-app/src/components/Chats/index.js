@@ -8,7 +8,7 @@ import { retrieveChats } from '../../logic'
 
 function Chats({history}){
 
-    const {token} = sessionStorage
+    const {token, id} = sessionStorage
     const [chats, setChats] = useState()
     let chatsRefresher
    
@@ -18,7 +18,7 @@ function Chats({history}){
             (async()=>{
                 try{
                     setChats(await retrieveChats(token))
-                    console.log(chats)
+                    
                 } catch(message){
                     console.log(message)
                 }
