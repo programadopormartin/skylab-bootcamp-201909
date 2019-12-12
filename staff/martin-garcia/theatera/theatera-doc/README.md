@@ -1,6 +1,6 @@
 # ![Alt Theatera Gif](./images/text-gif-big.gif)
 
-# ![Alt Gif]('./images/project.gif')
+![Drag Racing](./images/project.gif)
 
 A project by:
 *Martín García*
