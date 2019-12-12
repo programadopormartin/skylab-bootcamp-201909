@@ -51,7 +51,6 @@ function PersonalInfo({history, userId}){
             setWebsite(response.website)
             setCity(response.city)
             setButton(true)
-            console.log()
             } catch(error){
                 setError(error.message)
             }

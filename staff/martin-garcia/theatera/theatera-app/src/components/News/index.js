@@ -24,7 +24,6 @@ function News({history}){
             (async()=>{
                 try{
                     setNews(await retrieveNews(token))
-                    console.log(news)
                 } catch(error){
                     debugger
                     setError(error.message)
@@ -34,7 +33,6 @@ function News({history}){
         (async()=>{
             try{
                 setNews(await retrieveNews(token))
-                console.log(news)
             } catch(error){
                 debugger
                 setError(error.message)
@@ -68,7 +66,12 @@ function News({history}){
    
     return <div className="connections__container">   
        { news &&  <ul >
-            {news.map(element => <li  key={element._id} > <NewsItem news={element}  onAddContact={handleAddContact} onDeniedFriendRequest={handleDeniedFriendRequest} /></li>)}
+            {news.length>0 ?news.map(element => <li  key={element._id} > <NewsItem news={element}  onAddContact={handleAddContact} onDeniedFriendRequest={handleDeniedFriendRequest} /></li>)
+            :
+            <section className="post">
+            <p className="post__main">still no notifications
+</p>
+            </section>}
         </ul>
          }
             {error && <Feedback text={error} />}               

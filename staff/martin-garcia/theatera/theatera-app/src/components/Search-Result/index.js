@@ -21,7 +21,6 @@ function SearchResult({history, query}){
                 setAccounts(await search(token, query))
                 setConnections(await retrieveConnections(token))
                 debugger
-                console.log(accounts)
             } catch(error){
                 setError(error.message)
             }

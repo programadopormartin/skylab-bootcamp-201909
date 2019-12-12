@@ -38,7 +38,11 @@ function Connections({history}){
    
     return <div className="connections__container">   
        { connections &&  <ul >
-            {connections.map(account => <li  key={account.id} > <AccountResume connections={connections}  account={account} onRemoveConection={handleRemoveConection}/></li>)}
+            {connections.length>0 ? connections.map(account => <li  key={account.id} > <AccountResume connections={connections}  account={account} onRemoveConection={handleRemoveConection}/></li>) 
+            :
+            <section className="post">
+            <p className="post__main">Search some user with the searchBar to add some friend</p>
+            </section>}
         </ul>
          }
             {error && <Feedback text={error} />}               

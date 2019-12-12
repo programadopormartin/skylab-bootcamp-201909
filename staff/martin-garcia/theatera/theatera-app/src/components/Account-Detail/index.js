@@ -133,12 +133,10 @@ function AccountDetail({userId , history}) {
         } catch(error){
             setError(error.message)
         }
-        console.log("engadir amigo")
     }
         
 
     return  <>{user  &&  <section className="account-details">
-        <h1>{console.log(user)}</h1>
     <section className="account-details__header">
         <div className="account-details__principal principal">
             <img className="principal__image principal-item" src={user.image} alt="profile" />

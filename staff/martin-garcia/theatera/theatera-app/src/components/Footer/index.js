@@ -19,9 +19,8 @@ function Footer({history}){
             (async()=>{
                 try{
                     setNews(await areThereNews(token))
-                    console.log(news)
-                } catch(message){
-                    console.log(message)
+                } catch({message}){
+                    setError(message)
                 }
             })()
         }, 1000);
@@ -32,7 +31,7 @@ function Footer({history}){
                 setNews(await areThereNews(token))
                 await retrieveFriendRequests(token)
             } catch(error){
-                console.log(error.message)
+                setError(error.message)
             }
         })()
         return () => { clearInterval(newsRefresher)}
@@ -67,7 +66,6 @@ function Footer({history}){
     }
 
     return <>{news && <footer className="footer">
-        <h1>{console.log(news)}</h1>
     <form  className="footer__list buttons" onSubmit={function(e){
         e.preventDefault()
     }}>
@@ -91,10 +89,10 @@ function Footer({history}){
             <p className="button__text">News</p>
         </button>
 
-        <button className="buttons__jobs button" onClick={onGoJobs}>
+        {/* <button className="buttons__jobs button" onClick={onGoJobs}>
             <i className="material-icons">theaters</i>
             <p className="button__text">Jobs</p>
-        </button>
+        </button> */}
     </form>
     {error && <Feedback text={error} />}               
 </footer>}</>

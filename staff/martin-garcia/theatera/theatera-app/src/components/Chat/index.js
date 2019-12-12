@@ -1,5 +1,4 @@
 import React, {useEffect, useState, useRef} from 'react'
-import AccountResume from '../Account-Resume'
 import { withRouter } from 'react-router-dom'
 import './index.sass'
 import { retrieveChat, sendMessage } from '../../logic'

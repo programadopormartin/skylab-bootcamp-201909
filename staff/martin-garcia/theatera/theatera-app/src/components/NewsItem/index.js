@@ -7,10 +7,8 @@ import moment from 'moment'
 function NewsItem({history, news:{id:newsId, body:{message,type, introduction, name,image, id:userId, date}},onRender, onAddContact,onDeniedFriendRequest}){
 
    
-    console.log(date, introduction)
     function handleGoToUser(e){
         e.preventDefault()
-        console.log("introduction", introduction)
         history.push(`/users/${userId}`)  
     }
   
