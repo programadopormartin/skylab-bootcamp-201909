@@ -35,9 +35,9 @@ function Posts({history}){
     return  <section className="posts">  
         <ul >
         {postsList.length>0 ?postsList.map(post => <li className="post-list__item" key={post.post.id}> <PostItem post={post} onRender={handleRender} /></li>):
-                                  {chats && <h1>{chats}</h1>}
-                           {chats && <h1>{chats}</h1>}
-
+        <section className="post">
+        <p className="post__main">Add friends to see some post</p>
+        </section>
     }
         </ul>
         {error && <Feedback text={error} />}  
