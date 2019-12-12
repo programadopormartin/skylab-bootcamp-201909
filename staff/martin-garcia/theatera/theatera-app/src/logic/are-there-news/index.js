@@ -14,7 +14,6 @@ module.exports = function(token) {
                 'Authorization': `Bearer ${token}`
             }
         })
-        debugger
         if (res.status === 200) return JSON.parse(res.body)
 
         if (res.status === 404) throw new NotFoundError(JSON.parse(res.body).message)

@@ -37,7 +37,6 @@ function PersonalInfo({history, userId}){
     useEffect(()=>{
        (async()=>{
            try{
-               debugger
             const response = await retrievePersonalInfo(token, userId)
             setUser(response)
             setName(response.name)

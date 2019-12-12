@@ -16,7 +16,6 @@ function AccountResume({history, account:{id:accountId, name, image, introductio
         connections && connections.forEach(con=>{
             if(con.id===accountId) setConnected(true)
         })
-        debugger
     })
 
     function handleGoToUser(e){
@@ -39,7 +38,6 @@ function AccountResume({history, account:{id:accountId, name, image, introductio
         try{
             console.log(connections, accountId)
 
-            debugger
             friendRequest = await checkFriendRequest(token, accountId)
         } catch(error){
             setError(error.message)

@@ -10,7 +10,6 @@ module.exports = function(token, text) {
     validate.string.notVoid('text', text)
 
     return (async() => {
-        debugger
         const res = await call(`${API_URL}/search/${text}`, {
             method: 'GET',
             headers: {

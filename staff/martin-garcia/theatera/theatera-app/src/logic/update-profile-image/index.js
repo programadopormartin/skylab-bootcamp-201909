@@ -19,7 +19,6 @@ module.exports = function (token, image) {
 
     let fData = new FormData()
     fData.append('image', image);
-debugger
     return (async () => {
 
         const res = await fetch(`${API_URL}/users/uploadimage`, {

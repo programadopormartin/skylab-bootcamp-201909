@@ -18,7 +18,6 @@ function FriendConnections({history, userId}){
         (async()=>{
             try{
                 setConnections(await retrieveFriendConnections(token, userId))
-                debugger
             } catch(error){
                 setError(error.message)
             }

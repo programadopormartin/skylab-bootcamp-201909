@@ -38,7 +38,6 @@ function PostDetail({history, postId}){
                 postData = await retrievePost(token, postId) 
                 setPost(postData.post)
                 setUser(postData.user)
-                debugger
                 setOwner(await retrieveUser(token))
             } catch(message){
                 setError(error.message)

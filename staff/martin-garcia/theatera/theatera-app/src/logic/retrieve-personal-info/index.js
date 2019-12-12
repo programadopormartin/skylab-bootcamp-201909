@@ -14,7 +14,6 @@ module.exports = function(token,id) {
             method: 'GET',
             headers: { 'Authorization': `Bearer ${token}` },
         })
-        debugger
         if (res.status === 200) return JSON.parse(res.body)
         if (res.status === 409) throw new ConflictError(JSON.parse(res.body).message)
 

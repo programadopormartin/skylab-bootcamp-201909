@@ -36,7 +36,6 @@ describe('logic - areThereNews', () => {
         user.notifications.push(noti2)
 
         await user.save()
-        debugger
     })
 
     it('Notifications Should be the same than the creation', async() => {

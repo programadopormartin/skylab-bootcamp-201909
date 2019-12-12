@@ -25,7 +25,6 @@ function News({history}){
                 try{
                     setNews(await retrieveNews(token))
                 } catch(error){
-                    debugger
                     setError(error.message)
                 }
             })()
@@ -34,7 +33,6 @@ function News({history}){
             try{
                 setNews(await retrieveNews(token))
             } catch(error){
-                debugger
                 setError(error.message)
             }
         })()
@@ -45,7 +43,6 @@ function News({history}){
     async function handleAddContact(userId, newsId){
         try{
             await checkFriendRequest(token, userId)
-            debugger
             await removeNews(token, newsId)
             setRender(!render)
         } catch(error){

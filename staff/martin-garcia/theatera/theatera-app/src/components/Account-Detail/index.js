@@ -28,7 +28,6 @@ function AccountDetail({userId , history}) {
             try{
                 setUser(await retrieveCompleteUser(userId,token))
                 setError(undefined)
-                debugger
             } catch(error){
                 setError(error.message)
             }

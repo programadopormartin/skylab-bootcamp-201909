@@ -31,7 +31,6 @@ module.exports = function(url, { method = 'GET', headers, body } = {}) {
 
             body ? xhr.send(body) : xhr.send()
         } catch (error) {
-            debugger
             reject(error)
         }
     })

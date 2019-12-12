@@ -33,7 +33,7 @@ module.exports = function(id, file, filename) {
 
         try {
             const user = await User.findById(id)
-            user.image = `http://192.168.0.56:9000/data/users/${id}/${filename}`
+            user.image = `http://localhost:9000/data/users/${id}/${filename}`
             await user.save()
 
             if (fs.existsSync(route)) {

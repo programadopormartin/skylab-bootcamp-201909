@@ -425,7 +425,6 @@ router.get('/retrievenews', tokenVerifier, (req, res) => {
 
 router.get('/are-there-news', tokenVerifier, (req, res) => {
     try {
-        debugger
         const { id } = req
         areThereNews(id)
             .then(news => { return res.json(news)})

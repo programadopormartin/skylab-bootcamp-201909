@@ -171,7 +171,6 @@ describe('logic - updateUser', () => {
             await updateUser(id, { email: newEmail, phone: newPhone, website: newWebsite, specificInfo: _specificInfo, description: newDescription, introduction: newIntroduction, name: newName, city: newCity, rol })
             throw new Error('should not reach this point')
         } catch (error) {
-            debugger
             expect(error).to.exist
             expect(error).to.be.an.instanceOf(NotFoundError)
             expect(error.message).to.equal(`user with id ${id} not found`)

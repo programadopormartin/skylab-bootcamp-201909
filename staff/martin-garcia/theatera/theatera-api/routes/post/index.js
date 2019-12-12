@@ -31,7 +31,6 @@ router.post('/create', tokenVerifier, jsonBodyParser, (req, res) => {
 
 router.delete('/remove/:postId', tokenVerifier, jsonBodyParser, (req, res) => {
     try {
-        debugger
         const { id } = req
         const { params: { postId } } = req
 

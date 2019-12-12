@@ -28,7 +28,6 @@ function PostItem({history, post:{post:{body,comments,date,likes,id:postId}, use
             await toggleLikePost(postId, token)
             onRender()
          } catch(error){
-            debugger
             setError(error.message)
         }
     }

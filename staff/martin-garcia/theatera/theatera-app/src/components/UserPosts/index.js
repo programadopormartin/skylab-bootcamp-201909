@@ -17,11 +17,8 @@ function Posts({history, userId}){
     useEffect( () => {
         (async()=>{
             try{
-                debugger
                 const {posts}= await retrieveUserPosts(token, userId)
-                debugger
                 setPostsList(posts)
-                debugger
             }catch( error ){
                 setError(error.message)
             }

@@ -20,7 +20,6 @@ function SearchResult({history, query}){
             try{
                 setAccounts(await search(token, query))
                 setConnections(await retrieveConnections(token))
-                debugger
             } catch(error){
                 setError(error.message)
             }

@@ -20,13 +20,11 @@ module.exports = function(userId) {
 
         const user = await User.findById(userId)
         if (!user) throw new NotFoundError(`user with id ${userId} not found`)
-        debugger
         const chats = await Chat.find({ "users": { $in: [userId] }}).populate({path:'users',
          model: 'User'})
         
         const _chats = []
         chats.forEach((chat)=>{
-            debugger
             chat.users.forEach((user,index)=>{
                 if(user.id===userId){
                     chat.users.splice(index,1)
