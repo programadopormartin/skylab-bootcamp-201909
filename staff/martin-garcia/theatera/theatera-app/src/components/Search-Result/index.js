@@ -33,7 +33,7 @@ function SearchResult({history, query}){
    
     return <div className="connections__container">   
        { accounts && connections && <ul >
-            {accounts.map(account => <li  key={account.id} > <AccountResume connections={connections}  account={account}/></li>)}
+            {accounts.map(account => <li  key={account.id} > <AccountResume connections={connections}  account={account} /></li>)}
         </ul>
          }
            {error && <Feedback text={error} />}

@@ -3,7 +3,7 @@ import './index.sass'
 import { withRouter } from 'react-router-dom'
 import {  retrieveCompleteUser } from '../../logic'
 import SkillItem from '../SkillItem'
-import {removeSkillItem,createChat, createSkillItem, removeExperienceItem, createExperienceItem} from '../../logic'
+import {removeSkillItem,createChat,removeConnection, checkFriendRequest,createSkillItem, removeExperienceItem, createExperienceItem} from '../../logic'
 import ExperienceItem from '../Experience-Item'
 import Feedback from '../Feedback'
 
@@ -27,6 +27,7 @@ function AccountDetail({userId , history}) {
         (async()=>{
             try{
                 setUser(await retrieveCompleteUser(userId,token))
+                setError(undefined)
                 debugger
             } catch(error){
                 setError(error.message)
@@ -46,7 +47,7 @@ function AccountDetail({userId , history}) {
             skillInput.current.value = ""
             setRender(!render)
         } catch(error){
-            setError(error.message)
+            setError('Take care, empty field')
         }
 
     }
@@ -114,6 +115,26 @@ function AccountDetail({userId , history}) {
         e.preventDefault()
         history.push(`/friend-connections/${userId  }`)
     }
+
+    async function handleRemoveFriend(e){
+        try{
+            e.preventDefault()
+            removeConnection(token,user.id)
+            history.push('/')
+        } catch(error){
+            setError(error.message)
+        }
+    }
+
+    async function handleSendFriendRequest(e){
+        e.preventDefault()
+        try{
+            await checkFriendRequest(token, user.id)
+        } catch(error){
+            setError(error.message)
+        }
+        console.log("engadir amigo")
+    }
         
 
     return  <>{user  &&  <section className="account-details">
@@ -131,11 +152,11 @@ function AccountDetail({userId , history}) {
         </div>
 
         <nav className="account-details__header__nav  buttons">
-        {!user.connected && userId!==id ? <button className="buttons__home button">
+        {!user.connected && userId!==id ? <button className="buttons__home button" onClick={handleSendFriendRequest}>
                         <p className="button__text">Connect</p>
                     </button> 
                     :userId!==id && user.connected&&
-                    <button className="buttons__home button">
+                    <button className="buttons__home button" onClick={handleRemoveFriend}>
                         <p className="button__text">Disconnect</p>
                     </button> 
         }

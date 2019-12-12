@@ -6,7 +6,7 @@ import {createChat, checkFriendRequest} from '../../logic'
 
 function AccountResume({history, account:{id:accountId, name, image, introduction}, connections,fromFriends, onRemoveConection}){
 
-    const {token} = sessionStorage
+    const {token, id} = sessionStorage
     const [error, setError]= useState()
     const [connected, setConnected] = useState(false)
     let friendRequest
