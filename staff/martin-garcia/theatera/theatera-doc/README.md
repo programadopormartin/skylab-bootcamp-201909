@@ -1,4 +1,4 @@
-# ![Alt Theatera Gif](./images/text-gif-big.gif)
+
 
 # ![Alt Theatera Gif](./images/project.gif)
 
