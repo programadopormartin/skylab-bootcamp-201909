@@ -1,6 +1,6 @@
 # ![Alt Theatera Gif](./images/text-gif-big.gif)
 
-![Alt Theatera Gif](https://i.giphy.com/ZvxQnleiL7eKTKpkEt.gif)
+![Alt Theatera Gif](./images/project.gif)
 
 A project by:
 *Martín García*
