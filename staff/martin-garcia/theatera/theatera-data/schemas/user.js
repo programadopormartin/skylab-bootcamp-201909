@@ -66,12 +66,13 @@ module.exports = new Schema({
         type: Object,
     },
     chats: {
-        type: [Chat],
+        type: [ObjectId],
+        ref: 'Chat'
     },
     connections: {
         type: [ObjectId],
-        ref: 'Connection'
-
+        ref: 'Connection',
+        default: []
     },
     notifications: {
         type: [Object],

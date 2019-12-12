@@ -18,7 +18,9 @@ const {
     retrieveFriendRequests,
     retrieveNews,
     updateUser,
-
+    removeNotification,
+    removeConnection,
+    areThereNews
 } = require('../../logic')
 const jwt = require('jsonwebtoken')
 const { env: { SECRET } } = process
@@ -99,7 +101,6 @@ router.get('/retrievesummaryuser/:id', tokenVerifier, (req, res) => {
 router.get('/', tokenVerifier, (req, res) => {
     try {
         const { id } = req
-
         retrieveUser(id)
             .then(user => res.json(user))
             .catch(error => {
@@ -118,11 +119,32 @@ router.get('/', tokenVerifier, (req, res) => {
 })
 
 
-router.get('/completeuser/:id', tokenVerifier, (req, res) => {
+router.delete('/remove-connection/:userId', tokenVerifier, (req, res) => {
     try {
-        const { params: { id } } = req
+        const { id, params:{userId}} = req
+        removeConnection(id, userId)
+            .then(() => res.status(202).end())
+            .catch(error => {
+                const { message } = error
 
-        retrieveCompleteUser(id)
+                if (error instanceof NotFoundError)
+                    return res.status(404).json({ message })
+
+                res.status(500).json({ message })
+            })
+    } catch (error) {
+        const { message } = error
+
+        res.status(400).json({ message })
+    }
+})
+
+
+router.get('/completeuser/:userId', tokenVerifier, (req, res) => {
+    try {
+        const {id, params: { userId } } = req
+
+        retrieveCompleteUser(id, userId)
             .then(user => res.json(user))
             .catch(error => {
                 const { message } = error
@@ -166,9 +188,9 @@ router.post('/uploadimage', tokenVerifier, (req, res) => {
 
     const {  id  } = req
     const busboy = new Busboy({ headers: req.headers })
-
+try{
     busboy.on('file', async(fieldname, file, filename, encoding, mimetype) => {
-        filename = 'profile.png'
+        filename = 'profile'
         await saveProfileImage(id, file, filename)
     })
 
@@ -177,6 +199,10 @@ router.post('/uploadimage', tokenVerifier, (req, res) => {
     })
 
     return req.pipe(busboy)
+}
+catch(error){
+    return error
+}
 })
 
 
@@ -198,7 +224,6 @@ router.get('/profileimageUrl/:id', tokenVerifier, async(req, res) => {
 router.get('/checkfriendrequests/:receiverid', tokenVerifier, async(req, res) => {
     try {
         const { id, params: { receiverid } } = req
-
         checkFriendRequest(id, receiverid)
             .then(result => res.json(result))
             .catch(error => {
@@ -220,7 +245,6 @@ router.get('/checkfriendrequests/:receiverid', tokenVerifier, async(req, res) =>
 router.post('/createexperienceitem', tokenVerifier, jsonBodyParser, (req, res) => {
     try {
         const { id, body: { title, endDate, startDate, body, type } } = req
-
         createExperienceItem(id, title, body, startDate, endDate, type)
             .then(id => res.status(201).json({ id }))
             .catch(error => {
@@ -237,10 +261,7 @@ router.post('/createexperienceitem', tokenVerifier, jsonBodyParser, (req, res) =
 
 router.delete('/removeexperienceitem/:expId', tokenVerifier, (req, res) => {
     try {
-        debugger
-
         const { id, params: { expId } } = req
-
         removeExperienceItem(id, expId)
             .then(id => res.status(202).json({ id }))
             .catch(error => {
@@ -277,7 +298,6 @@ router.post('/createskillitem', tokenVerifier, jsonBodyParser, (req, res) => {
 
 router.delete('/removeskillitem', tokenVerifier, jsonBodyParser, (req, res) => {
     try {
-        debugger
         const { id } = req
         const { body: { skill } } = req
 
@@ -299,7 +319,6 @@ router.delete('/removeskillitem', tokenVerifier, jsonBodyParser, (req, res) => {
 router.get('/retrievefriendrequests', tokenVerifier, (req, res) => {
     try {
         const { id } = req
-        debugger
         retrieveFriendRequests(id)
             .then(fRequests => res.status(201).json({ fRequests }))
             .catch(error => {
@@ -321,6 +340,27 @@ router.get('/retrieveconnections', tokenVerifier, (req, res) => {
     try {
         const { id } = req
         retrieveConnections(id)
+            .then(connections => res.json(connections))
+            .catch(error => {
+                const { message } = error
+
+                if (error instanceof NotFoundError)
+                    return res.status(404).json({ message })
+
+                res.status(500).json({ message })
+            })
+    } catch (error) {
+        const { message } = error
+
+        res.status(400).json({ message })
+    }
+})
+
+
+router.get('/retrieve-friend-connections/:userId', tokenVerifier, (req, res) => {
+    try {
+        const { params:{userId} } = req
+        retrieveConnections(userId)
             .then(connections => res.json(connections))
             .catch(error => {
                 const { message } = error
@@ -361,10 +401,11 @@ router.get('/retrieveconnections', tokenVerifier, (req, res) => {
 
 router.get('/retrievenews', tokenVerifier, (req, res) => {
     try {
-        debugger
         const { id } = req
         retrieveNews(id)
-            .then(news => res.json(news))
+            .then(news => {
+                return res.json(news)}
+                )
             .catch(error => {
                 const { message } = error
 
@@ -382,16 +423,57 @@ router.get('/retrievenews', tokenVerifier, (req, res) => {
 
 
 
+router.get('/are-there-news', tokenVerifier, (req, res) => {
+    try {
+        debugger
+        const { id } = req
+        areThereNews(id)
+            .then(news => { return res.json(news)})
+            .catch(error => {
+                const { message } = error
+
+                if (error instanceof NotFoundError)
+                    return res.status(404).json({ message })
+
+                res.status(500).json({ message })
+            })
+    } catch (error) {
+        const { message } = error
+
+        res.status(400).json({ message })
+    }
+})
+
+
+router.delete('/notification/:notificationId', tokenVerifier, jsonBodyParser, (req, res) => {
+    try {
+        const { id } = req
+        const { params: { notificationId } } = req
+
+        removeNotification(id, notificationId)
+            .then(id => res.status(202).json({ id }))
+            .catch(error => {
+                const { message } = error
+                if (error instanceof NotFoundError)
+                    return res.status(404).json({ message })
+
+                res.status(500).json({ message })
+            })
+    } catch ({ message }) {
+        res.status(400).json({ message })
+    }
+})
+
+
+
 router.patch('/modifyuser', tokenVerifier, jsonBodyParser, (req, res) => {
     try {
         const { id, body: {data} } = req
-        debugger
         updateUser(id, data)
             .then(() =>
                 res.end()
             )
             .catch(error => {
-                debugger
                 const { message } = error
 
                 if (error instanceof NotFoundError)

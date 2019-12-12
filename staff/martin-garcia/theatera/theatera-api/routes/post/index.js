@@ -55,7 +55,7 @@ router.get('/retrievepost/:postId', tokenVerifier, (req, res) => {
         const { id } = req
         const { params: { postId } } = req
 
-        retrievePostById(id, postId)
+        retrievePostById(postId)
             .then(post => res.status(200).json( post ))
             .catch(error => {
                 const { message } = error
@@ -135,13 +135,12 @@ router.get('/retrievechats', tokenVerifier, (req, res) => {
 
 
 router.patch('/togglelike/:postId', tokenVerifier, (req, res) => {
-    debugger
     try {
         const { id } = req
         const { params: { postId } } = req
 
         toggleLikePost(id, postId)
-            .then(id => res.status(200).end())
+            .then((id) => res.status(200).end())
             .catch(error => {
                 const { message } = error
                 if (error instanceof NotFoundError)

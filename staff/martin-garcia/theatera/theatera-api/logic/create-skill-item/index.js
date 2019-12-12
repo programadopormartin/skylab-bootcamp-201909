@@ -2,6 +2,15 @@ const { validate, errors: { NotFoundError, ContentError, ConflictError } } = req
 const { ObjectId, models: { User } } = require('theatera-data')
 
 
+/**
+ *
+ * Create a new skill
+ * 
+ * @param {ObjectId} userId
+ * @param {String} skill
+ * 
+ * @returns {String} 
+ */
 module.exports = function(userId, skill) {
     validate.string(userId)
     validate.string.notVoid('userId', userId)

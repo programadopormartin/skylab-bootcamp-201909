@@ -48,7 +48,7 @@ describe('logic - updateUser', () => {
         const newEmail = `new-email-${random()}@mail.com`
         const newPhone = `new-phone-${random()}`
         const newWebsite = `new-website-${random()}`
-        const newLanguages = [`new-language-${random()}`, `new-language-${random()}`]
+        const newLanguages = `new-language-${random()}`
         const newHeight = random()
         const newWeight = random()
         const newAge = random()
@@ -110,7 +110,7 @@ describe('logic - updateUser', () => {
         expect(_user.city).to.equal(newCity)
 
         expect(_user.specificInfo.languages).to.exist
-        expect(_user.specificInfo.languages).to.be.a('array')
+        expect(_user.specificInfo.languages).to.be.a('string')
         expect(_user.specificInfo.languages).to.have.length.greaterThan(0)
         expect(_user.specificInfo.languages).to.deep.equal(newLanguages)
         expect(_user.specificInfo.weight).to.exist
@@ -149,7 +149,7 @@ describe('logic - updateUser', () => {
         const newEmail = `new-email-${random()}@mail.com`
         const newPhone = `new-phone-${random()}`
         const newWebsite = `new-website-${random()}`
-        const newLanguages = [`new-language-${random()}`, `new-language-${random()}`]
+        const newLanguages = `new-language-${random()}`
         const newHeight = random()
         const newWeight = random()
         const newAge = random()
@@ -171,59 +171,13 @@ describe('logic - updateUser', () => {
             await updateUser(id, { email: newEmail, phone: newPhone, website: newWebsite, specificInfo: _specificInfo, description: newDescription, introduction: newIntroduction, name: newName, city: newCity, rol })
             throw new Error('should not reach this point')
         } catch (error) {
-            debugger
             expect(error).to.exist
             expect(error).to.be.an.instanceOf(NotFoundError)
             expect(error.message).to.equal(`user with id ${id} not found`)
         }
     })
 
-    /*  it('should fail on correct user and unexisting task data', async() => {
-         const taskId = ObjectId().toString()
-         const newTitle = `new-title-${random()}`
-         const newDescription = `new-description-${random()}`
-         const newStatus = statuses.random()
-
-         try {
-             await updateUser(id, taskId, newTitle, newDescription, newStatus)
-
-             throw new Error('should not reach this point')
-         } catch (error) {
-             expect(error).to.exist
-             expect(error).to.be.an.instanceOf(NotFoundError)
-             expect(error.message).to.equal(`user does not have task with id ${taskId}`)
-         }
-     })
-
-     it('should fail on correct user and wrong task data', async() => {
-         const { _id } = await Task.findOne({ _id: { $nin: taskIds.map(taskId => ObjectId(taskId)) } })
-
-         const taskId = _id.toString()
-         const newTitle = `new-title-${random()}`
-         const newDescription = `new-description-${random()}`
-         const newStatus = statuses.random()
-
-         try {
-             await updateUser(id, taskId, newTitle, newDescription, newStatus)
-
-             throw new Error('should not reach this point')
-         } catch (error) {
-             expect(error).to.exist
-             expect(error).to.be.an.instanceOf(ConflictError)
-             expect(error.message).to.equal(`user with id ${id} does not correspond to task with id ${taskId}`)
-         }
-     })
-
-     it('should fail on correct user and wrong task status', () => {
-         const taskId = taskIds.random()
-         const newTitle = `new-title-${random()}`
-         const newDescription = `new-description-${random()}`
-         const newStatus = 'wrong-status'
-
-         expect(() => updateUser(id, taskId, newTitle, newDescription, newStatus)).to.throw(ContentError, `${newStatus} does not match any of the valid status values: ${statuses}`)
-     }) */
-
-    // TODO other test cases
+   
 
     after(() => User.deleteMany().then(database.disconnect))
 })

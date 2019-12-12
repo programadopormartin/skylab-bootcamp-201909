@@ -1,6 +1,14 @@
 const { validate, errors: { NotFoundError, ContentError } } = require('theatera-util')
 const { ObjectId, models: { User, Post } } = require('theatera-data')
 
+/**
+ *
+ * retrieve the user's post
+ * 
+ * @param {ObjectId} id
+ * 
+ * @returns {Object}
+ */
 module.exports = function(userId) {
     validate.string(userId)
     validate.string.notVoid('userId', userId)
@@ -11,7 +19,6 @@ module.exports = function(userId) {
         if (!user) throw new NotFoundError(`user with id ${userId} not found`)
 
         let posts = await Post.find({ "user": ObjectId(userId) })
-
         posts.sort(function(a, b) {
             a = new Date(a.date);
             b = new Date(b.date);

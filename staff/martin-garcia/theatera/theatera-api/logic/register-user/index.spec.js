@@ -37,7 +37,7 @@ describe('logic - register user', () => {
         expect(user.email).to.equal(email)
         expect(valid).to.equal(true)
         expect(user.rol).to.equal('COMPANY')
-        expect(user.image).to.be.equal("/home/martingarcia/bootcamp/colab/skylab-bootcamp-201909/staff/martin-garcia/theatera/theatera-api/data/users/defaultImage/profile.jpg")
+        expect(user.image).to.be.equal('http://localhost:9000/data/users/defaultimage/profile.png')
 
     })
 

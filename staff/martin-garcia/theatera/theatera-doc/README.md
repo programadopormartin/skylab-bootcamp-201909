@@ -1,6 +1,6 @@
 # ![Alt Theatera Gif](./images/text-gif-big.gif)
 
-![Alt Project gif](https://media.giphy.com/media/3oEdvbspPgBeH3OAlq/giphy.gif)
+![Alt Project gif](https://media1.giphy.com/media/ZvxQnleiL7eKTKpkEt/giphy.gif?cid=790b76113a7262199b55c658937cc8b83873d817582dceb4&rid=giphy.gif)
 
 A project by:
 *Martín García*
@@ -58,10 +58,18 @@ Here are some of the basic features that this audiovisual network offers and how
 
 **CODE COVERAGE**
 
-![]()
+![Alt Api coverage](./images/coverage.png)
 
 
 
 **TECHNOLOGIES**
 
-Javascript, ReactJS, Node.js, Express, MongoDB & Mongoose.
+Javascript, ReactJS, Html5,SASS, Node.js, Express, MongoDB & Mongoose.
+
+
+**TODO**
+* Improve notifications functionality
+* Add filters into Search
+* Refactor code
+* React testing
+* Add specific fields/functionalities in Company

@@ -1,6 +1,16 @@
 const { ObjectId, models: { User, ExperienceItem } } = require('theatera-data')
 const { validate, errors: { ContentError, NotFoundError } } = require('theatera-util')
 
+/**
+ *
+ * Remove a experience item from an user connection
+ * 
+ * @param {ObjectId} ownerId
+ * @param {ObjectId} userId
+
+ * 
+ * @returns {ObjectId}
+ */
 module.exports = function(userId, experienceId) {
     validate.string(userId)
     validate.string.notVoid('userId', userId)

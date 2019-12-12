@@ -10,5 +10,9 @@ module.exports = new Schema({
     messages: {
         type: [Message],
         default: []
+    },
+    checked:{
+        type: Boolean,
+        default: false
     }
 })

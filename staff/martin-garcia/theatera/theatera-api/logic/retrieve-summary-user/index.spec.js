@@ -29,7 +29,7 @@ describe('logic - retrieve-summary-user', () => {
     it('should succeed on correct user id', async() => {
         const user = await retrieveSummaryUser(id)
         let _introduction
-        introduction.length > 20 ? _introduction = introduction.slice(0, 20) + '...' : _introduction = introduction
+        introduction.length > 20 ? _introduction = introduction.slice(0, 40) + '...' : _introduction = introduction
 
 
         expect(user).to.exist

@@ -4,6 +4,15 @@ const bcrypt = require('bcryptjs')
 require('dotenv').config()
 const { env: { SALT } } = process
 
+/**
+ *
+ * User registration
+ * 
+ * @param {String} name
+ * @param {String} email
+ * @param {String} password
+ * @param {Boolean} isCompany
+ */
 module.exports = function(name, email, password, isCompany = false) {
     validate.string(name)
     validate.string.notVoid('name', name)

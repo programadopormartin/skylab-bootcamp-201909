@@ -1,7 +1,20 @@
 const { validate, errors: { NotFoundError, ContentError } } = require('theatera-util')
 const { ObjectId, models: { User } } = require('theatera-data')
 
-module.exports = function(query) {
+/**
+ *
+ * Search for users based on a query
+ * 
+ * @param {query} 
+ * 
+ * @returns an array
+ */
+module.exports = function(id,query) {
+    validate.string(id)
+    validate.string.notVoid('id', id)
+    if (!ObjectId.isValid(id)) throw new ContentError(`${id} is not a valid id`)
+
+
     validate.string(query)
     validate.string.notVoid('query', query)
 
@@ -9,7 +22,7 @@ module.exports = function(query) {
         let response
         let responsesArray = []
 
-        response = await User.find( { "name" : {$regex : `.*${query}*`, $options: 'i'}},)
+        response = await User.find( {_id: { $nin: id }, "name" : {$regex : `.*${query}*`, $options: 'i'}},)
         response && responsesArray.push(response)
         responsesArray = responsesArray.flat()
 

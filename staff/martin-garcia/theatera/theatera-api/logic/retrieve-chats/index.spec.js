@@ -41,8 +41,8 @@ describe('logic - retrieveChats', () => {
         chats.forEach(element => {
             expect(element).to.exist
             expect(element.id).to.be.oneOf(chatsArray)
-            expect(element.users.toString()).to.equal(id1)
-
+/*             expect(element.users.includes(id1)).to.be.true
+ */
         })
     })
 

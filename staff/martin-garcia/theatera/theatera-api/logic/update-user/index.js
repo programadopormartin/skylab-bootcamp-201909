@@ -1,6 +1,15 @@
 const { validate, errors: { NotFoundError } } = require('theatera-util')
 const { ObjectId, models: { User } } = require('theatera-data')
 
+
+/**
+ *
+ * Update data 
+ * 
+ * @param {ObjectId} id
+ * @param {Object} data
+ * @returns {ObjectId}
+ */
 module.exports = function(id, data) {
 
     validate.string(id)
@@ -70,9 +79,7 @@ module.exports = function(id, data) {
     return (async() => {
         const user = await User.findById(id)
         if (!user) throw new NotFoundError(`user with id ${id} not found`)
-
-
-
+        
         await User.updateOne({ _id: ObjectId(id) }, { $set: data })
 
     })()

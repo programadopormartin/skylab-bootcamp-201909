@@ -69,7 +69,7 @@ describe('logic - retrieveConnections', () => {
         expect(_friend.introduction).to.exist
         expect(_friend.introduction).to.be.a('string')
         expect(_friend.introduction).to.have.length.greaterThan(0)
-        expect(_friend.introduction).to.be.equal(introduction.slice(0, 20) + '...')
+        expect(_friend.introduction).to.be.equal(introduction.slice(0, 40) + '...')
     })
 
     it('should succeed on user without friend', async() => {

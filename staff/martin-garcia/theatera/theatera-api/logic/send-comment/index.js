@@ -1,6 +1,15 @@
 const { validate, errors: { ContentError, NotFoundError, ConflictError } } = require('theatera-util')
 const { ObjectId, models: { User, Post, Comment } } = require('theatera-data')
 
+/**
+ *
+ * send a comment to a post
+ * 
+ * @param {ObjectId} userId
+ * @param {ObjectId} postId
+ * @param {description} description of the post
+ * @returns {ObjecId}
+ */
 module.exports = function(userId, postId, description) {
     validate.string(userId)
     validate.string.notVoid('userId', userId)

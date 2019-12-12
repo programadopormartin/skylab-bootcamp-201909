@@ -1,6 +1,20 @@
 const { validate, errors: { NotFoundError, ConflictError } } = require('theatera-util')
 const { ObjectId, models: { User, ExperienceItem } } = require('theatera-data')
 
+
+/**
+ *
+ * Create an experienceItem for a user
+ * 
+ * @param {ObjectId} userId
+ * @param {String} title
+ * @param {String} body
+ * @param {Date} startDate
+ * @param {Date} endDate
+ * @param {String} type
+ * 
+ * @returns {ObjectId} 
+ */
 module.exports = function(userId, title, body, startDate, endDate, type) {
     validate.string(userId)
     validate.string.notVoid('userId', userId)
@@ -25,8 +39,8 @@ module.exports = function(userId, title, body, startDate, endDate, type) {
         const experienceItem = new ExperienceItem({ title, body, endDate, startDate, type })
         if (!experienceItem) throw new ConflictError('internal error')
 
-        const inserction = await user.experience.push(experienceItem)
-        const save = await user.save()
+        await user.experience.push(experienceItem)
+        await user.save()
         return experienceItem.id
 
     })()

@@ -1,6 +1,14 @@
 const { validate, errors: { NotFoundError } } = require('theatera-util')
 const { ObjectId, models: { User } } = require('theatera-data')
 
+/**
+ *
+ * retrieve the array with connections from an user 
+ * 
+ * @param {ObjectId} userId
+ * 
+ * @returns {Array}
+ */
 module.exports = function(userId) {
     validate.string(userId)
     validate.string.notVoid('userId', userId)
@@ -16,7 +24,7 @@ module.exports = function(userId) {
             const friend = await User.findById(friendId)
 
             let introduction
-            friend.introduction ? introduction = friend.introduction.slice(0, 20) + '...' : introduction = ''
+            friend.introduction ? introduction = friend.introduction.slice(0, 40) + '...' : introduction = ''
 
             const { image, name, id } = friend
             return { id, name, image, introduction }

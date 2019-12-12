@@ -36,7 +36,7 @@ describe('logic - retrieve-complete-user', () => {
     })
 
     it('should succeed on correct user id, PERSON', async() => {
-        const user = await retrieveCompleteUser(id1)
+        const user = await retrieveCompleteUser(id2,id1)
         let _intro
         user.introduction.length > 20 ? _intro = introduction.slice(0, 20) + '...' : _intro = ""
 
@@ -61,7 +61,7 @@ describe('logic - retrieve-complete-user', () => {
 
 
     it('should succeed on correct user id, COMPANY', async() => {
-        const user = await retrieveCompleteUser(id2)
+        const user = await retrieveCompleteUser(id1, id2)
         let _intro
 
         user.introduction.length > 20 ? _intro = introduction.slice(0, 20) + '...' : _intro = ''
@@ -89,7 +89,7 @@ describe('logic - retrieve-complete-user', () => {
         const id = '012345678901234567890123'
 
         try {
-            await retrieveCompleteUser(id)
+            await retrieveCompleteUser(id1,id)
 
             throw Error('should not reach this point')
         } catch (error) {
@@ -110,9 +110,21 @@ describe('logic - retrieve-complete-user', () => {
         expect(() => retrieveCompleteUser({})).to.throw(TypeError, '[object Object] is not a string')
         expect(() => retrieveCompleteUser(undefined)).to.throw(TypeError, 'undefined is not a string')
         expect(() => retrieveCompleteUser(null)).to.throw(TypeError, 'null is not a string')
-        expect(() => retrieveCompleteUser('')).to.throw(ContentError, 'id is empty or blank')
-        expect(() => retrieveCompleteUser(' \t\r')).to.throw(ContentError, 'id is empty or blank')
+        expect(() => retrieveCompleteUser('')).to.throw(ContentError, 'ownerId is empty or blank')
+        expect(() => retrieveCompleteUser(' \t\r')).to.throw(ContentError, 'ownerId is empty or blank')
         expect(() => retrieveCompleteUser(fakeId)).to.throw(ContentError, `${fakeId} is not a valid id`)
+
+        expect(() => retrieveCompleteUser(id1,1)).to.throw(TypeError, '1 is not a string')
+        expect(() => retrieveCompleteUser(id1,true)).to.throw(TypeError, 'true is not a string')
+        expect(() => retrieveCompleteUser(id1,[])).to.throw(TypeError, ' is not a string')
+        expect(() => retrieveCompleteUser(id1,{})).to.throw(TypeError, '[object Object] is not a string')
+        expect(() => retrieveCompleteUser(id1,undefined)).to.throw(TypeError, 'undefined is not a string')
+        expect(() => retrieveCompleteUser(id1,null)).to.throw(TypeError, 'null is not a string')
+        expect(() => retrieveCompleteUser(id1,'')).to.throw(ContentError, 'id is empty or blank')
+        expect(() => retrieveCompleteUser(id1,' \t\r')).to.throw(ContentError, 'id is empty or blank')
+        expect(() => retrieveCompleteUser(id1,fakeId)).to.throw(ContentError, `${fakeId} is not a valid id`)
+
+
 
 
     })

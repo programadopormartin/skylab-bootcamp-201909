@@ -1,6 +1,20 @@
 const { validate, errors: { ContentError, NotFoundError, ConflictError } } = require('theatera-util')
 const { ObjectId, models: { User, FriendRequest, Notification } } = require('theatera-data')
 
+
+/**
+ *
+ * Checks the status of a friend request, 3 ways:
+ *      - First friendRequest -> send notification to receiver user
+ *      - Retried of a friend request -> nothing to do
+ *      - Reciprocal friend request -> connect both user,
+ *           and send notifications to both users
+ * 
+ * @param {ObjectId} emiterId
+ * @param {ObjectId} receiverId
+ * 
+ * @returns {String}
+ */
 module.exports = function(emiterId, receiverId) {
     validate.string(emiterId)
     validate.string.notVoid('emiterId', emiterId)
@@ -18,10 +32,8 @@ module.exports = function(emiterId, receiverId) {
 
         if (emiter.connections.includes(receiver._id)) return "already friends"
 
-        debugger
         const repeatedFriendRequest = await FriendRequest.findOne({ "creator": ObjectId(emiterId), "receiver": ObjectId(receiverId) })
         if (repeatedFriendRequest) return "Still waiting for confirmation"
-
 
         const reciprocalFriendRequest = await FriendRequest.findOne({ "creator": ObjectId(receiverId), "receiver": ObjectId(emiterId) })
         if (reciprocalFriendRequest) {

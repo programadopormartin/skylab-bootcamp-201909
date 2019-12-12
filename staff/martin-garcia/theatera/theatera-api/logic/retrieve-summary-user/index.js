@@ -1,6 +1,15 @@
 const { validate, errors: { NotFoundError, ContentError } } = require('theatera-util')
 const { ObjectId, models: { User } } = require('theatera-data')
 
+
+/**
+ *
+ * retrieve the complete profile data from an user
+ * 
+ * @param {ObjectId} id
+ * 
+ * @returns {Object}
+ */
 module.exports = function(id) {
     validate.string(id)
     validate.string.notVoid('id', id)
@@ -18,7 +27,7 @@ module.exports = function(id) {
 
         let { name, image, introduction, hola } = user.toObject()
 
-        !introduction ? introduction = '' : introduction = introduction.slice(0, 20) + '...'
+        !introduction ? introduction = '' : introduction = introduction.slice(0, 40) + '...'
 
         return { id, name, image, introduction }
     })()

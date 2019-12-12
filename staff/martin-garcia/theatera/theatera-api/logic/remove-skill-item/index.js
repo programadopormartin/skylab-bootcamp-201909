@@ -1,6 +1,17 @@
 const { validate, errors: { NotFoundError, ContentError } } = require('theatera-util')
 const { ObjectId, models: { User } } = require('theatera-data')
 
+
+/**
+ *
+ * Remove a skill item from an user
+ * 
+ * @param {ObjectId} userId
+ * @param {String} skill
+
+ * 
+ * @returns {String}
+ */
 module.exports = function(userId, skill) {
     validate.string(userId)
     validate.string.notVoid('userId', userId)

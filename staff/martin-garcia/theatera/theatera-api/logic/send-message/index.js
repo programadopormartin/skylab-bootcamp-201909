@@ -2,6 +2,15 @@ const { ObjectId, models: { Chat, User, Message } } = require('theatera-data')
 const { validate, errors: { ContentError, NotFoundError } } = require('theatera-util')
 
 
+/**
+ *
+ * send a message to a chat
+ * 
+ * @param {ObjectId} chatId
+ * @param {ObjectId} postId
+ * @param {description} body of the post
+ * @returns {ObjectId}
+ */
 module.exports = function(chatId, userId, body) {
     validate.string(chatId)
     validate.string.notVoid('chatId', chatId)
@@ -24,6 +33,7 @@ module.exports = function(chatId, userId, body) {
 
         const message = new Message({ user: userId, body, date: new Date })
         chat.messages.push(message)
+        chat.checked = false
         await chat.save()
 
         return message.id

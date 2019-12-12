@@ -44,7 +44,7 @@ module.exports = function(id, file, filename) {
             }
 
         } catch (error) {
-            debugger
+            return error
         }
 
     })()

@@ -36,7 +36,7 @@ describe('logic - search', () => {
     })
 
     it('should succeed on correct user id', async() => {
-        const users = await search(searchedText)
+        const users = await search(id2,searchedText)
 
         expect(users).to.exist
         expect(users.length).to.be.equal(1)
@@ -48,12 +48,20 @@ describe('logic - search', () => {
     })
 
     it('should fail on incorrect name, surname, email, password, or expression type and content', () => {
-        expect(() => search(1)).to.throw(TypeError, '1 is not a string')
+       
+       expect(() => search(1)).to.throw(TypeError, '1 is not a string')
         expect(() => search(true)).to.throw(TypeError, 'true is not a string')
         expect(() => search([])).to.throw(TypeError, ' is not a string')
         expect(() => search({})).to.throw(TypeError, '[object Object] is not a string')
         expect(() => search(undefined)).to.throw(TypeError, 'undefined is not a string')
         expect(() => search(null)).to.throw(TypeError, 'null is not a string')
+       
+        expect(() => search(id1,1)).to.throw(TypeError, '1 is not a string')
+        expect(() => search(id1,true)).to.throw(TypeError, 'true is not a string')
+        expect(() => search(id1,[])).to.throw(TypeError, ' is not a string')
+        expect(() => search(id1,{})).to.throw(TypeError, '[object Object] is not a string')
+        expect(() => search(id1,undefined)).to.throw(TypeError, 'undefined is not a string')
+        expect(() => search(id1,null)).to.throw(TypeError, 'null is not a string')
     })
     after(() => User.deleteMany().then(database.disconnect))
 })

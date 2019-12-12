@@ -1,6 +1,14 @@
 const { validate, errors: { NotFoundError, ContentError } } = require('theatera-util')
 const { ObjectId, models: { User, FriendRequest } } = require('theatera-data')
 
+
+/**
+ * retrieve the all friend requests from an user
+ * 
+ * @param {ObjectId} userId
+ * 
+ * @returns {Array}
+ */
 module.exports = function(userId) {
     validate.string(userId)
     validate.string.notVoid('userId', userId)
@@ -16,7 +24,7 @@ module.exports = function(userId) {
             const emitterId = con.creator._id.toString()
             const emitter = await User.findById(emitterId)
             let introduction
-            emitter.introduction ? introduction = emitter.introduction.slice(0, 20) + '...' : introduction = ''
+            emitter.introduction ? introduction = emitter.introduction.slice(0, 40) + '...' : introduction = ''
             const { image, name, id } = emitter
             return { id, name, image, introduction }
         }))

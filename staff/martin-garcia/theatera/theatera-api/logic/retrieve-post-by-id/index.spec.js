@@ -38,7 +38,7 @@ describe('logic - retrieve-post', () => {
 
 
     it('should succeed on correct postId', async() => {
-        const _post = await retrievePostById(userId, postId)
+        const _post = await retrievePostById(postId)
 
 
         expect(_post).to.exist
@@ -53,25 +53,12 @@ describe('logic - retrieve-post', () => {
 
     })
 
-    it('should fail on wrong  userId', async() => {
-        const id = '012345678901234567890123'
-
-        try {
-            await retrievePostById(id, postId)
-
-            throw Error('should not reach this point')
-        } catch (error) {
-            expect(error).to.exist
-            expect(error).to.be.an.instanceOf(NotFoundError)
-            expect(error.message).to.equal(`user with id ${id} not found`)
-        }
-    })
 
     it('should fail on wrong postID', async() => {
         const id = '012345678901234567890123'
 
         try {
-            await retrievePostById(userId, id)
+            await retrievePostById(id)
 
             throw Error('should not reach this point')
         } catch (error) {
@@ -89,17 +76,9 @@ describe('logic - retrieve-post', () => {
         expect(() => retrievePostById({})).to.throw(TypeError, '[object Object] is not a string')
         expect(() => retrievePostById(undefined)).to.throw(TypeError, 'undefined is not a string')
         expect(() => retrievePostById(null)).to.throw(TypeError, 'null is not a string')
-        expect(() => retrievePostById('')).to.throw(ContentError, 'userId is empty or blank')
-        expect(() => retrievePostById(' \t\r')).to.throw(ContentError, 'userId is empty or blank')
+        expect(() => retrievePostById('')).to.throw(ContentError, 'postId is empty or blank')
+        expect(() => retrievePostById(' \t\r')).to.throw(ContentError, 'postId is empty or blank')
 
-        expect(() => retrievePostById(userId, 1)).to.throw(TypeError, '1 is not a string')
-        expect(() => retrievePostById(userId, true)).to.throw(TypeError, 'true is not a string')
-        expect(() => retrievePostById(userId, [])).to.throw(TypeError, ' is not a string')
-        expect(() => retrievePostById(userId, {})).to.throw(TypeError, '[object Object] is not a string')
-        expect(() => retrievePostById(userId, undefined)).to.throw(TypeError, 'undefined is not a string')
-        expect(() => retrievePostById(userId, null)).to.throw(TypeError, 'null is not a string')
-        expect(() => retrievePostById(userId, '')).to.throw(ContentError, 'postId is empty or blank')
-        expect(() => retrievePostById(userId, ' \t\r')).to.throw(ContentError, 'postId is empty or blank')
     })
 
     after(() => Promise.all([User.deleteMany(), Post.deleteMany()]).then(database.disconnect))

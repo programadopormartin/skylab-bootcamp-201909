@@ -24,9 +24,10 @@ module.exports = {
     retrieveLatestPosts: require('./retrieve-latest-posts'),
     toggleLikePost: require('./toggle-like-post'),
     saveProfileImage: require('./save-profile-image'),
-    loadProfileImage: require('./load-profile-image'),
-    loadProfileImageUrl: require('./loadProfileImageUrl'),
     search: require('./search'),
     sendMessage: require('./send-message'),
-    updateUser: require('./update-user')
+    updateUser: require('./update-user'),
+    removeNotification: require('./remove-notification'),
+    removeConnection: require('./remove-connection'),
+    areThereNews: require('./are-there-news')
 }
